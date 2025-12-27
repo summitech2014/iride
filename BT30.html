@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J-Trek & iRide | 頂尖電子通訊專家</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css"> </head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #f5f5f7;
+            overflow-x: hidden;
+        }
+
+        .apple-gradient-text {
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 下拉選單動畫 */
+        /* 確保下拉選單觸發區域連續，防止點不到 */
+        .dropdown { 
+            position: relative; 
+        }
+
+        /* 核心修正：讓選單緊貼頂部，並在上方加入透明填充，作為滑鼠移動的橋樑 */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* 緊貼父元素底部 */
+            left: 0;
+            z-index: 200;
+            padding-top: 10px; /* 關鍵：增加透明填充，防止滑鼠移動時斷掉 */
+        }
+
+        /* 滑鼠移入時顯示 */
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        /* 巢狀選單 (Nested Menu) 的修正 */
+        .nested-menu {
+            display: none;
+            position: absolute;
+            left: 100%; /* 從右側彈出 */
+            top: 0;
+            padding-left: 5px; /* 側邊的透明橋樑 */
+        }
+
+        .nested-dropdown:hover > .nested-menu {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <script src="components.js"></script>
+
+    <!-- Hero Section -->
+    <section id="overview" class="relative pt-32 pb-16 md:pt-48 md:pb-32 flex flex-col items-center justify-center min-h-screen text-center px-4 overflow-hidden">
+        <div class="max-w-4xl mx-auto z-10 fade-on-scroll">
+            <h2 class="text-blue-500 font-semibold tracking-wide uppercase text-sm md:text-base mb-4">全新發布</h2>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 text-white">
+                BikTok <span class="text-gray-500">BT-30</span>
+            </h1>
+            <p class="text-xl md:text-3xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                輕若無物，連結無限。<br>
+                專為戶外運動打造的極致通訊體驗。
+            </p>
+            
+            <div class="mt-8 flex items-center justify-center space-x-6 text-blue-400">
+                <div class="flex items-center hover:text-blue-300 cursor-pointer transition-colors">
+                    <span>觀看影片</span> <i data-lucide="play-circle" class="w-5 h-5 ml-2"></i>
+                </div>
+                <div class="flex items-center hover:text-blue-300 cursor-pointer transition-colors">
+                    <span>深入了解</span> <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 md:mt-24 w-full max-w-5xl mx-auto relative z-10 fade-on-scroll delay-100">
+            <!-- Product Hero Image -->
+            <img src="BH-03 黑色.jpg" alt="BikTok BH-03 Black" class="w-full h-auto object-contain drop-shadow-2xl mx-auto transform hover:scale-105 transition-transform duration-700">
+        </div>
+        
+        <!-- Background Glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/20 rounded-full blur-[120px] -z-10"></div>
+    </section>
+
+    <!-- Lightness Section -->
+    <section class="bg-zinc-900 py-24 md:py-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="fade-on-scroll">
+                    <h2 class="text-4xl md:text-6xl font-bold mb-6 text-white">28g<br><span class="text-gray-500 text-3xl md:text-5xl">極致輕量化</span></h2>
+                    <p class="text-gray-400 text-lg md:text-xl leading-relaxed mb-8">
+                        我們重新定義了頭盔通訊設備的重量。BH-03 僅重 28 克，安裝在您的 1/2 頭盔上幾乎感覺不到它的存在。無論是單車騎行、滑雪還是攀岩，它都是您最無負擔的夥伴。
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-black/50 p-4 rounded-2xl border border-white/10 backdrop-blur-sm">
+                            <span class="block text-2xl font-bold text-white">15hr</span>
+                            <span class="text-sm text-gray-500">超長續航</span>
+                        </div>
+                        <div class="bg-black/50 p-4 rounded-2xl border border-white/10 backdrop-blur-sm">
+                            <span class="block text-2xl font-bold text-white">IP65</span>
+                            <span class="text-sm text-gray-500">防水等級</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative fade-on-scroll delay-100">
+                     <img src="BH-03 白色.jpg" alt="BikTok BH-03 White" class="w-full h-auto object-contain drop-shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 apple-gradient-text">強大功能，盡在指尖</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Feature 1: 10-Way Intercom -->
+                <div class="group relative bg-zinc-900 rounded-[30px] overflow-hidden aspect-[4/3] md:col-span-2 border border-white/5 fade-on-scroll">
+                    <div class="absolute inset-0">
+                        <img src="10-Ways Intercom.jpg" alt="10-Way Intercom" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700 ease-in-out">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-8 md:p-12">
+                        <h3 class="text-3xl md:text-4xl font-bold text-white mb-3">10 人群組對講</h3>
+                        <p class="text-gray-300 text-lg max-w-lg">支援多達 10 人的實時通訊。無論車隊拉得多長，聲音始終清晰如面談。</p>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Qualcomm & ANC -->
+                <div class="group relative bg-zinc-900 rounded-[30px] overflow-hidden aspect-square border border-white/5 fade-on-scroll">
+                    <div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">Qualcomm 晶片</h3>
+                            <p class="text-gray-400">aptX-HD 高音質技術 &<br>CVC 抗風噪降噪</p>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 pt-20 flex items-center justify-center">
+                        <img src="ANC.jpg" alt="ANC Technology" class="w-4/5 h-auto object-contain group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                </div>
+
+                <!-- Feature 3: Easy Control -->
+                <div class="group relative bg-zinc-900 rounded-[30px] overflow-hidden aspect-square border border-white/5 fade-on-scroll">
+                     <div class="absolute inset-0">
+                        <img src="Easy Answer.jpg" alt="Easy Answer" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/90"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">一鍵語音助理</h3>
+                        <p class="text-gray-300">無需分心，一鍵接聽來電或呼叫 Siri/Google Assistant。</p>
+                    </div>
+                </div>
+                
+                 <!-- Feature 4: IP65 & Battery -->
+                 <div class="group relative bg-white rounded-[30px] overflow-hidden aspect-[16/9] md:col-span-2 border border-white/5 fade-on-scroll">
+                    <div class="absolute inset-0 flex items-center justify-center bg-zinc-100">
+                         <img src="IP65 and 400mA-Bat.jpg" alt="Battery and IP65" class="h-full w-auto object-cover mix-blend-multiply">
+                    </div>
+                    <div class="absolute top-0 left-0 p-8 md:p-12">
+                        <h3 class="text-3xl md:text-4xl font-bold text-black mb-3">全天候待命</h3>
+                        <p class="text-gray-600 text-lg">IP65 防塵防水，15 小時超長續航。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lifestyle Section -->
+    <section class="py-24 bg-zinc-900 relative overflow-hidden">
+        <div class="absolute inset-0">
+             <img src="BH-03 Multi Sports by Frank.jpg" alt="Lifestyle" class="w-full h-full object-cover opacity-40">
+             <div class="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col justify-center min-h-[60vh] fade-on-scroll">
+            <h2 class="text-5xl md:text-7xl font-bold text-white mb-6">不只是騎行<br>更是生活</h2>
+            <p class="text-xl md:text-2xl text-gray-300 max-w-xl">
+                適用於多種 1/2 頭盔場景。從城市通勤到極限滑雪，BikTok 都是您保持連結的最佳裝備。
+            </p>
+            <div class="mt-10 flex flex-wrap gap-4">
+                <span class="px-6 py-2 rounded-full border border-white/30 text-white backdrop-blur-md">單車</span>
+                <span class="px-6 py-2 rounded-full border border-white/30 text-white backdrop-blur-md">滑雪</span>
+                <span class="px-6 py-2 rounded-full border border-white/30 text-white backdrop-blur-md">滑板</span>
+                <span class="px-6 py-2 rounded-full border border-white/30 text-white backdrop-blur-md">攀岩</span>
+                <span class="px-6 py-2 rounded-full border border-white/30 text-white backdrop-blur-md">親子活動</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Versatility / Straps -->
+    <section class="py-24 bg-black flex flex-col items-center">
+        <div class="max-w-4xl mx-auto px-4 text-center fade-on-scroll">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-8">完美適配您的裝備</h2>
+            <p class="text-gray-400 mb-12">隨附兩種類型的扣帶，無論寬窄，皆能穩固貼合。</p>
+            <img src="2 type strap.jpg" alt="Straps" class="rounded-2xl shadow-2xl border border-white/10 w-full">
+        </div>
+    </section>
+
+    <!-- Specs Section -->
+    <section id="specs" class="py-24 bg-zinc-900">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-white mb-12 border-b border-gray-700 pb-4">技術規格</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-16 text-gray-300">
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">音訊技術</p>
+                    <p class="text-lg text-white">Qualcomm® cVc™ 降噪技術</p>
+                    <p class="text-lg text-white">aptX-HD 高解析音質</p>
+                </div>
+                
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">電池與續航</p>
+                    <p class="text-lg text-white">400 mAh 鋰聚合物電池</p>
+                    <p class="text-lg text-white">15 小時 通話/音樂播放</p>
+                    <p class="text-lg text-white">20 分鐘 快速充電</p>
+                </div>
+
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">連接性</p>
+                    <p class="text-lg text-white">Bluetooth 5.2</p>
+                    <p class="text-lg text-white">10 人群組對講</p>
+                    <p class="text-lg text-white">通用配對模式</p>
+                </div>
+
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">尺寸與重量</p>
+                    <p class="text-lg text-white">重量: 28g</p>
+                    <p class="text-lg text-white">防水等級: IP65</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    
+    <script>
+        lucide.createIcons();
+
+        // 語言字典
+        const langData = {
+            'zh': {
+
+
+            },
+            'en': {
+
+            },
+            'jp': {
+
+            }
+        };
+
+        window.onload = () => changeLang(localStorage.getItem('lang') || 'zh');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

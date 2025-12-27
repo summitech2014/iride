@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J-Trek & iRide | 頂尖電子通訊專家</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css"> </head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #f5f5f7;
+            overflow-x: hidden;
+        }
+
+        .apple-gradient-text {
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 下拉選單動畫 */
+        /* 確保下拉選單觸發區域連續，防止點不到 */
+        .dropdown { 
+            position: relative; 
+        }
+
+        /* 核心修正：讓選單緊貼頂部，並在上方加入透明填充，作為滑鼠移動的橋樑 */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* 緊貼父元素底部 */
+            left: 0;
+            z-index: 200;
+            padding-top: 10px; /* 關鍵：增加透明填充，防止滑鼠移動時斷掉 */
+        }
+
+        /* 滑鼠移入時顯示 */
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        /* 巢狀選單 (Nested Menu) 的修正 */
+        .nested-menu {
+            display: none;
+            position: absolute;
+            left: 100%; /* 從右側彈出 */
+            top: 0;
+            padding-left: 5px; /* 側邊的透明橋樑 */
+        }
+
+        .nested-dropdown:hover > .nested-menu {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <script src="components.js"></script>
+
+    <section id="about" class="py-32 bg-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-24 fade-on-scroll">
+                <h2 data-i18n="about_h2" class="text-4xl md:text-5xl font-bold mb-12">關於我們</h2>
+                <p data-i18n="about_quote" class="text-xl md:text-2xl text-gray-400 leading-relaxed italic">
+                    「我們專注於打造穩定、可靠的通訊設備，讓每一次行程都保持連線。無論是高速公路上的團隊騎行，或戶外運動中的即時溝通，清晰而穩定的通訊，是安全與體驗的關鍵。」
+                </p>
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12 text-left">
+                <div>
+                    <h4 data-i18n="about_p1_h4" class="text-white font-bold mb-2">使用導向</h4>
+                    <p data-i18n="about_p1_p" class="text-sm text-gray-500 text-justify">
+                        我們從實際使用場景出發，而非單純堆疊規格。
+                        無論是通訊穩定度、音訊處理或系統整合，
+                        每一項功能都必須在真實環境中發揮價值。
+                        技術不是為了展示，而是為了讓使用更可靠。
+                    </p>
+                </div>
+                <div>
+                    <h4 data-i18n="about_p2_h4" class="text-white font-bold mb-2">極簡設計</h4>
+                    <p data-i18n="about_p2_p" class="text-sm text-gray-500 text-justify">
+                        我們重視產品在「長時間、高頻率」使用下的體驗。
+                        從結構、重量到操作邏輯，設計的目標不是吸睛，
+                        而是耐用、直覺、安心。
+                        讓設備自然融入使用者的行程，而不是成為負擔。
+                    </p>
+                </div>
+                <div>
+                    <h4 data-i18n="about_p3_h4" class="text-white font-bold mb-2">環境適應</h4>
+                    <p data-i18n="about_p3_p" class="text-sm text-gray-500 text-justify">
+                        真實世界從不完美，因此產品也必須具備適應力。
+                        我們的設計能因應不同環境、氣候與使用方式，
+                        在各種條件下維持穩定運作。
+                        無論場景如何變化，核心體驗始終一致。
+                    </p>
+                </div>
+            </div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="mb-32 fade-on-scroll text-center">
+            <div class="mb-10">
+                <span class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4 block">Social Media</span>
+                <h3 data-i18n="social" class="text-4xl md:text-5xl font-bold text-white">我們的社群平台</h3>
+            </div>
+                
+            <div class="flex flex-wrap justify-center gap-8">
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                class="opacity-80 hover:opacity-100 transition">
+                <img src="image/line.png" alt="line" class="w-10 h-10 md:w-12 md:h-12" />
+                </a>
+
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                class="opacity-80 hover:opacity-100 transition">
+                <img src="image/facebook.png" alt="Facebook" class="w-10 h-10 md:w-12 md:h-12" />
+                </a>
+
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                class="opacity-80 hover:opacity-100 transition">
+                <img src="image/instagram.png" alt="Instagram" class="w-10 h-10 md:w-12 md:h-12" />
+                </a>
+
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="X"
+                class="opacity-80 hover:opacity-100 transition">
+                <img src="image/x.png" alt="X" class="w-10 h-10 md:w-12 md:h-12" />
+                </a>
+
+                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"
+                class="opacity-80 hover:opacity-100 transition">
+                <img src="image/youtube.png" alt="YouTube" class="w-10 h-10 md:w-12 md:h-12" />
+                </a>
+
+                <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+                class="opacity-80 hover:opacity-100 transition">
+                <img src="image/tiktok.png" alt="TikTok" class="w-10 h-10 md:w-12 md:h-12" />
+                </a>
+            </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-32 fade-on-scroll">
+                <div class="order-1 md:order-1">
+                    <span class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4 block">Motorcycle Intercom</span>
+                    <h3 data-i18n="iride_h3" class="text-5xl font-bold mb-6 text-white">iRide 系列</h3>
+                    <p data-i18n="iride_p" class="text-gray-400 text-lg leading-relaxed mb-8">
+                        為日常摩托車通勤而設計的通訊裝置。
+                        我們聚焦於穩定連線、直覺操作與輕鬆配戴，
+                        讓騎士在城市移動中，
+                        能夠即時溝通、接收資訊，
+                        而不增加任何額外負擔。
+                    </p>
+                    <div class="flex space-x-8 text-sm">
+                        <div>
+                            <span data-i18n="iride_k1_t" class="text-white font-bold block">通勤導向</span>
+                            <span data-i18n="iride_k1_p" class="text-gray-500">
+                                為城市騎行情境設計，滿足每天往返所需的通訊需求。
+                            </span>
+                        </div>
+                        <div>
+                            <span data-i18n="iride_k2_t" class="text-white font-bold block">穩定連線</span>
+                            <span data-i18n="iride_k1_p" class="text-gray-500">
+                                在移動之中，保持清晰、連續的溝通體驗。
+                            </span>
+                        </div>
+                        <div>
+                            <span data-i18n="iride_k3_t" class="text-white font-bold block">輕鬆配戴</span>
+                            <span data-i18n="iride_k3_p" class="text-gray-500">
+                                減少存在感與操作負擔，讓通勤過程更加自在順暢。
+                            </span>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="order-2 md:order-2 bg-zinc-900 rounded-[40px] aspect-video flex items-center justify-center overflow-hidden border border-white/5">
+                    <span class="text-white/20 text-4xl font-bold italic">iRide Vision</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-32 fade-on-scroll">
+                <div class="order-1 md:order-2">
+                    <span class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4 block">Motorcycle Intercom</span>
+                    <h3 data-i18n="jtrek_h3" class="text-5xl font-bold mb-6 text-white">J-TREK 系列</h3>
+                    <p data-i18n="jtrek_p" class="text-gray-400 text-lg leading-relaxed mb-8">
+                        是為長距離騎行與團隊通訊而設計的通訊系統。
+                        我們專注於通訊穩定度、操作直覺性與長時間使用體驗，
+                        讓騎行中的溝通保持清晰、可靠且不分心。
+                        無論是日常通勤、長途旅行或團體行程，
+                        J-TREK 都能成為騎行過程中值得信賴的夥伴。
+                    </p>
+                    <div class="flex space-x-8 text-sm">
+                        <div>
+                            <span data-i18n="jtrek_k1_t" class="text-white font-bold block">騎行導向</span>
+                            <span data-i18n="jtrek_k1_p" class="text-gray-500">
+                                從真實騎行情境出發，設計每一次操作與通訊流程。
+                            </span>
+                        </div>
+                        <div>
+                            <span data-i18n="jtrek_k2_t" class="text-white font-bold block">穩定體驗</span>
+                            <span data-i18n="jtrek_k2_p" class="text-gray-500">
+                                在不同路況與行程中，維持清晰、連續且不干擾的溝通品質。
+                            </span>
+                        </div>
+                        <div>
+                            <span data-i18n="jtrek_k3_t" class="text-white font-bold block">值得信賴</span>
+                            <span data-i18n="jtrek_k3_p" class="text-gray-500">
+                                經得起長時間與高頻率使用，成為行程中可以依靠的通訊夥伴。   
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 rounded-[40px] aspect-video flex items-center justify-center overflow-hidden border border-white/5">
+                    <span class="text-white/20 text-4xl font-bold italic">iRide Vision</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-32 fade-on-scroll">
+                <div class="order-1 md:order-1">
+                    <span class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4 block">Sports Intercom</span>
+                    <h3 data-i18n="biktok_h3" class="text-5xl font-bold mb-6 text-white">BIKTOK 系列</h3>
+                    <p data-i18n="biktok_p" class="text-gray-400 text-lg leading-relaxed mb-8">
+                        是為多元運動與親子活動而設計的通訊裝置。
+                        我們專注於輕量化配戴、操作直覺性與即時連線體驗，
+                        讓溝通在移動中自然發生，而不成為負擔。
+                        無論是騎行、滑雪或親子活動，
+                        BIKTOK 都能陪伴您自在行動、保持連線。
+                    </p>
+                    <div class="flex space-x-8 text-sm">
+                        <div>
+                            <span data-i18n="biktok_k1_t" class="text-white font-bold block">輕量設計</span>
+                            <span data-i18n="biktok_k1_p" class="text-gray-500">
+                                從結構與配戴體驗出發，
+                                剔除多餘負擔，
+                                讓長時間使用依然輕鬆自然。
+                            </span>
+                        </div>
+                        <div>
+                            <span data-i18n="biktok_k2_t" class="text-white font-bold block">連結無所不在</span>
+                            <span data-i18n="biktok_k2_p" class="text-gray-500">
+                                重新定義團隊運動中的溝通方式，
+                                在移動之中，
+                                始終保持穩定連結。
+                            </span>
+                        </div>
+                        <div>
+                            <span data-i18n="biktok_k3_t" class="text-white font-bold block">潮流設計</span>
+                            <span data-i18n="biktok_k3_p" class="text-gray-500">
+                                靈活應對不同使用場景，
+                                自由切換，
+                                讓溝通始終掌握在手。
+                            </span>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="order-2 md:order-2 bg-zinc-900 rounded-[40px] aspect-video flex items-center justify-center overflow-hidden border border-white/5">
+                    <img
+                        src="image/iRide_白.png"
+                        class="h-6 w-auto md:h-7 lg:h-8"
+                    />
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    
+    <script>
+        lucide.createIcons();
+
+        // 語言字典
+        const pageLangData = {
+        zh: {
+            // <title>
+            about_title: "J-Trek & iRide | 頂尖電子通訊專家",
+
+            // About
+            about_h2: "關於我們",
+            about_quote:
+            "「我們專注於打造穩定、可靠的通訊設備，讓每一次行程都保持連線。無論是高速公路上的團隊騎行，或戶外運動中的即時溝通，清晰而穩定的通訊，是安全與體驗的關鍵。」",
+
+            // 3 pillars
+            about_p1_h4: "使用導向",
+            about_p1_p:
+            "我們從實際使用場景出發，而非單純堆疊規格。無論是通訊穩定度、音訊處理或系統整合，每一項功能都必須在真實環境中發揮價值。技術不是為了展示，而是為了讓使用更可靠。",
+
+            about_p2_h4: "極簡設計",
+            about_p2_p:
+            "我們重視產品在「長時間、高頻率」使用下的體驗。從結構、重量到操作邏輯，設計的目標不是吸睛，而是耐用、直覺、安心。讓設備自然融入使用者的行程，而不是成為負擔。",
+
+            about_p3_h4: "環境適應",
+            about_p3_p:
+            "真實世界從不完美，因此產品也必須具備適應力。我們的設計能因應不同環境、氣候與使用方式，在各種條件下維持穩定運作。無論場景如何變化，核心體驗始終一致。",
+
+            // Social
+            social: "我們的社群平台",
+
+            // iRide block
+            iride_h3: "iRide 系列",
+            iride_p:
+            "為日常摩托車通勤而設計的通訊裝置。我們聚焦於穩定連線、直覺操作與輕鬆配戴，讓騎士在城市移動中，能夠即時溝通、接收資訊，而不增加任何額外負擔。",
+
+            iride_k1_t: "通勤導向",
+            iride_k1_p: "為城市騎行情境設計，滿足每天往返所需的通訊需求。",
+            iride_k2_t: "穩定連線",
+            iride_k2_p: "在移動之中，保持清晰、連續的溝通體驗。",
+            iride_k3_t: "輕鬆配戴",
+            iride_k3_p: "減少存在感與操作負擔，讓通勤過程更加自在順暢。",
+
+            // J-TREK block
+            jtrek_h3: "J-TREK 系列",
+            jtrek_p:
+            "是為長距離騎行與團隊通訊而設計的通訊系統。我們專注於通訊穩定度、操作直覺性與長時間使用體驗，讓騎行中的溝通保持清晰、可靠且不分心。無論是日常通勤、長途旅行或團體行程，J-TREK 都能成為騎行過程中值得信賴的夥伴。",
+
+            jtrek_k1_t: "騎行導向",
+            jtrek_k1_p: "從真實騎行情境出發，設計每一次操作與通訊流程。",
+            jtrek_k2_t: "穩定體驗",
+            jtrek_k2_p: "在不同路況與行程中，維持清晰、連續且不干擾的溝通品質。",
+            jtrek_k3_t: "值得信賴",
+            jtrek_k3_p: "經得起長時間與高頻率使用，成為行程中可以依靠的通訊夥伴。",
+
+            // BIKTOK block
+            biktok_tag: "Sports Intercom",
+            biktok_h3: "BIKTOK 系列",
+            biktok_p:
+            "是為多元運動與親子活動而設計的通訊裝置。我們專注於輕量化配戴、操作直覺性與即時連線體驗，讓溝通在移動中自然發生，而不成為負擔。無論是騎行、滑雪或親子活動，BIKTOK 都能陪伴您自在行動、保持連線。",
+
+            biktok_k1_t: "輕量設計",
+            biktok_k1_p: "從結構與配戴體驗出發，剔除多餘負擔，讓長時間使用依然輕鬆自然。",
+            biktok_k2_t: "連結無所不在",
+            biktok_k2_p: "重新定義團隊運動中的溝通方式，在移動之中，始終保持穩定連結。",
+            biktok_k3_t: "潮流設計",
+            biktok_k3_p: "靈活應對不同使用場景，自由切換，讓溝通始終掌握在手。",
+
+        },
+
+        en: {
+            about_title: "J-Trek & iRide | Premium Communication Devices",
+
+            about_h2: "About Us",
+            about_quote:
+            "“We build stable, reliable communication devices to keep every journey connected. From group rides on the highway to real-time communication outdoors, clear and steady connection is essential for both safety and experience.”",
+
+            about_p1_h4: "User-Driven",
+            about_p1_p:
+            "We design from real-world use cases—not spec sheets. From connection stability to audio processing and system integration, every feature must perform where it matters. Technology is not for show; it’s for reliability.",
+
+            about_p2_h4: "Minimal Design",
+            about_p2_p:
+            "We optimize for long, frequent use. From structure and weight to interaction logic, the goal isn’t attention—it’s durability, intuition, and peace of mind. Devices should fit naturally into your journey, not become a burden.",
+
+            about_p3_h4: "Built to Adapt",
+            about_p3_p:
+            "Real life isn’t perfect, so products must adapt. Our designs handle different environments, climates, and usage styles while staying stable. No matter the scenario, the core experience remains consistent.",
+
+            social: "Our Social Channels",
+
+            iride_h3: "iRide Series",
+            iride_p:
+            "A communication device designed for everyday motorcycle commuting. We focus on stable connectivity, intuitive control, and easy wear—so riders can communicate and stay informed in the city without added burden.",
+
+            iride_k1_t: "Commute-Focused",
+            iride_k1_p: "Designed for city riding scenarios and daily commuting needs.",
+            iride_k2_t: "Stable Connection",
+            iride_k2_p: "Maintain clear, continuous communication while moving.",
+            iride_k3_t: "Easy to Wear",
+            iride_k3_p: "Reduced presence and operational load for a smoother commute.",
+
+            jtrek_h3: "J-TREK Series",
+            jtrek_p:
+            "A communication system designed for long rides and group coordination. We focus on connection stability, intuitive operation, and long-duration usability—keeping communication clear, reliable, and distraction-free. From daily commutes to touring and group trips, J-TREK is a trusted riding companion.",
+
+            jtrek_k1_t: "Ride-Oriented",
+            jtrek_k1_p: "Built from real riding scenarios, shaping every interaction flow.",
+            jtrek_k2_t: "Consistent Experience",
+            jtrek_k2_p: "Clear, continuous communication across different routes and trips.",
+            jtrek_k3_t: "Trustworthy",
+            jtrek_k3_p: "Designed for long, frequent use—something you can rely on.",
+
+            biktok_h3: "BIKTOK Series",
+            biktok_p:
+            "A communication device designed for sports and family activities. We focus on lightweight wear, intuitive control, and instant connection—so communication happens naturally on the move. From riding and skiing to family outings, BIKTOK keeps you connected.",
+
+            biktok_k1_t: "Lightweight Design",
+            biktok_k1_p: "Designed for comfort—less burden, easier long-duration use.",
+            biktok_k2_t: "Always Connected",
+            biktok_k2_p: "Redefines team communication—stay connected while moving.",
+            biktok_k3_t: "Style & Flexibility",
+            biktok_k3_p: "Adapts to different scenarios—switch freely and stay in control.",
+
+        },
+
+        jp: {
+            about_title: "J-Trek & iRide｜高品質コミュニケーションデバイス",
+
+            about_h2: "私たちについて",
+            about_quote:
+            "「私たちは、安定して信頼できるコミュニケーションデバイスをつくり、あらゆる移動を“つながる体験”に変えます。高速道路でのグループ走行から屋外での即時連絡まで、クリアで安定した接続は安全と体験の要です。」",
+
+            about_p1_h4: "ユーザー起点",
+            about_p1_p:
+            "仕様の積み上げではなく、実使用から設計します。接続安定性、音声処理、システム統合まで、すべては現場で価値を発揮するため。技術は見せるためではなく、信頼性のためにあります。",
+
+            about_p2_h4: "ミニマル設計",
+            about_p2_p:
+            "長時間・高頻度の使用を前提に最適化。構造や重量、操作ロジックまで、目立つためではなく、耐久性・直感性・安心感のために設計します。デバイスは行程に自然に溶け込むべきです。",
+
+            about_p3_h4: "環境適応",
+            about_p3_p:
+            "現実は一定ではありません。だからこそ、環境や気候、使い方の違いに対応しながら安定動作を維持します。どんな場面でも、コア体験は一貫していることを大切にしています。",
+
+            social: "公式SNS",
+
+            iride_h3: "iRide シリーズ",
+            iride_p:
+            "日常のバイク通勤のために設計されたコミュニケーションデバイス。安定した接続、直感的な操作、快適な装着感に注力し、都市移動の中でも負担を増やさず、連絡と情報受信をスムーズにします。",
+
+            iride_k1_t: "通勤最適",
+            iride_k1_p: "都市走行の状況を想定し、毎日の移動に必要な連絡を支えます。",
+            iride_k2_t: "安定接続",
+            iride_k2_p: "移動中でもクリアで途切れにくいコミュニケーションを維持。",
+            iride_k3_t: "快適装着",
+            iride_k3_p: "存在感と操作負担を抑え、通勤をよりスムーズに。",
+
+            jtrek_h3: "J-TREK シリーズ",
+            jtrek_p:
+            "ロングライドとグループ走行のためのコミュニケーションシステム。接続の安定性、直感的な操作、長時間使用に重点を置き、クリアで信頼できる会話を“気を散らさず”実現します。通勤からツーリング、グループ旅まで、頼れる相棒です。",
+
+            jtrek_k1_t: "走行起点",
+            jtrek_k1_p: "実際の走行シーンから、操作と通信の流れを設計。",
+            jtrek_k2_t: "安定体験",
+            jtrek_k2_p: "路況や行程が変わっても、クリアで連続した品質を維持。",
+            jtrek_k3_t: "信頼設計",
+            jtrek_k3_p: "長時間・高頻度の使用に耐え、安心して頼れます。",
+
+            biktok_h3: "BIKTOK シリーズ",
+            biktok_p:
+            "スポーツや親子アクティビティ向けのコミュニケーションデバイス。軽い装着感、直感操作、即時接続に注力し、移動中でも自然に会話が生まれます。ライド、スキー、家族のお出かけまで、つながりを保ちます。",
+
+            biktok_k1_t: "軽量設計",
+            biktok_k1_p: "装着の負担を減らし、長時間でも快適に使える設計。",
+            biktok_k2_t: "常時連結",
+            biktok_k2_p: "チームコミュニケーションを再定義。移動中も安定してつながる。",
+            biktok_k3_t: "柔軟スタイル",
+            biktok_k3_p: "場面に合わせて切り替えやすく、操作もコントロールしやすい。",
+
+        }
+        };
+
+        if (typeof langData !== 'undefined') {
+            Object.keys(pageLangData).forEach((k) => {
+                langData[k] = Object.assign(langData[k] || {}, pageLangData[k]);
+            });
+        } else {
+            // 若全站字典不存在，至少提供一份在 window 上（避免完全失效）
+            window.langData = pageLangData;
+        }         
+
+        window.onload = () => changeLang(localStorage.getItem('lang') || 'zh');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
+
