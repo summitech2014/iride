@@ -6,7 +6,7 @@ const navbarHTML = `
             <div class="flex items-center">
                 <a href="index.html" class="flex items-center">
                     <img
-                        src="image/iRide_白.png"
+                        src="/iride/image/iRide_白.png"
                         alt="iRide主頁"
                         class="h-6 w-auto md:h-7 lg:h-8"
                     />
