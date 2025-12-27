@@ -8,9 +8,6 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="components.js"></script>
-    <script>
-        document.getElementById("navbar").innerHTML = navbarHTML;
-    </script>
     <link rel="stylesheet" href="style.css"> </head>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
@@ -91,7 +88,13 @@
 
     <div id="nav-placeholder"></div>
 
+    <div id="navbar"></div>
+
     <script src="components.js"></script>
+    <script>
+      document.getElementById("navbar").innerHTML = navbarHTML;
+      lucide.createIcons();
+    </script>
 
     <section class="relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
         <div class="max-w-5xl mx-auto z-10 fade-on-scroll">
@@ -206,5 +209,6 @@
     </script>
 </body>
 </html>
+
 
 
