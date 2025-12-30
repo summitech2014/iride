@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J-Trek & iRide | 頂尖電子通訊專家</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #f5f5f7;
+            overflow-x: hidden;
+        }
+
+        .apple-gradient-text {
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 下拉選單動畫 */
+        /* 確保下拉選單觸發區域連續，防止點不到 */
+        .dropdown { 
+            position: relative; 
+        }
+
+        /* 核心修正：讓選單緊貼頂部，並在上方加入透明填充，作為滑鼠移動的橋樑 */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* 緊貼父元素底部 */
+            left: 0;
+            z-index: 200;
+            padding-top: 10px; /* 關鍵：增加透明填充，防止滑鼠移動時斷掉 */
+        }
+
+        /* 滑鼠移入時顯示 */
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        /* 巢狀選單 (Nested Menu) 的修正 */
+        .nested-menu {
+            display: none;
+            position: absolute;
+            left: 100%; /* 從右側彈出 */
+            top: 0;
+            padding-left: 5px; /* 側邊的透明橋樑 */
+        }
+
+        .nested-dropdown:hover > .nested-menu {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <script src="components.js"></script>
+
+    <!-- Hero -->
+    <header class="relative">
+        <div class="absolute inset-0 opacity-30 pointer-events-none"
+            style="background: radial-gradient(600px 300px at 20% 20%, rgba(59,130,246,.25), transparent 60%),
+                            radial-gradient(600px 300px at 80% 30%, rgba(168,85,247,.18), transparent 60%);">
+            </div>
+
+            <div class="max-w-6xl mx-auto px-6 pt-20 pb-10">
+            <div class="fade-on-scroll fade-in-up">
+                <p class="text-xs tracking-widest text-blue-400 uppercase" data-i18n="policy_kicker">
+                Support Policy
+                </p>
+                <h1 class="mt-3 text-3xl md:text-5xl font-semibold leading-tight apple-gradient-text"
+                data-i18n="policy_title">
+                退換貨政策與保固維修說明
+                </h1>
+                <p class="mt-4 max-w-3xl text-gray-300 leading-relaxed" data-i18n="policy_subtitle">
+                感謝您選購我們的產品。以下為退換貨與保固維修相關規範，協助您快速完成售後申請。
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="max-w-6xl mx-auto px-6 pb-20">
+        <!-- Notice -->
+        <section class="mt-6 fade-on-scroll fade-in-up">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-start gap-3">
+            <div class="mt-0.5 shrink-0">
+                <i data-lucide="info" class="w-5 h-5 text-white/80"></i>
+            </div>
+            <div class="text-sm leading-relaxed text-gray-300">
+                <p data-i18n="notice_1">
+                本頁面為一般政策說明；各通路（Amazon／Rakuten／momo／蝦皮等）可能另有規範，若有差異將以該通路規定為準。
+                </p>
+            </div>
+            </div>
+        </div>
+        </section>
+
+        <!-- Returns -->
+        <section id="returns" class="mt-14 fade-on-scroll fade-in-up">
+        <div class="flex items-center justify-between gap-4">
+            <h2 class="text-2xl md:text-3xl font-semibold" data-i18n="returns_title">一、退換貨政策</h2>
+            <span class="text-xs tracking-widest text-blue-400 uppercase" data-i18n="returns_tag">Returns</span>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center gap-2">
+                <i data-lucide="calendar" class="w-5 h-5"></i>
+                <h3 class="font-semibold" data-i18n="returns_h1">七日鑑賞期說明</h3>
+            </div>
+            <p class="mt-3 text-sm text-gray-300 leading-relaxed" data-i18n="returns_p1">
+                自您收到商品次日起算，享有 7 日鑑賞期（含例假日）。鑑賞期非試用期，退貨需保持全新狀態並包裝配件完整。
+            </p>
+            </div>
+
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center gap-2">
+                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                <h3 class="font-semibold" data-i18n="returns_h2">可受理條件</h3>
+            </div>
+            <ul class="mt-3 space-y-2 text-sm text-gray-300 leading-relaxed">
+                <li data-i18n="returns_li1">• 商品本體、配件、包裝完整</li>
+                <li data-i18n="returns_li2">• 無使用痕跡、刮傷、碰撞或人為損壞</li>
+                <li data-i18n="returns_li3">• 原廠包裝、配件、說明書、保固文件與贈品齊全</li>
+            </ul>
+            </div>
+
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center gap-2">
+                <i data-lucide="x-circle" class="w-5 h-5"></i>
+                <h3 class="font-semibold" data-i18n="returns_h3">不受理情況</h3>
+            </div>
+            <ul class="mt-3 space-y-2 text-sm text-gray-300 leading-relaxed">
+                <li data-i18n="returns_no1">• 超過 7 日鑑賞期</li>
+                <li data-i18n="returns_no2">• 已使用、安裝、配對或影響二次銷售</li>
+                <li data-i18n="returns_no3">• 缺少包裝、配件或贈品</li>
+                <li data-i18n="returns_no4">• 進水、摔落、擅自拆解或改裝</li>
+                <li data-i18n="returns_no5">• 個人衛生用品（如已使用之耳機配件）</li>
+            </ul>
+            </div>
+        </div>
+
+        <div class="mt-4 rounded-2xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center gap-2">
+            <i data-lucide="truck" class="w-5 h-5"></i>
+            <h3 class="font-semibold" data-i18n="returns_shipping_title">退貨運費說明</h3>
+            </div>
+            <p class="mt-3 text-sm text-gray-300 leading-relaxed" data-i18n="returns_shipping_p">
+            因商品瑕疵或出貨錯誤：由我們負擔運費。因個人因素申請退貨：退貨運費需由消費者自行負擔。
+            </p>
+        </div>
+        </section>
+
+        <!-- Warranty -->
+        <section id="warranty" class="mt-14 fade-on-scroll fade-in-up">
+        <div class="flex items-center justify-between gap-4">
+            <h2 class="text-2xl md:text-3xl font-semibold" data-i18n="warranty_title">二、保固服務</h2>
+            <span class="text-xs tracking-widest text-blue-400 uppercase" data-i18n="warranty_tag">Warranty</span>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center gap-2">
+                <i data-lucide="shield" class="w-5 h-5"></i>
+                <h3 class="font-semibold" data-i18n="warranty_h1">保固期限</h3>
+            </div>
+            <p class="mt-3 text-sm text-gray-300 leading-relaxed" data-i18n="warranty_p1">
+                本產品自購買日起享有一年有限保固（以購買憑證為準）。
+            </p>
+            </div>
+
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center gap-2">
+                <i data-lucide="wrench" class="w-5 h-5"></i>
+                <h3 class="font-semibold" data-i18n="warranty_h2">保固範圍</h3>
+            </div>
+            <p class="mt-3 text-sm text-gray-300 leading-relaxed" data-i18n="warranty_p2">
+                正常使用狀況下，如發生非人為因素之功能異常，將提供檢測、維修，並視狀況更換零件或整機。
+            </p>
+            </div>
+        </div>
+
+        <div class="mt-4 rounded-2xl border border-white/10 bg-white/5 p-6">
+            <div class="flex items-center gap-2">
+            <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+            <h3 class="font-semibold" data-i18n="warranty_h3">非保固範圍</h3>
+            </div>
+            <ul class="mt-3 space-y-2 text-sm text-gray-300 leading-relaxed">
+            <li data-i18n="warranty_no1">• 人為損壞、摔落、進水、外力擠壓</li>
+            <li data-i18n="warranty_no2">• 未依說明書操作或不當使用</li>
+            <li data-i18n="warranty_no3">• 擅自拆解、改裝或使用非原廠配件</li>
+            <li data-i18n="warranty_no4">• 自然耗損（如電池老化、外觀磨損）</li>
+            <li data-i18n="warranty_no5">• 天災或不可抗力因素造成之損壞</li>
+            </ul>
+        </div>
+        </section>
+
+        <!-- RMA Process -->
+        <section id="process" class="mt-14 fade-on-scroll fade-in-up">
+        <div class="flex items-center justify-between gap-4">
+            <h2 class="text-2xl md:text-3xl font-semibold" data-i18n="process_title">三、維修申請流程</h2>
+            <span class="text-xs tracking-widest text-blue-400 uppercase" data-i18n="process_tag">Process</span>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <p class="text-xs text-gray-400 tracking-widest uppercase">Step 1</p>
+            <p class="mt-2 font-semibold" data-i18n="process_s1_t">聯繫客服</p>
+            <p class="mt-2 text-sm text-gray-300 leading-relaxed" data-i18n="process_s1_p">
+                說明產品狀況與問題發生情境。
+            </p>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <p class="text-xs text-gray-400 tracking-widest uppercase">Step 2</p>
+            <p class="mt-2 font-semibold" data-i18n="process_s2_t">提供購買證明</p>
+            <p class="mt-2 text-sm text-gray-300 leading-relaxed" data-i18n="process_s2_p">
+                例如訂單截圖、發票或購買憑證。
+            </p>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <p class="text-xs text-gray-400 tracking-widest uppercase">Step 3</p>
+            <p class="mt-2 font-semibold" data-i18n="process_s3_t">寄送檢測</p>
+            <p class="mt-2 text-sm text-gray-300 leading-relaxed" data-i18n="process_s3_p">
+                依客服指示寄送至指定維修中心。
+            </p>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <p class="text-xs text-gray-400 tracking-widest uppercase">Step 4</p>
+            <p class="mt-2 font-semibold" data-i18n="process_s4_t">完成並寄回</p>
+            <p class="mt-2 text-sm text-gray-300 leading-relaxed" data-i18n="process_s4_p">
+                維修完成後安排寄回。<br>（依實際狀況為準）
+            </p>
+            </div>
+        </div>
+        </section>
+
+        <!-- Fees -->
+        <section id="fees" class="mt-14 fade-on-scroll fade-in-up">
+        <div class="flex items-center justify-between gap-4">
+            <h2 class="text-2xl md:text-3xl font-semibold" data-i18n="fees_title">四、運費與維修費用</h2>
+            <span class="text-xs tracking-widest text-blue-400 uppercase" data-i18n="fees_tag">Fees</span>
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-white/10 bg-white/5 p-6">
+            <ul class="space-y-2 text-sm text-gray-300 leading-relaxed">
+            <li data-i18n="fees_1">• 保固內：判定為非人為因素，維修費用由本公司負擔（寄送方式依客服指示）。</li>
+            <li data-i18n="fees_2">• 非保固或人為損壞：將另行報價，經您同意後才進行維修。</li>
+            </ul>
+        </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="mt-14 fade-on-scroll fade-in-up">
+        <div class="rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 p-8">
+            <h2 class="text-2xl md:text-3xl font-semibold" data-i18n="contact_title">五、聯絡我們</h2>
+            <p class="mt-3 text-sm text-gray-300 leading-relaxed" data-i18n="contact_p">
+            如有任何退換貨或保固維修相關問題，歡迎聯繫客服團隊，我們將竭誠為您服務。
+            </p>
+
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+            <div class="rounded-2xl border border-white/10 bg-black/30 p-5">
+                <div class="flex items-center gap-2 text-gray-200">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+                <span class="font-semibold" data-i18n="contact_email_label">電子郵件</span>
+                </div>
+                <p class="mt-2 text-gray-300">summitech2014@gmail.com</p>
+            </div>
+
+            <div class="rounded-2xl border border-white/10 bg-black/30 p-5">
+            <div class="flex items-start justify-between gap-4">
+                <!-- Left: text -->
+                <div class="min-w-0">
+                <div class="flex items-center gap-2 text-gray-200">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    <span class="font-semibold" data-i18n="contact_line_label">LINE 官方帳號</span>
+                </div>
+
+                <p class="mt-2 text-gray-300 text-sm leading-relaxed" data-i18n="contact_line_note">
+                    限台灣、日本地區
+                </p>
+
+                <!-- 你的 LINE 連結（可換成 lin.ee 或官方帳號連結） -->
+                <a href="https://lin.ee/3pjykdt"
+                    target="_blank" rel="noopener"
+                    class="mt-3 inline-flex items-center gap-2 text-sm text-white hover:opacity-80 transition">
+                    <span data-i18n="contact_line_cta">前往加入</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
+                </div>
+
+                <!-- Right: QR -->
+                <div class="shrink-0">
+                <!-- ✅ 把 src 換成你 QR code 圖片路徑，例如 images/line_qr.png -->
+                <img src="image/line_qr.png"
+                    alt="LINE Official Account QR Code"
+                    class="w-16 h-16 md:w-20 md:h-20 rounded-lg border border-white/10 object-contain bg-white/5 p-1">
+                </div>
+            </div>
+            </div>
+
+            <div class="rounded-2xl border border-white/10 bg-black/30 p-5">
+                <div class="flex items-center gap-2 text-gray-200">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+                <span class="font-semibold" data-i18n="contact_hours_label">客服時間</span>
+                </div>
+                <p class="mt-2 text-gray-300" data-i18n="contact_hours_value">週一至週五 09:00–18:00（國定假日及例假日暫停服務）</p>
+            </div>
+            </div>
+        </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    
+    <script>
+        lucide.createIcons();
+
+        // 語言字典（本頁）
+        const pageLangData = {
+        'zh': {
+            policy_kicker: '售後服務政策',
+            policy_title: '退換貨政策與保固維修說明',
+            policy_subtitle: '感謝您選購我們的產品。以下為退換貨與保固維修相關規範，協助您快速完成售後申請。',
+
+            notice_1: '本頁面為一般政策說明；各通路（Amazon／Rakuten／momo／蝦皮等）可能另有規範，若有差異將以該通路規定為準。',
+
+            returns_title: '一、退換貨政策',
+            returns_tag: '退換貨',
+            returns_h1: '七日鑑賞期說明',
+            returns_p1: '自您收到商品次日起算，享有 7 日鑑賞期（含例假日）。鑑賞期非試用期，退貨需保持全新狀態並包裝配件完整。',
+            returns_h2: '可受理條件',
+            returns_li1: '• 商品本體、配件、包裝完整',
+            returns_li2: '• 無使用痕跡、刮傷、碰撞或人為損壞',
+            returns_li3: '• 原廠包裝、配件、說明書、保固文件與贈品齊全',
+            returns_h3: '不受理情況',
+            returns_no1: '• 超過 7 日鑑賞期',
+            returns_no2: '• 已使用、安裝、配對或影響二次銷售',
+            returns_no3: '• 缺少包裝、配件或贈品',
+            returns_no4: '• 進水、摔落、擅自拆解或改裝',
+            returns_no5: '• 個人衛生用品（如已使用之耳機配件）',
+            returns_shipping_title: '退貨運費說明',
+            returns_shipping_p: '因商品瑕疵或出貨錯誤：由我們負擔運費。因個人因素申請退貨：退貨運費需由消費者自行負擔。',
+
+            warranty_title: '二、保固服務',
+            warranty_tag: '保固',
+            warranty_h1: '保固期限',
+            warranty_p1: '本產品自購買日起享有一年有限保固（以購買憑證為準）。',
+            warranty_h2: '保固範圍',
+            warranty_p2: '正常使用狀況下，如發生非人為因素之功能異常，將提供檢測、維修，並視狀況更換零件或整機。',
+            warranty_h3: '非保固範圍',
+            warranty_no1: '• 人為損壞、摔落、進水、外力擠壓',
+            warranty_no2: '• 未依說明書操作或不當使用',
+            warranty_no3: '• 擅自拆解、改裝或使用非原廠配件',
+            warranty_no4: '• 自然耗損（如電池老化、外觀磨損）',
+            warranty_no5: '• 天災或不可抗力因素造成之損壞',
+
+            process_title: '三、維修申請流程',
+            process_tag: '流程',
+            process_s1_t: '聯繫客服',
+            process_s1_p: '說明產品狀況與問題發生情境。',
+            process_s2_t: '提供購買證明',
+            process_s2_p: '例如訂單截圖、發票或購買憑證。',
+            process_s3_t: '寄送檢測',
+            process_s3_p: '依客服指示寄送至指定維修中心。',
+            process_s4_t: '完成並寄回',
+            process_s4_p: '維修完成後安排寄回。\n（依實際狀況為準）',
+
+            fees_title: '四、運費與維修費用',
+            fees_tag: '費用',
+            fees_1: '• 保固內：判定為非人為因素，維修費用由本公司負擔（寄送方式依客服指示）。',
+            fees_2: '• 非保固或人為損壞：將另行報價，經您同意後才進行維修。',
+
+            contact_title: '五、聯絡我們',
+            contact_p: '如有任何退換貨或保固維修相關問題，歡迎聯繫客服團隊，我們將竭誠為您服務。',
+            contact_email_label: '電子郵件',
+            contact_phone_label: '電話',
+            contact_hours_label: '客服時間',
+            contact_hours_value: '週一至週五 09:00–18:00\n（國定假日及例假日暫停服務）',
+            contact_line_label: 'LINE 官方帳號',
+            contact_line_note: '限台灣、日本地區',
+            contact_line_cta: '前往加入',
+        },
+
+        'en': {
+            policy_kicker: 'Support Policy',
+            policy_title: 'Returns, Warranty & Repair',
+            policy_subtitle: 'Thank you for choosing our products. Please review the policy below for returns and warranty service.',
+
+            notice_1: 'This is a general policy. Rules may vary by sales channel (Amazon/Rakuten/momo/Shopee, etc.). If there is any difference, the channel’s policy shall prevail.',
+
+            returns_title: '1. Returns Policy',
+            returns_tag: 'Returns',
+            returns_h1: '7-Day Cooling-Off Period',
+            returns_p1: 'You may request a return within 7 days from the day after delivery. This is not a trial period—items must be unused and complete with original packaging and accessories.',
+            returns_h2: 'Eligible Conditions',
+            returns_li1: '• Product, accessories, and packaging are complete',
+            returns_li2: '• No signs of use, scratches, impacts, or damage',
+            returns_li3: '• Manuals, warranty documents, and gifts are included',
+            returns_h3: 'Not Eligible',
+            returns_no1: '• Beyond the 7-day period',
+            returns_no2: '• Used/installed/paired, or affects resale value',
+            returns_no3: '• Missing packaging/accessories/gifts',
+            returns_no4: '• Water damage, drops, disassembly, or modifications',
+            returns_no5: '• Hygiene items (e.g., used ear tips/parts)',
+            returns_shipping_title: 'Return Shipping',
+            returns_shipping_p: 'Wrong item or defects: shipping covered by us. Customer-initiated returns: shipping cost is borne by the customer.',
+
+            warranty_title: '2. Warranty Service',
+            warranty_tag: 'Warranty',
+            warranty_h1: 'Warranty Period',
+            warranty_p1: '1-year limited warranty from the purchase date (proof of purchase required).',
+            warranty_h2: 'Coverage',
+            warranty_p2: 'If a defect occurs under normal use (non-human cause), we provide inspection and repair, and may replace parts or the unit if necessary.',
+            warranty_h3: 'Not Covered',
+            warranty_no1: '• Human-caused damage, drops, water damage, external force',
+            warranty_no2: '• Misuse or operation not following the manual',
+            warranty_no3: '• Disassembly/modification or non-original accessories',
+            warranty_no4: '• Wear and tear (battery aging, cosmetic wear)',
+            warranty_no5: '• Natural disasters or force majeure',
+
+            process_title: '3. Repair Request Process',
+            process_tag: 'Process',
+            process_s1_t: 'Contact Support',
+            process_s1_p: 'Describe the issue and scenario.',
+            process_s2_t: 'Provide Proof of Purchase',
+            process_s2_p: 'Order screenshot, invoice, or receipt.',
+            process_s3_t: 'Send for Inspection',
+            process_s3_p: 'Ship to the designated service center.',
+            process_s4_t: 'Repair & Return',
+            process_s4_p: 'We will ship it back after service is completed.',
+
+            fees_title: '4. Shipping & Service Fees',
+            fees_tag: 'Fees',
+            fees_1: '• In warranty: if confirmed as non-human cause, repair cost is covered (shipping handled per support instruction).',
+            fees_2: '• Out of warranty or human-caused damage: we will quote first and proceed only after your approval.',
+
+            contact_title: '5. Contact Us',
+            contact_p: 'If you need help with returns or warranty service, please contact our support team.',
+            contact_email_label: 'Email',
+            contact_phone_label: 'Phone',
+            contact_hours_label: 'Support Hours',
+            contact_hours_value: 'Mon–Fri 09:00–18:00 (closed on holidays)',
+            contact_line_label: 'LINE Official Account',
+            contact_line_note: 'Available in Taiwan & Japan only',
+            contact_line_cta: 'Join now',
+        },
+
+        'jp': {
+            policy_kicker: 'サポートポリシー',
+            policy_title: '返品・保証／修理のご案内',
+            policy_subtitle: '当社製品をご購入いただきありがとうございます。返品および保証修理に関する規定は以下をご確認ください。',
+
+            notice_1: '本ページは一般的なポリシーです。販売チャネル（Amazon／楽天／momo／Shopee 等）により規定が異なる場合があり、その際は各チャネルの規定が優先されます。',
+
+            returns_title: '1. 返品ポリシー',
+            returns_tag: '返品',
+            returns_h1: '7日間のクーリングオフ',
+            returns_p1: '商品到着の翌日から7日以内に返品申請が可能です。試用期間ではありません。未使用で付属品・外箱が揃っている必要があります。',
+            returns_h2: '受付条件',
+            returns_li1: '• 本体・付属品・梱包が揃っていること',
+            returns_li2: '• 使用痕・キズ・衝撃痕・破損がないこと',
+            returns_li3: '• 取扱説明書、保証書、同梱物・特典が揃っていること',
+            returns_h3: '受付不可',
+            returns_no1: '• 7日を超過した場合',
+            returns_no2: '• 使用・取付・ペアリング済み等で再販に影響する場合',
+            returns_no3: '• 外箱・付属品・特典の欠品',
+            returns_no4: '• 水没、落下、分解、改造等',
+            returns_no5: '• 衛生用品（使用済みイヤーパーツ等）',
+            returns_shipping_title: '返品送料',
+            returns_shipping_p: '初期不良や誤配送の場合は当社負担。お客様都合の返品はお客様負担となります。',
+
+            warranty_title: '2. 保証サービス',
+            warranty_tag: '保証',
+            warranty_h1: '保証期間',
+            warranty_p1: 'ご購入日より1年間の限定保証（購入証明が必要）',
+            warranty_h2: '保証内容',
+            warranty_p2: '通常使用で発生した非人為的な不具合は、点検・修理を行い、必要に応じて部品または本体交換を行います。',
+            warranty_h3: '保証対象外',
+            warranty_no1: '• 人為的破損、落下、水没、外力による破損',
+            warranty_no2: '• 取扱説明書に従わない使用／誤使用',
+            warranty_no3: '• 分解・改造、非純正アクセサリー使用',
+            warranty_no4: '• 経年劣化（バッテリー劣化、外観摩耗）',
+            warranty_no5: '• 天災・不可抗力による損傷',
+
+            process_title: '3. 修理申請の流れ',
+            process_tag: '手順',
+            process_s1_t: 'サポートへ連絡',
+            process_s1_p: '症状と発生状況をお知らせください。',
+            process_s2_t: '購入証明の提出',
+            process_s2_p: '注文履歴、領収書、請求書など。',
+            process_s3_t: '製品を送付',
+            process_s3_p: '指定の修理センターへ発送します。',
+            process_s4_t: '修理完了・返送',
+            process_s4_p: '修理完了後に返送します。\n（状況により異なります）',
+
+            fees_title: '4. 送料・修理費用',
+            fees_tag: '費用',
+            fees_1: '• 保証内：非人為と判断された場合、修理費用は当社負担（送料はサポート案内に準拠）。',
+            fees_2: '• 保証外／人為破損：事前に見積りし、同意後に対応します。',
+
+            contact_title: '5. お問い合わせ',
+            contact_p: '返品や保証修理についてご不明点がございましたら、サポートまでお問い合わせください。',
+            contact_email_label: 'メール',
+            contact_phone_label: '電話',
+            contact_hours_label: '受付時間',
+            contact_hours_value: '平日 09:00–18:00（祝日・休日を除く）',
+            contact_line_label: 'LINE公式アカウント',
+            contact_line_note: '台湾・日本限定',
+            contact_line_cta: '友だち追加',            
+        }
+        };
+
+        if (typeof langData !== 'undefined') {
+            Object.keys(pageLangData).forEach((k) => {
+                langData[k] = Object.assign(langData[k] || {}, pageLangData[k]);
+            });
+        } else {
+            // 若全站字典不存在，至少提供一份在 window 上（避免完全失效）
+            window.langData = pageLangData;
+        }        
+
+        window.onload = () => changeLang(localStorage.getItem('lang') || 'zh');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J-Trek & iRide | 頂尖電子通訊專家</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #f5f5f7;
+            overflow-x: hidden;
+        }
+
+        .apple-gradient-text {
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 下拉選單動畫 */
+        /* 確保下拉選單觸發區域連續，防止點不到 */
+        .dropdown { 
+            position: relative; 
+        }
+
+        /* 核心修正：讓選單緊貼頂部，並在上方加入透明填充，作為滑鼠移動的橋樑 */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* 緊貼父元素底部 */
+            left: 0;
+            z-index: 200;
+            padding-top: 10px; /* 關鍵：增加透明填充，防止滑鼠移動時斷掉 */
+        }
+
+        /* 滑鼠移入時顯示 */
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        /* 巢狀選單 (Nested Menu) 的修正 */
+        .nested-menu {
+            display: none;
+            position: absolute;
+            left: 100%; /* 從右側彈出 */
+            top: 0;
+            padding-left: 5px; /* 側邊的透明橋樑 */
+        }
+
+        .nested-dropdown:hover > .nested-menu {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <script src="components.js"></script>
+
+    <section class="relative pt-32 pb-20 flex flex-col items-center justify-center min-h-screen text-center px-4 overflow-hidden">
+        <div class="absolute inset-0 -z-10">
+            <img
+                src="image/JX09/JX09_banner.png"
+                alt="JX09 banner"
+                class="w-full h-full object-cover object-center"
+            />
+            <!-- Optional dark overlay for better text contrast -->
+            <div class="absolute inset-0 bg-black/35"></div>
+        </div>
+    
+        <div class="max-w-4xl mx-auto md:mx-0 md:self-start md:ml-16 z-10 fade-on-scroll bg-black/20 backdrop-blur-md rounded-2xl px-8 py-10">
+            <h1 class="text-6xl md:text-8xl font-bold tracking-tight mb-6 apple-gradient-text">JX09</h1>
+            <p data-i18n="hero_desc" class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                為騎行而生的藍牙對講系統，<br>簡潔設計，磁吸安裝更直覺.
+            </p>
+            <div class="mt-10">
+                <a href="#buy" data-i18n="cta_buy" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all">立即選購</a>
+            </div>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] -z-10"></div>
+    </section>
+
+    <section class="py-32 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat1_title" class="text-4xl font-bold mb-6">8 人群組通話與穩定連線</h2>
+                    <p data-i18n="feat1_desc" class="text-gray-400 text-lg leading-relaxed">
+                        JX09 PRO 搭載 Bluetooth 5.4，
+                        提供穩定、低延遲的對講通訊體驗。
+
+                        支援最多 8 人群組通話，
+                        並可與其他品牌通訊設備進行單台連線，
+                        滿足雙人騎行與多人車隊的使用需求。
+
+                        在開闊道路環境下，
+                        通訊距離最遠可達約 1500 公尺。
+                        當成員因距離暫時離線，只要回到有效範圍內，
+                        系統即可自動重新連線，維持通話的連續性。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/JX09/1.png" alt="JX01_1" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/JX09/2.png" alt="JX01_2" class="w-full h-full object-cover" />
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 data-i18n="feat2_title" class="text-4xl font-bold mb-6">可換外殼與音訊客製</h2>
+                    <p data-i18n="feat2_desc" class="text-gray-400 text-lg leading-relaxed">
+                        JX09 PRO 提供可更換的裝飾外殼設計，
+                        隨附黑、白、銀三款面板，
+                        可依個人風格自由搭配外觀。
+
+                        採用 3.5mm 標準耳機端子，
+                        使用者可依需求更換不同類型的耳機或揚聲器。
+                        同時支援三種音質模式設定，
+                        包含人聲清晰、低頻加強與高音強化，
+                        讓聲音表現依使用習慣進行調整。
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat3_title" class="text-4xl font-bold mb-6">音樂分享與高音質播放</h2>
+                    <p data-i18n="feat3_desc" class="text-gray-400 text-lg leading-relaxed">
+                        JX09 PRO 支援音樂分享功能，
+                        可在騎行過程中將音樂同步給同伴，
+                        提升團隊騎行時的互動體驗。
+
+                        內建 FM 收音機功能，
+                        可接收即時廣播與資訊內容，
+                        在騎行與停車狀態下皆可使用。
+
+                        音訊系統搭載 Hi-Fi 音效架構，
+                        結合 DSP 精密數位處理與 CVC 降噪技術，
+                        並配合專業級抗噪麥克風與 40mm 揚聲器單體，
+                        在騎行環境中仍能維持清晰、穩定的聲音表現。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/JX09/3.png" alt="JX01_3" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/JX09/4.png" alt="JX01_4" class="w-full h-full object-cover" />
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 data-i18n="feat4_title" class="text-4xl font-bold mb-6">App 操控與直覺操作</h2>
+                    <p data-i18n="feat4_desc" class="text-gray-400 text-lg leading-relaxed">
+                        JX09 PRO 支援專用 App 操控，
+                        並提供語音助理與自動接聽功能，
+                        可在騎行過程中減少手動操作需求。
+
+                        按鍵配置經過優化設計，
+                        即使配戴厚手套也能快速辨識與操作，
+                        提升行進中的使用便利性與操作流暢度。
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat5_title" class="text-4xl font-bold mb-6">防水設計與長效續航</h2>
+                    <p data-i18n="feat5_desc" class="text-gray-400 text-lg leading-relaxed">
+                        JX09 PRO 具備 IP67 防水防塵結構，
+                        可在雨天與多變環境下穩定運作。
+
+                        產品通過 FCC、TELEC、NCC 與 BSMI 多重認證，
+                        符合國際通訊與安全標準。
+
+                        內建 1000mAh 鋰聚合物電池，
+                        支援快速充電與長時間使用，
+                        可滿足長時間對講、音樂播放與待機需求。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/JX09/5.png" alt="JX01_5" class="w-full h-full object-cover" />
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="buy" class="py-24 bg-zinc-950 border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            
+            <h2 class="text-3xl font-bold mb-6" data-i18n="buy_title">
+            官方直營購買
+            </h2>
+
+            <p class="text-gray-400 mb-10" data-i18n="buy_desc">
+            透過官方直營電商平台購買 JX09，享有完整保固與售後支援。
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="globe" class="text-blue-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_west_title" class="text-2xl font-bold text-white">歐美地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Western Markets</p>
+                    </div>
+                    <div class="space-y-4 flex-grow">
+                        <a href="https://www.amazon.com" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon US</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://www.amazon.de" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon Europe</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://www.amazon.uk" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon UK</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>                        
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="map-pin" class="text-red-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_jp_title" class="text-2xl font-bold text-white">日本地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Japan Market</p>
+                    </div>
+                    <div class="space-y-4 flex-grow">
+                        <a href="https://www.amazon.co.jp" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon JP</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://www.rakuten.co.jp" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span data-i18n="platform_rakuten" class="font-medium">Rakuten 樂天市場</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col border-blue-500/20">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="shopping-cart" class="text-emerald-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_tw_title" class="text-2xl font-bold text-white">台灣地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Taiwan Market</p>
+                    </div>
+                    <div class="space-y-4 flex-grow">
+                        <a href="https://iride.1shop.tw/l5c07c" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group border-blue-500/30 bg-blue-500/5">
+                            <span data-i18n="platform_1shop" class="font-medium text-blue-400">1shop 官方店 (推薦)</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-100 text-blue-400"></i>
+                        </a>
+                        <a href="https://www.momoshop.com.tw" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span data-i18n="platform_momo" class="font-medium">momo 購物網</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://shopee.tw" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span data-i18n="platform_shopee" class="font-medium">蝦皮購物 Shopee</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>    
+
+    <section class="py-32 bg-black border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 data-i18n="specs_title" class="text-3xl font-bold mb-16">技術規格</h2>
+            <div class="grid md:grid-cols-2 gap-y-12 gap-x-20">
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_general" class="text-xl text-gray-500 uppercase tracking-widest mb-2">一般規格</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_general_weight">重量：63 克</li>
+                        <li data-i18n="spec_general_pack_weight">含包裝重量：340 克</li>
+                        <li data-i18n="spec_general_compat">相容設備：所有支援藍牙的智慧型裝置</li>
+                        <li data-i18n="spec_general_cert">相關認證：FCC/TELEC/NCC+BSMI</li>
+                        <li data-i18n="spec_general_temp">操作溫度：-10°C ~ 55°C</li>
+                        <li data-i18n="spec_general_ip">防水等級：IP67</li>
+                        <li data-i18n="spec_general_design">結構設計： 特殊成型橡膠密封圈、晴雨環境耐候性佳</li>
+                    </ul>
+                </div>
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_intercom" class="text-xl text-gray-500 uppercase tracking-widest mb-2">對講系統</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_intercom_bt">藍牙版本： Bluetooth 5.4</li>
+                        <li data-i18n="spec_intercom_people">最大通話人數：8 人</li>
+                        <li data-i18n="spec_intercom_musicshare">多人音樂共享：支援</li>
+                        <li data-i18n="spec_intercom_universal">跨品牌連接： 可支援與 1 台他廠藍牙耳機通話</li>
+                        <li data-i18n="spec_intercom_range">通訊距離（Mesh）：最遠1500公尺</li>
+                        <li data-i18n="spec_intercom_range2">通訊距離（Bluetooth）：最遠1000公尺</li> 
+                        <li data-i18n="spec_intercom_aptx">aptX HD/aptX Adaptive/ALAC 高清音質： 支援</li>
+                        <li data-i18n="spec_intercom_app">App 操控：支援（快速配對、OTA 韌體更新）</li>
+                        <li data-i18n="spec_intercom_assistant">語音助手：支援 Siri / Google Assistant</li>
+                        <li data-i18n="spec_intercom_voice">語音提示：支援日語與英文語音提示通知</li>
+                        <li data-i18n="spec_intercom_notivol">音效模式：三種音質可切換（人聲/重低音/高音強化）</li>
+                        <li data-i18n="spec_intercom_fm">FM廣播：支援</li>
+                    </ul>
+                </div>
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_battery" class="text-xl text-gray-500 uppercase tracking-widest mb-2">電池電力</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_battery_capacity">電池規格：1000mAh</li>
+                        <li data-i18n="spec_battery_life">待機續航時間：500 小時</li>
+                        <li data-i18n="spec_battery_life2">通話/對講續航時間：30 小時</li>
+                        <li data-i18n="spec_battery_life3">音樂播放時間：35 小時</li>
+                        <li data-i18n="spec_battery_charge">充電時間：1.5 小時即可完成充電</li>
+                        <li data-i18n="spec_battery_OVP">充電過壓保護(OVP)：支援</li>
+                        <li data-i18n="spec_battery_port">充電接口：USB Type-C</li>
+                    </ul>
+                </div>
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_audio" class="text-xl text-gray-500 uppercase tracking-widest mb-2">音訊技術</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_audio_speaker">喇叭單體： 40mm 鈦金屬振膜</li>
+                        <li data-i18n="spec_audio_nc">降噪能力： DSP + CVC 雙重降噪</li>
+                        <li data-i18n="spec_audio_wind">風噪抑制： 實測最高可達 -35 dB</li>
+                        <li data-i18n="spec_audio_clarity">高速環境語音清晰度： 約 87%（時速 130 km/h 環境下）</li>
+                    </ul>
+                </div>
+            </div>
+        </div>        
+    </section>
+
+    <div id="footer-placeholder"></div>
+    
+    <script>
+        lucide.createIcons();
+
+        // 語言字典
+        const pageLangData = {
+            zh: {
+                hero_desc: '為騎行而生的藍牙對講系統，\n簡潔設計，磁吸安裝更直覺。',
+                cta_buy: '立即選購',
+
+                feat1_title: '8 人群組通話與穩定連線',
+                feat1_desc:
+                'JX09 PRO 搭載 Bluetooth 5.4，' +
+                '提供穩定、低延遲的對講通訊體驗。\n\n' +
+                '支援最多 8 人群組通話，' +
+                '並可與其他品牌通訊設備進行單台連線，' +
+                '滿足雙人騎行與多人車隊的使用需求。\n\n' +
+                '在開闊道路環境下，' +
+                '通訊距離最遠可達約 1500 公尺。' +
+                '當成員因距離暫時離線，只要回到有效範圍內，' +
+                '系統即可自動重新連線，維持通話的連續性。',
+
+                feat2_title: '可換外殼與音訊客製',
+                feat2_desc:
+                'JX09 PRO 提供可更換的裝飾外殼設計，' +
+                '隨附黑、白、銀三款面板，' +
+                '可依個人風格自由搭配外觀。\n\n' +
+                '採用 3.5mm 標準耳機端子，' +
+                '使用者可依需求更換不同類型的耳機或揚聲器。\n\n' +
+                '同時支援三種音質模式設定，' +
+                '包含人聲清晰、低頻加強與高音強化，' +
+                '讓聲音表現依使用習慣進行調整。',
+
+                feat3_title: '音樂分享與高音質播放',
+                feat3_desc:
+                'JX09 PRO 支援音樂分享功能，' +
+                '可在騎行過程中將音樂同步給同伴，' +
+                '提升團隊騎行時的互動體驗。\n\n' +
+                '內建 FM 收音機功能，' +
+                '可接收即時廣播與資訊內容，' +
+                '在騎行與停車狀態下皆可使用。\n\n' +
+                '音訊系統搭載 Hi-Fi 音效架構，' +
+                '結合 DSP 精密數位處理與 CVC 降噪技術，' +
+                '並配合專業級抗噪麥克風與 40mm 揚聲器單體，' +
+                '在騎行環境中仍能維持清晰、穩定的聲音表現。',
+
+                feat4_title: 'App 操控與直覺操作',
+                feat4_desc:
+                'JX09 PRO 支援專用 App 操控，' +
+                '並提供語音助理與自動接聽功能，' +
+                '可在騎行過程中減少手動操作需求。\n\n' +
+                '按鍵配置經過優化設計，' +
+                '即使配戴厚手套也能快速辨識與操作，' +
+                '提升行進中的使用便利性與操作流暢度。',
+
+                feat5_title: '防水設計與長效續航',
+                feat5_desc:
+                'JX09 PRO 具備 IP67 防水防塵結構，' +
+                '可在雨天與多變環境下穩定運作。\n\n' +
+                '產品通過 FCC、TELEC、NCC 與 BSMI 多重認證，' +
+                '符合國際通訊與安全標準。\n\n' +
+                '內建 1000mAh 鋰聚合物電池，' +
+                '支援快速充電與長時間使用，' +
+                '可滿足長時間對講、音樂播放與待機需求。',
+
+                buy_title: '官方直營購買',
+                buy_desc: '透過官方直營電商平台購買 JX09，享有完整保固與售後支援。',
+
+                region_west_title: '歐美地區',
+                region_jp_title: '日本地區',
+                region_tw_title: '台灣地區',
+
+                platform_rakuten: 'Rakuten 樂天市場',
+                platform_1shop: '1shop 官方店 (推薦)',
+                platform_momo: 'momo 購物網',
+                platform_shopee: '蝦皮購物 Shopee',
+
+                specs_title: '技術規格',
+                specs_cat_general: '一般規格',
+                specs_cat_intercom: '對講系統',
+                specs_cat_battery: '電池電力',
+                specs_cat_audio: '音訊技術',
+
+                spec_general_weight: '重量：63 克',
+                spec_general_pack_weight: '含包裝重量：340 克',
+                spec_general_compat: '相容設備：所有支援藍牙的智慧型裝置',
+                spec_general_cert: '相關認證：FCC/TELEC/NCC+BSMI',
+                spec_general_temp: '操作溫度：-10°C ~ 55°C',
+                spec_general_ip: '防水等級：IP67',
+                spec_general_design: '結構設計： 特殊成型橡膠密封圈、晴雨環境耐候性佳',
+
+                spec_intercom_bt: '藍牙版本： Bluetooth 5.4',
+                spec_intercom_people: '最大通話人數：8 人',
+                spec_intercom_musicshare: '多人音樂共享：支援',
+                spec_intercom_universal: '跨品牌連接： 可支援與 1 台他廠藍牙耳機通話',
+                spec_intercom_range: '通訊距離（Mesh）：最遠1500公尺',
+                spec_intercom_range2: '通訊距離（Bluetooth）：最遠1000公尺',
+                spec_intercom_aptx: 'aptX HD/aptX Adaptive/ALAC 高清音質： 支援',
+                spec_intercom_app: 'App 操控：支援（快速配對、OTA 韌體更新）',
+                spec_intercom_assistant: '語音助手：支援 Siri / Google Assistant',
+                spec_intercom_voice: '語音提示：支援日語與英文語音提示通知',
+                spec_intercom_notivol: '音效模式：三種音質可切換（人聲/重低音/高音強化）',
+                spec_intercom_fm: 'FM廣播：支援',
+
+                spec_battery_capacity: '電池規格：1000mAh',
+                spec_battery_life: '待機續航時間：500 小時',
+                spec_battery_life2: '通話/對講續航時間：30 小時',
+                spec_battery_life3: '音樂播放時間：35 小時',
+                spec_battery_charge: '充電時間：1.5 小時即可完成充電',
+                spec_battery_OVP: '充電過壓保護(OVP)：支援',
+                spec_battery_port: '充電接口：USB Type-C',
+
+                spec_audio_speaker: '喇叭單體： 40mm 鈦金屬振膜',
+                spec_audio_nc: '降噪能力： DSP + CVC 雙重降噪',
+                spec_audio_wind: '風噪抑制： 實測最高可達 -35 dB',
+                spec_audio_clarity: '高速環境語音清晰度： 約 87%（時速 130 km/h 環境下）'
+            },
+
+            en: {
+                hero_desc: 'Bluetooth intercom for riding.\nClean design with intuitive magnetic mounting.',
+                cta_buy: 'Shop Now',
+
+                feat1_title: '8-Rider Group Intercom\nStable Connection',
+                feat1_desc:
+                'JX09 PRO features Bluetooth 5.4,' +
+                'delivering stable, low-latency intercom communication.\n\n' +
+                'Supports group intercom for up to 8 riders,' +
+                'and a single-device cross-brand connection,' +
+                'ideal for two riders or larger group rides.\n\n' +
+                'In open-road conditions,\n' +
+                'communication range can reach up to approximately 1,500 m.' +
+                'If a rider drops out due to distance, simply return within range' +
+                'and the system will reconnect automatically to keep conversations continuous.',
+
+                feat2_title: 'Replaceable Covers\nAudio Customization',
+                feat2_desc:
+                'JX09 PRO includes a replaceable decorative cover design,' +
+                'with three panels (black, white, silver)' +
+                'to match your personal riding style.\n\n' +
+                'With a standard 3.5 mm audio jack,' +
+                'you can swap different earphones or speakers as needed.\n\n' +
+                'It also offers three sound modes:' +
+                'Voice, Bass Boost, and Treble Boost,' +
+                'so you can tune the audio to your preference.',
+
+                feat3_title: 'Music Sharing\nHi-Fi Playback',
+                feat3_desc:
+                'JX09 PRO supports music sharing,' +
+                'syncing your music to your companion while riding' +
+                'to enhance group ride interaction.\n\n' +
+                'Built-in FM radio' +
+                'lets you receive live broadcasts and information,' +
+                'available both while riding and when stopped.\n\n' +
+                'The audio system features a Hi-Fi sound architecture,' +
+                'combining DSP digital processing and CVC noise reduction,' +
+                'with a pro-grade noise-resistant microphone and 40 mm speaker driver,' +
+                'to maintain clear, stable audio even in riding environments.',
+
+                feat4_title: 'App Control\nIntuitive Operation',
+                feat4_desc:
+                'JX09 PRO supports control via a dedicated app,' +
+                'and includes voice assistant and auto-answer features,' +
+                'reducing the need for manual operation while riding.\n\n' +
+                'Optimized button layout' +
+                'remains easy to identify and operate even with thick gloves,' +
+                'improving convenience and smooth operation on the move.',
+
+                feat5_title: 'Waterproof Design\nLong Battery Life',
+                feat5_desc:
+                'JX09 PRO features an IP67 water and dust resistant structure,' +
+                'designed to operate reliably in rain and changing conditions.\n\n' +
+                'Certified by FCC, TELEC, NCC, and BSMI,' +
+                'meeting international communication and safety standards.\n\n' +
+                'Built-in 1000mAh Li-polymer battery' +
+                'supports fast charging and long usage,' +
+                'covering extended intercom, music playback, and standby needs.',
+
+                buy_title: 'Official Purchase Channels',
+                buy_desc: 'Purchase JX09 through official online stores to enjoy full warranty and after-sales support.',
+
+                region_west_title: 'US & Europe',
+                region_jp_title: 'Japan',
+                region_tw_title: 'Taiwan',
+
+                platform_rakuten: 'Rakuten',
+                platform_1shop: '1shop Official Store (Recommended)',
+                platform_momo: 'momo',
+                platform_shopee: 'Shopee',
+
+                specs_title: 'Specifications',
+                specs_cat_general: 'General',
+                specs_cat_intercom: 'Intercom',
+                specs_cat_battery: 'Battery',
+                specs_cat_audio: 'Audio',
+
+                spec_general_weight: 'Weight: 63 g',
+                spec_general_pack_weight: 'Weight with packaging: 340 g',
+                spec_general_compat: 'Compatibility: All Bluetooth-enabled smart devices',
+                spec_general_cert: 'Certifications: FCC / TELEC / NCC + BSMI',
+                spec_general_temp: 'Operating temperature: -10°C to 55°C',
+                spec_general_ip: 'Waterproof rating: IP67',
+                spec_general_design: 'Design: Molded rubber gasket; weather-resistant in rain or shine',
+
+                spec_intercom_bt: 'Bluetooth version: Bluetooth 5.4',
+                spec_intercom_people: 'Max riders: 8',
+                spec_intercom_musicshare: 'Multi-user music sharing: Supported',
+                spec_intercom_universal: 'Cross-brand connection: Supports calling with 1 third-party Bluetooth headset',
+                spec_intercom_range: 'Communication range (Mesh): Up to 1,500 m',
+                spec_intercom_range2: 'Communication range (Bluetooth): Up to 1,000 m',
+                spec_intercom_aptx: 'aptX HD / aptX Adaptive / ALAC: Supported',
+                spec_intercom_app: 'App control: Supported (fast pairing, OTA firmware updates)',
+                spec_intercom_assistant: 'Voice assistant: Siri / Google Assistant',
+                spec_intercom_voice: 'Voice prompts: Japanese & English',
+                spec_intercom_notivol: 'Sound modes: 3 selectable (Voice / Bass / Treble Boost)',
+                spec_intercom_fm: 'FM radio: Supported',
+
+                spec_battery_capacity: 'Battery capacity: 1000mAh',
+                spec_battery_life: 'Standby time: 500 hours',
+                spec_battery_life2: 'Talk/intercom time: 30 hours',
+                spec_battery_life3: 'Music playback time: 35 hours',
+                spec_battery_charge: 'Charging time: Full charge in 1.5 hours',
+                spec_battery_OVP: 'Over-voltage protection (OVP): Supported',
+                spec_battery_port: 'Charging port: USB Type-C',
+
+                spec_audio_speaker: 'Speaker driver: 40 mm titanium diaphragm',
+                spec_audio_nc: 'Noise reduction: DSP + dual CVC',
+                spec_audio_wind: 'Wind noise suppression: Up to -35 dB (tested)',
+                spec_audio_clarity: 'Voice clarity at high speed: ~87% (at 130 km/h)'
+            },
+
+            jp: {
+                hero_desc: 'ライディング向けBluetoothインカム。\nシンプル設計で、マグネット装着も直感的。',
+                cta_buy: '今すぐ購入',
+
+                feat1_title: '最大8人グループ通話＆安定通信',
+                feat1_desc:
+                'JX09 PRO は Bluetooth 5.4 を搭載し、' +
+                '安定した低遅延のインカム通話を実現します。\n\n' +
+                '最大 8 人のグループ通話に対応し、' +
+                '他社製機器 1 台との接続も可能。' +
+                '少人数から車隊まで幅広いツーリングに対応します。\n\n' +
+                '開けた道路環境では、' +
+                '通信距離は最長約 1500 m。' +
+                '距離で一時的に離脱しても、有効範囲に戻れば' +
+                '自動再接続して通話の連続性を保ちます。',
+
+                feat2_title: '着せ替えカバー＆オーディオカスタム',
+                feat2_desc:
+                'JX09 PRO は着せ替え可能なデザインカバーを採用。' +
+                'ブラック／ホワイト／シルバーの 3 種パネルが付属し、' +
+                '好みに合わせて外観をカスタマイズできます。\n\n' +
+                '3.5mm 標準オーディオ端子を搭載し、' +
+                'イヤホンやスピーカーを用途に合わせて交換可能。\n\n' +
+                '音質モードは 3 種（ボイス／低音強化／高音強化）を用意し' +
+                '聴き方に合わせて調整できます。',
+
+                feat3_title: '音楽共有＆高音質再生',
+                feat3_desc:
+                'JX09 PRO は音楽共有に対応し、' +
+                '走行中に音楽を仲間と同期できます。' +
+                'グループ走行での一体感を高めます。\n\n' +
+                'FM ラジオを内蔵し、' +
+                'リアルタイムの放送や情報を受信可能。' +
+                '走行中でも停車中でも利用できます。\n\n' +
+                'Hi-Fi オーディオ構成に加え、' +
+                'DSP デジタル処理と CVC ノイズ低減を組み合わせ、' +
+                '耐ノイズマイクと 40mm スピーカーとともに、' +
+                '走行環境でもクリアで安定した音を維持します。',
+
+                feat4_title: 'アプリ操作＆直感的なコントロール',
+                feat4_desc:
+                'JX09 PRO は専用アプリ操作に対応し、' +
+                '音声アシスタントと自動応答機能も搭載。' +
+                '走行中の手動操作を減らします。\n\n' +
+                'ボタン配置は最適化されており、' +
+                '厚手のグローブでも位置を把握しやすく操作もスムーズ。' +
+                '走行中の使い勝手を高めます。',
+
+                feat5_title: '防水設計＆ロングバッテリー',
+                feat5_desc:
+                'JX09 PRO は IP67 防水防塵構造を採用し、' +
+                '雨天や変化のある環境でも安定して動作します。\n\n' +
+                'FCC / TELEC / NCC / BSMI の認証に対応し、' +
+                '通信・安全基準に準拠しています。\n\n' +
+                '1000mAh のリチウムポリマー電池を内蔵し、' +
+                '急速充電と長時間使用に対応。' +
+                'インカム通話、音楽再生、待機まで幅広くカバーします。',
+
+                buy_title: '公式販売チャネル',
+                buy_desc: '公式オンラインストアで JX09 を購入すると、正規保証およびアフターサポートが受けられます。',
+
+                region_west_title: '欧米地域',
+                region_jp_title: '日本',
+                region_tw_title: '台湾',
+
+                platform_rakuten: '楽天市場',
+                platform_1shop: '1shop 公式ストア（おすすめ）',
+                platform_momo: 'momo（台湾）',
+                platform_shopee: 'Shopee（台湾）',
+
+                specs_title: '仕様',
+                specs_cat_general: '一般仕様',
+                specs_cat_intercom: 'インカム',
+                specs_cat_battery: 'バッテリー',
+                specs_cat_audio: 'オーディオ',
+
+                spec_general_weight: '重量：63 g',
+                spec_general_pack_weight: '梱包込み重量：340 g',
+                spec_general_compat: '対応機器：Bluetooth 対応スマートデバイス',
+                spec_general_cert: '認証：FCC / TELEC / NCC + BSMI',
+                spec_general_temp: '動作温度：-10°C ～ 55°C',
+                spec_general_ip: '防水等級：IP67',
+                spec_general_design: '構造：特殊成型ゴムパッキン、全天候で使用可能',
+
+                spec_intercom_bt: 'Bluetooth：5.4',
+                spec_intercom_people: '最大通話人数：8 人',
+                spec_intercom_musicshare: '音楽共有：対応',
+                spec_intercom_universal: '他社接続：他社 Bluetooth ヘッドセット 1 台と通話可',
+                spec_intercom_range: '通信距離（Mesh）：最長 1500 m',
+                spec_intercom_range2: '通信距離（Bluetooth）：最長 1000 m',
+                spec_intercom_aptx: 'aptX HD / aptX Adaptive / ALAC：対応',
+                spec_intercom_app: 'アプリ操作：対応（高速ペアリング／OTA 更新）',
+                spec_intercom_assistant: '音声アシスタント：Siri / Google Assistant',
+                spec_intercom_voice: '音声ガイド：日本語／英語',
+                spec_intercom_notivol: '音質モード：3 種切替（ボイス／低音強化／高音強化）',
+                spec_intercom_fm: 'FM ラジオ：対応',
+
+                spec_battery_capacity: 'バッテリー容量：1000mAh',
+                spec_battery_life: '待機時間：500 時間',
+                spec_battery_life2: '通話／インカム：30 時間',
+                spec_battery_life3: '音楽再生：35 時間',
+                spec_battery_charge: '充電時間：約 1.5 時間で満充電',
+                spec_battery_OVP: '過電圧保護（OVP）：対応',
+                spec_battery_port: '充電端子：USB Type-C',
+
+                spec_audio_speaker: 'スピーカー：40mm チタン振動板',
+                spec_audio_nc: 'ノイズ低減：DSP + CVC（二重）',
+                spec_audio_wind: '風切り音抑制：最大 -35 dB（実測）',
+                spec_audio_clarity: '高速環境の音声明瞭度：約 87%（130 km/h）'
+            }
+        };
+
+        if (typeof langData !== 'undefined') {
+            Object.keys(pageLangData).forEach((k) => {
+                langData[k] = Object.assign(langData[k] || {}, pageLangData[k]);
+            });
+        } else {
+            // 若全站字典不存在，至少提供一份在 window 上（避免完全失效）
+            window.langData = pageLangData;
+        }
+        
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach((el) => {
+            const key = el.getAttribute('data-i18n');
+            const val = (window.langData && window.langData[lang]) ? window.langData[lang][key] : undefined;
+            if (val === undefined || val === null) return;
+
+            // 讓字典可以用 \n 代表換行
+            const html = String(val).replace(/\n/g, '<br>');
+
+            // input / textarea：翻譯 placeholder 或 value
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                if (el.hasAttribute('placeholder')) el.setAttribute('placeholder', String(val));
+                else el.value = String(val);
+                return;
+            }
+
+            // 一般元素：用 innerHTML 才能讓 <br> 生效
+            el.innerHTML = html;
+        });
+
+        window.onload = () => changeLang(localStorage.getItem('lang') || 'zh');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

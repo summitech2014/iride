@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J-Trek & iRide | 頂尖電子通訊專家</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #f5f5f7;
+            overflow-x: hidden;
+        }
+
+        .apple-gradient-text {
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 下拉選單動畫 */
+        /* 確保下拉選單觸發區域連續，防止點不到 */
+        .dropdown { 
+            position: relative; 
+        }
+
+        /* 核心修正：讓選單緊貼頂部，並在上方加入透明填充，作為滑鼠移動的橋樑 */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* 緊貼父元素底部 */
+            left: 0;
+            z-index: 200;
+            padding-top: 10px; /* 關鍵：增加透明填充，防止滑鼠移動時斷掉 */
+        }
+
+        /* 滑鼠移入時顯示 */
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        /* 巢狀選單 (Nested Menu) 的修正 */
+        .nested-menu {
+            display: none;
+            position: absolute;
+            left: 100%; /* 從右側彈出 */
+            top: 0;
+            padding-left: 5px; /* 側邊的透明橋樑 */
+        }
+
+        .nested-dropdown:hover > .nested-menu {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <script src="components.js"></script>
+
+    <section class="relative pt-32 pb-20 flex flex-col items-center justify-center min-h-screen text-center px-4 overflow-hidden">
+        <div class="absolute inset-0 -z-10">
+            <img
+                src="image/T1/T1_banner.png"
+                alt="T1 banner"
+                class="w-full h-full object-cover object-center"
+            />
+            <!-- Optional dark overlay for better text contrast -->
+            <div class="absolute inset-0 bg-black/35"></div>
+        </div>
+    
+        <div class="max-w-4xl mx-auto md:mx-0 md:self-start md:ml-16 z-10 fade-on-scroll bg-black/20 backdrop-blur-md rounded-2xl px-8 py-10">
+            <h1 class="text-6xl md:text-8xl font-bold tracking-tight mb-6 apple-gradient-text">T1</h1>
+            <p data-i18n="hero_desc" class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                為城市騎行情境設計，<br>滿足每日往返的通訊需求。
+            </p>
+            <div class="mt-10">
+                <a href="#buy" data-i18n="cta_buy" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all">立即選購</a>
+            </div>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] -z-10"></div>
+    </section>
+
+    <section class="py-32 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat1_title" class="text-4xl font-bold mb-6">穩定連線</h2>
+                    <p data-i18n="feat1_desc" class="text-gray-400 text-lg leading-relaxed">
+                        機車用對講機 T1 採用 Bluetooth 5.2，
+                        提供穩定、低延遲的通話體驗，適合日常通勤與城市騎行使用。
+                        支援 2 人群組通話，
+                        在市區或開放道路環境下，最遠通訊距離可達約 1000 公尺。
+                        當騎士短暫離開有效範圍，只要回到距離內即可自動重新連線，
+                        確保通勤途中溝通不中斷。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/T1/1.png" alt="T1_1" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/T1/2.png" alt="T1_2" class="w-full h-full object-cover" />
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 data-i18n="feat2_title" class="text-4xl font-bold mb-6">自由調整</h2>
+                    <p data-i18n="feat2_desc" class="text-gray-400 text-lg leading-relaxed">
+                        可輕鬆更換的 3 款裝飾面板（黑、白、紅），
+                        讓外觀依照日常通勤風格簡單調整，保持整體一致性。
+
+                        產品採用 3.5 mm 標準耳機端子，
+                        可依個人通勤習慣選擇合適的耳機或喇叭配置，
+                        在城市騎行環境中，提供更清晰、穩定的通話與提示聲音。
+
+                        外觀與聲音皆可依需求調整，
+                        讓通勤過程維持舒適、自然、不多餘的使用體驗。
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat3_title" class="text-4xl font-bold mb-6">清晰音訊</h2>
+                    <p data-i18n="feat3_desc" class="text-gray-400 text-lg leading-relaxed">
+                        T1 支援音訊同步功能，可在騎行中與同伴共享音樂或提示音（依距離與藍牙環境而定），
+                        同時內建 FM 收音機，通勤途中可即時收聽交通資訊、天氣廣播或必要訊息。
+
+                        搭載高音質 Hi-Fi 音效，結合 DSP 數位訊號處理與 CVC 12.0 降噪技術，
+                        並配置專業級抗噪麥克風與 40 mm 大口徑喇叭，
+                        在城市騎行環境中有效抑制風噪與背景干擾，
+                        確保通話與提示聲音清晰可辨，不影響通勤專注度。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/T1/3.png" alt="T1_3" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/T1/4.png" alt="T1_4" class="w-full h-full object-cover" />
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 data-i18n="feat4_title" class="text-4xl font-bold mb-6">操作效率</h2>
+                    <p data-i18n="feat4_desc" class="text-gray-400 text-lg leading-relaxed">
+                        T1 提供專用 App，支援語音助理與自動接聽功能，
+                        並結合聲紋識別技術，通勤騎行時可減少手動操作，
+                        讓騎士在移動過程中更專注於路況。
+
+                        按鍵配置簡單直覺，
+                        即使配戴厚手套也能快速辨識位置並完成操作，
+                        提升日常通勤時的使用效率與行駛安全。
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat5_title" class="text-4xl font-bold mb-6">可靠耐用</h2>
+                    <p data-i18n="feat5_desc" class="text-gray-400 text-lg leading-relaxed">
+                        具備 IP67 防水防塵等級，
+                        可應付日常通勤中常見的雨天與多變天氣，維持正常運作。
+
+                        產品通過 FCC 與 TELEC 雙重認證，
+                        符合通訊與安全規範，提供長期使用的品質保障。
+
+                        內建 900 mAh 鋰聚合物電池，
+                        約 2 小時即可完成充電，
+                        可支援約 20 小時通話時間與 600 小時待機，
+                        滿足每日通勤與長時間使用需求，無需頻繁充電。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/T1/5.png" alt="T1_5" class="w-full h-full object-cover" />
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="buy" class="py-24 bg-zinc-950 border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            
+            <h2 class="text-3xl font-bold mb-6" data-i18n="buy_title">
+            官方直營購買
+            </h2>
+
+            <p class="text-gray-400 mb-10" data-i18n="buy_desc">
+            透過官方直營電商平台購買 T1，享有完整保固與售後支援。
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="globe" class="text-blue-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_west_title" class="text-2xl font-bold text-white">歐美地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Western Markets</p>
+                    </div>
+                    <div class="space-y-4 flex-grow">
+                        <a href="https://www.amazon.com" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon US</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://www.amazon.de" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon Europe</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://www.amazon.uk" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon UK</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>                        
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="map-pin" class="text-red-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_jp_title" class="text-2xl font-bold text-white">日本地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Japan Market</p>
+                    </div>
+                    <div class="space-y-4 flex-grow">
+                        <a href="https://www.amazon.co.jp" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon JP</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://www.rakuten.co.jp" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span data-i18n="platform_rakuten" class="font-medium">Rakuten 樂天市場</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col border-blue-500/20">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="shopping-cart" class="text-emerald-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_tw_title" class="text-2xl font-bold text-white">台灣地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Taiwan Market</p>
+                    </div>
+                    <div class="space-y-4 flex-grow">
+                        <a href="https://iride.1shop.tw/l5c07c" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group border-blue-500/30 bg-blue-500/5">
+                            <span data-i18n="platform_1shop" class="font-medium text-blue-400">1shop 官方店 (推薦)</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-100 text-blue-400"></i>
+                        </a>
+                        <a href="https://www.momoshop.com.tw" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span data-i18n="platform_momo" class="font-medium">momo 購物網</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://shopee.tw" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span data-i18n="platform_shopee" class="font-medium">蝦皮購物 Shopee</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>    
+
+    <section class="py-32 bg-black border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 data-i18n="specs_title" class="text-3xl font-bold mb-16">技術規格</h2>
+            <div class="grid md:grid-cols-2 gap-y-12 gap-x-20">
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_general" class="text-xl text-gray-500 uppercase tracking-widest mb-2">一般規格</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_general_weight">重量：50 克</li>
+                        <li data-i18n="spec_general_pack_weight">含包裝重量：365 克</li>
+                        <li data-i18n="spec_general_compat">相容設備：所有支援藍牙的智慧型裝置</li>
+                        <li data-i18n="spec_general_cert">相關認證：FCC/TELEC</li>
+                        <li data-i18n="spec_general_temp">操作溫度：0°C ~ 50°C</li>
+                        <li data-i18n="spec_general_ip">防水等級：IP67</li>
+                        <li data-i18n="spec_general_design">結構設計： 特殊成型橡膠密封圈、晴雨環境耐候性佳</li>
+                    </ul>
+                </div>
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_intercom" class="text-xl text-gray-500 uppercase tracking-widest mb-2">對講系統</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_intercom_bt">藍牙版本： Bluetooth 5.2</li>
+                        <li data-i18n="spec_intercom_people">最大通話人數：2 人</li>
+                        <li data-i18n="spec_intercom_work_freq">工作頻率：2.4GHz 無線傳輸頻段</li>
+                        <li data-i18n="spec_intercom_music_share">音樂共享：支援</li>                        
+                        <li data-i18n="spec_intercom_range">通訊距離：實測1000公尺</li>
+                        <li data-i18n="spec_intercom_mode">通訊方式：藍牙組網（非Mesh）</li>
+                        <li data-i18n="spec_intercom_assistant">語音助手：支援 Siri / Google Assistant</li>
+                        <li data-i18n="spec_intercom_voice">語音提示：支援日語與英文語音提示通知</li>
+                        <li data-i18n="spec_intercom_fm">FM廣播：支援</li>
+                    </ul>
+                </div>
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_battery" class="text-xl text-gray-500 uppercase tracking-widest mb-2">電池電力</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_battery_capacity">電池規格：900mAh</li>
+                        <li data-i18n="spec_battery_life">續航時間： 20 小時（依使用模式） </li>
+                        <li data-i18n="spec_battery_standby">待機時間：600小時</li>
+                        <li data-i18n="spec_battery_charge_time">充電時間：約2小時即可完成充電</li>
+                        <li data-i18n="spec_battery_port">充電接口：USB Type-C</li>
+                    </ul>
+                </div>
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_audio" class="text-xl text-gray-500 uppercase tracking-widest mb-2">音訊技術</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_audio_speaker">喇叭單體： 40mm 鈦金屬振膜</li>
+                        <li data-i18n="spec_audio_nc">降噪能力： DSP + CVC 雙重降噪</li>
+                    </ul>
+                </div>
+            </div>
+        </div>        
+    </section>
+
+    <div id="footer-placeholder"></div>
+    
+    <script>
+        lucide.createIcons();
+
+        // 語言字典
+        const pageLangData = {
+        zh: {
+            /* ===== Hero ===== */
+            hero_title: "T1",
+            hero_desc: "為城市騎行情境設計，\n滿足每日往返的通訊需求。",
+            cta_buy: "立即選購",
+
+            /* ===== Feature 1 ===== */
+            feat1_title: "穩定連線",
+            feat1_desc:
+            "機車用對講機 T1 採用 Bluetooth 5.2，提供穩定、低延遲的通話體驗，適合日常通勤與城市騎行使用。\n" +
+            "支援 2 人群組通話，在市區或開放道路環境下，最遠通訊距離可達約 1000 公尺。\n" +
+            "當騎士短暫離開有效範圍，只要回到距離內即可自動重新連線，確保通勤途中溝通不中斷。",
+
+            /* ===== Feature 2 ===== */
+            feat2_title: "自由調整",
+            feat2_desc:
+            "可輕鬆更換的 3 款裝飾面板（黑、白、紅），讓外觀依照日常通勤風格簡單調整，保持整體一致性。\n" +
+            "產品採用 3.5 mm 標準耳機端子，可依個人通勤習慣選擇合適的耳機或喇叭配置，在城市騎行環境中提供更清晰、穩定的通話與提示聲音。\n" +
+            "外觀與聲音皆可依需求調整，讓通勤過程維持舒適、自然、不多餘的使用體驗。",
+
+            /* ===== Feature 3 ===== */
+            feat3_title: "清晰音訊",
+            feat3_desc:
+            "T1 支援音訊同步功能，可在騎行中與同伴共享音樂或提示音（依距離與藍牙環境而定），同時內建 FM 收音機，通勤途中可即時收聽交通資訊、天氣廣播或必要訊息。\n" +
+            "搭載高音質 Hi-Fi 音效，結合 DSP 數位訊號處理與 CVC 12.0 降噪技術，並配置專業級抗噪麥克風與 40 mm 大口徑喇叭，在城市騎行環境中有效抑制風噪與背景干擾，確保通話與提示聲音清晰可辨，不影響通勤專注度。",
+
+            /* ===== Feature 4 ===== */
+            feat4_title: "操作效率",
+            feat4_desc:
+            "T1 提供專用 App，支援語音助理與自動接聽功能，並結合聲紋識別技術，通勤騎行時可減少手動操作，讓騎士在移動過程中更專注於路況。\n" +
+            "按鍵配置簡單直覺，即使配戴厚手套也能快速辨識位置並完成操作，提升日常通勤時的使用效率與行駛安全。",
+
+            /* ===== Feature 5 ===== */
+            feat5_title: "可靠耐用",
+            feat5_desc:
+            "具備 IP67 防水防塵等級，可應付日常通勤中常見的雨天與多變天氣，維持正常運作。\n" +
+            "產品通過 FCC 與 TELEC 雙重認證，符合通訊與安全規範，提供長期使用的品質保障。\n" +
+            "內建 900 mAh 鋰聚合物電池，約 2 小時即可完成充電，可支援約 20 小時通話時間與 600 小時待機，滿足每日通勤與長時間使用需求，無需頻繁充電。",
+
+            /* ===== Buy Section ===== */
+            buy_title: "官方直營購買",
+            buy_desc: "透過官方直營電商平台購買 T1，享有完整保固與售後支援。",
+
+            region_west_title: "歐美地區",
+            region_jp_title: "日本地區",
+            region_tw_title: "台灣地區",
+
+            platform_amazon_us: "Amazon US",
+            platform_amazon_eu: "Amazon Europe",
+            platform_amazon_uk: "Amazon UK",
+            platform_amazon_jp: "Amazon JP",
+            platform_rakuten: "Rakuten 樂天市場",
+            platform_1shop: "1shop 官方店（推薦）",
+            platform_momo: "momo 購物網",
+            platform_shopee: "蝦皮購物 Shopee",
+
+            /* ===== Specs ===== */
+            specs_title: "技術規格",
+            specs_cat_general: "一般規格",
+            specs_cat_intercom: "對講系統",
+            specs_cat_battery: "電池電力",
+            specs_cat_audio: "音訊技術",
+
+            spec_general_weight: "重量：50 克",
+            spec_general_pack_weight: "含包裝重量：365 克",
+            spec_general_compat: "相容設備：所有支援藍牙的智慧型裝置",
+            spec_general_cert: "相關認證：FCC/TELEC",
+            spec_general_temp: "操作溫度：0°C ~ 50°C",
+            spec_general_ip: "防水等級：IP67",
+            spec_general_design: "結構設計：特殊成型橡膠密封圈、晴雨環境耐候性佳",
+
+            spec_intercom_bt: "藍牙版本：Bluetooth 5.2",
+            spec_intercom_people: "最大通話人數：2 人",
+            spec_intercom_work_freq: "工作頻率：2.4GHz 無線傳輸頻段",
+            spec_intercom_music_share: "音樂共享：支援",
+            spec_intercom_range: "通訊距離：實測 1000 公尺",
+            spec_intercom_mode: "通訊方式：藍牙組網（非 Mesh）",
+            spec_intercom_assistant: "語音助手：支援 Siri / Google Assistant",
+            spec_intercom_voice: "語音提示：支援日語與英文語音提示通知",
+            spec_intercom_fm: "FM 廣播：支援",
+
+            spec_battery_capacity: "電池規格：900mAh",
+            spec_battery_life: "續航時間：20 小時（依使用模式）",
+            spec_battery_standby: "待機時間：600 小時",
+            spec_battery_charge_time: "充電時間：約 2 小時即可完成充電",
+            spec_battery_port: "充電接口：USB Type-C",
+
+            spec_audio_speaker: "喇叭單體：40mm 鈦金屬振膜",
+            spec_audio_nc: "降噪能力：DSP + CVC 雙重降噪",
+        },
+
+        en: {
+            hero_title: "T1",
+            hero_desc: "Designed for city riding.\nBuilt for everyday communication.",
+            cta_buy: "Shop Now",
+
+            feat1_title: "Stable Connection",
+            feat1_desc:
+            "T1 uses Bluetooth 5.2 to deliver a stable, low-latency calling experience—ideal for daily commuting and city riding.\n" +
+            "Supports 2 riders in group intercom. In urban or open-road environments, the maximum range reaches up to about 1,000 m.\n" +
+            "If a rider briefly goes out of range, the system reconnects automatically once back within range—keeping communication uninterrupted on the commute.",
+
+            feat2_title: "Flexible Customization",
+            feat2_desc:
+            "Three interchangeable decorative panels (black, white, red) let you match your commuting style with a clean, consistent look.\n" +
+            "With a standard 3.5 mm audio jack, you can choose the speaker or earphone setup that fits your routine, delivering clearer calls and prompts in city riding conditions.\n" +
+            "Adjust both appearance and sound to keep the experience comfortable, natural, and distraction-free.",
+
+            feat3_title: "Clear Audio",
+            feat3_desc:
+            "T1 supports audio sharing so you can sync music or prompts with a companion (depending on distance and Bluetooth conditions). It also includes a built-in FM radio for traffic updates, weather broadcasts, and essential information on the go.\n" +
+            "Featuring Hi-Fi sound with DSP processing and CVC 12.0 noise reduction, plus a pro-grade noise-canceling mic and 40 mm speakers, T1 reduces wind and background noise in city environments—keeping calls and prompts clear without affecting focus.",
+
+            feat4_title: "Efficient Operation",
+            feat4_desc:
+            "The dedicated app supports voice assistants and auto-answer, combined with voiceprint recognition to reduce manual operation during commutes—helping riders stay focused on the road.\n" +
+            "Intuitive button layout makes it easy to locate and operate even with thick gloves, improving everyday efficiency and riding safety.",
+
+            feat5_title: "Reliable & Durable",
+            feat5_desc:
+            "Rated IP67 for dust and water resistance, T1 handles rainy days and changing weather common in daily commuting.\n" +
+            "Certified by FCC and TELEC, meeting communication and safety standards for long-term reliability.\n" +
+            "Built-in 900 mAh Li-polymer battery charges in about 2 hours, provides around 20 hours of talk time and 600 hours of standby—reducing the need for frequent charging.",
+
+            buy_title: "Official Purchase Channels",
+            buy_desc: "Purchase T1 through official stores to enjoy full warranty and after-sales support.",
+
+            region_west_title: "US & Europe",
+            region_jp_title: "Japan",
+            region_tw_title: "Taiwan",
+
+            platform_amazon_us: "Amazon US",
+            platform_amazon_eu: "Amazon Europe",
+            platform_amazon_uk: "Amazon UK",
+            platform_amazon_jp: "Amazon JP",
+            platform_rakuten: "Rakuten",
+            platform_1shop: "1shop Official Store (Recommended)",
+            platform_momo: "momo",
+            platform_shopee: "Shopee",
+
+            specs_title: "Specifications",
+            specs_cat_general: "General",
+            specs_cat_intercom: "Intercom",
+            specs_cat_battery: "Battery",
+            specs_cat_audio: "Audio",
+
+            spec_general_weight: "Weight: 50 g",
+            spec_general_pack_weight: "Weight with packaging: 365 g",
+            spec_general_compat: "Compatibility: All Bluetooth-enabled smart devices",
+            spec_general_cert: "Certifications: FCC / TELEC",
+            spec_general_temp: "Operating temperature: 0°C to 50°C",
+            spec_general_ip: "Waterproof rating: IP67",
+            spec_general_design: "Design: Special molded rubber gasket; weather-resistant in rain or shine",
+
+            spec_intercom_bt: "Bluetooth version: Bluetooth 5.2",
+            spec_intercom_people: "Max riders: 2",
+            spec_intercom_work_freq: "Operating frequency: 2.4GHz wireless band",
+            spec_intercom_music_share: "Music sharing: Supported",
+            spec_intercom_range: "Range: 1,000 m (tested)",
+            spec_intercom_mode: "Networking: Bluetooth group connection (non-mesh)",
+            spec_intercom_assistant: "Voice assistant: Siri / Google Assistant supported",
+            spec_intercom_voice: "Voice prompts: Japanese & English supported",
+            spec_intercom_fm: "FM radio: Supported",
+
+            spec_battery_capacity: "Battery capacity: 900mAh",
+            spec_battery_life: "Battery life: 20 hours (depends on usage)",
+            spec_battery_standby: "Standby time: 600 hours",
+            spec_battery_charge_time: "Charging time: About 2 hours to full",
+            spec_battery_port: "Charging port: USB Type-C",
+
+            spec_audio_speaker: "Speaker driver: 40 mm titanium diaphragm",
+            spec_audio_nc: "Noise reduction: DSP + CVC (dual)",
+        },
+
+        jp: {
+            hero_title: "T1",
+            hero_desc: "都市部のライディング向け。\n毎日の移動に必要な通信をしっかりカバー。",
+            cta_buy: "今すぐ購入",
+
+            feat1_title: "安定した接続",
+            feat1_desc:
+            "T1 は Bluetooth 5.2 を採用し、安定した低遅延の通話体験を提供します。日常の通勤や都市部のライディングに最適です。\n" +
+            "2 人のグループ通話に対応し。市街地や開けた道路環境で最大約 1000 m の通信距離を実現します。\n" +
+            "一時的に圏外になっても、範囲内へ戻れば自動再接続し、通勤中の連絡が途切れません。",
+
+            feat2_title: "自由にカスタマイズ",
+            feat2_desc:
+            "交換できる 3 種類の装飾パネル（黒・白・赤）で、通勤スタイルに合わせて外観を手軽に調整できます。\n" +
+            "3.5mm 標準端子により、好みのイヤホンやスピーカー構成を選択可能。都市部の走行環境でも、通話や通知音をよりクリアに保ちます。\n" +
+            "見た目も音も必要に応じて整え、快適で自然、無駄のない使用感を実現します。",
+
+            feat3_title: "クリアな音質",
+            feat3_desc:
+            "T1 は音声同期（オーディオ共有）に対応し、走行中に音楽や通知音を仲間と共有できます（距離や Bluetooth 環境により異なります）。さらに FM ラジオを内蔵し、交通情報や天気放送などをすぐに確認できます。\n" +
+            "Hi-Fi サウンドに DSP 処理と CVC 12.0 ノイズ低減を組み合わせ、耐ノイズマイクと 40mm スピーカーを搭載。都市部の走行でも風切り音や周囲の雑音を抑え、通話・通知音を聞き取りやすく保ちます。",
+
+            feat4_title: "操作効率",
+            feat4_desc:
+            "専用アプリにより、音声アシスタントや自動応答に対応。さらに音声認証技術で手動操作を減らし、通勤時も路況に集中できます。\n" +
+            "ボタン配置は直感的で、厚手のグローブでも位置を把握しやすく、操作性と安全性を高めます。",
+
+            feat5_title: "信頼できる耐久性",
+            feat5_desc:
+            "IP67 防塵防水により、雨天や天候変化のある通勤でも安定して動作します。\n" +
+            "FCC / TELEC の認証を取得し、通信・安全規格に準拠。\n" +
+            "900 mAh のリチウムポリマーバッテリーを内蔵し、約 2 時間で充電完了。通話約 20 時間、待機約 600 時間で、頻繁な充電を減らせます。",
+
+            buy_title: "公式購入チャネル",
+            buy_desc: "公式販売チャネルから T1 を購入すると、正規保証とアフターサポートが受けられます。",
+
+            region_west_title: "欧米地域",
+            region_jp_title: "日本",
+            region_tw_title: "台湾",
+
+            platform_amazon_us: "Amazon US",
+            platform_amazon_eu: "Amazon Europe",
+            platform_amazon_uk: "Amazon UK",
+            platform_amazon_jp: "Amazon JP",
+            platform_rakuten: "楽天市場",
+            platform_1shop: "1shop 公式ストア（おすすめ）",
+            platform_momo: "momo（台湾）",
+            platform_shopee: "Shopee（台湾）",
+
+            specs_title: "仕様",
+            specs_cat_general: "一般仕様",
+            specs_cat_intercom: "インカム",
+            specs_cat_battery: "バッテリー",
+            specs_cat_audio: "オーディオ",
+
+            spec_general_weight: "重量：50g",
+            spec_general_pack_weight: "梱包込み重量：365g",
+            spec_general_compat: "対応機器：Bluetooth 対応スマートデバイス",
+            spec_general_cert: "認証：FCC / TELEC",
+            spec_general_temp: "動作温度：0°C ～ 50°C",
+            spec_general_ip: "防水等級：IP67",
+            spec_general_design: "構造：特殊成型ゴムパッキン／耐候性（雨天・晴天）",
+
+            spec_intercom_bt: "Bluetooth：Bluetooth 5.2",
+            spec_intercom_people: "最大通話人数：2人",
+            spec_intercom_work_freq: "動作周波数：2.4GHz 無線帯",
+            spec_intercom_music_share: "音楽共有：対応",
+            spec_intercom_range: "通信距離：実測 1000m",
+            spec_intercom_mode: "通信方式：Bluetooth 組網（Mesh ではありません）",
+            spec_intercom_assistant: "音声アシスタント：Siri / Google Assistant 対応",
+            spec_intercom_voice: "音声ガイド：日本語／英語 対応",
+            spec_intercom_fm: "FM ラジオ：対応",
+
+            spec_battery_capacity: "バッテリー容量：900mAh",
+            spec_battery_life: "連続使用：20時間（使用状況による）",
+            spec_battery_standby: "待機時間：600時間",
+            spec_battery_charge_time: "充電時間：約 2 時間でフル充電",
+            spec_battery_port: "充電端子：USB Type-C",
+
+            spec_audio_speaker: "スピーカー：40mm チタン振動板",
+            spec_audio_nc: "ノイズ低減：DSP + CVC（二重）",
+        }
+        };
+
+        if (typeof langData !== 'undefined') {
+            Object.keys(pageLangData).forEach((k) => {
+                langData[k] = Object.assign(langData[k] || {}, pageLangData[k]);
+            });
+        } else {
+            // 若全站字典不存在，至少提供一份在 window 上（避免完全失效）
+            window.langData = pageLangData;
+        }
+        
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach((el) => {
+            const key = el.getAttribute('data-i18n');
+            const val = (window.langData && window.langData[lang]) ? window.langData[lang][key] : undefined;
+            if (val === undefined || val === null) return;
+
+            // 讓字典可以用 \n 代表換行
+            const html = String(val).replace(/\n/g, '<br>');
+
+            // input / textarea：翻譯 placeholder 或 value
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                if (el.hasAttribute('placeholder')) el.setAttribute('placeholder', String(val));
+                else el.value = String(val);
+                return;
+            }
+
+            // 一般元素：用 innerHTML 才能讓 <br> 生效
+            el.innerHTML = html;
+        });
+
+        window.onload = () => changeLang(localStorage.getItem('lang') || 'zh');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

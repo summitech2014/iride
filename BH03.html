@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J-Trek & iRide | 頂尖電子通訊專家</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #f5f5f7;
+            overflow-x: hidden;
+        }
+
+        .apple-gradient-text {
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* ===== BH03 Hero Slider ===== */
+        #overview .hero-slide{
+            position:absolute;
+            inset:0;
+            background-size:cover;
+            background-position:center;
+            opacity:0;
+            transition: opacity 1.4s ease;
+            transform: scale(1.02);
+        }
+
+        #overview .hero-slide.active{
+            opacity:1;
+        }
+
+        #overview .hero-slide::after{
+            content:"";
+            position:absolute;
+            inset:0;
+            background: rgba(0,0,0,.45); /* 單色遮罩：不想漸層就用這個 */
+        }
+
+        #overview .hero-dots button{
+            width:10px;
+            height:10px;
+            border-radius:999px;
+            border:none;
+            background: rgba(255,255,255,.35);
+            cursor:pointer;
+        }
+
+        #overview .hero-dots button.active{
+            background: rgba(255,255,255,.95);
+        }        
+
+        /* Fade in/out on scroll */
+        .fade-on-scroll{
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity .8s ease, transform .8s ease;
+            will-change: opacity, transform;
+        }
+
+        .fade-on-scroll.is-visible{
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce){
+            .fade-on-scroll{
+                transition: none;
+                transform: none;
+            }
+        }        
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 下拉選單動畫 */
+        /* 確保下拉選單觸發區域連續，防止點不到 */
+        .dropdown { 
+            position: relative; 
+        }
+
+        /* 核心修正：讓選單緊貼頂部，並在上方加入透明填充，作為滑鼠移動的橋樑 */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* 緊貼父元素底部 */
+            left: 0;
+            z-index: 200;
+            padding-top: 10px; /* 關鍵：增加透明填充，防止滑鼠移動時斷掉 */
+        }
+
+        /* 滑鼠移入時顯示 */
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        /* 巢狀選單 (Nested Menu) 的修正 */
+        .nested-menu {
+            display: none;
+            position: absolute;
+            left: 100%; /* 從右側彈出 */
+            top: 0;
+            padding-left: 5px; /* 側邊的透明橋樑 */
+        }
+
+        .nested-dropdown:hover > .nested-menu {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== Lifestyle BG switch ===== */
+        .lifestyle-img{
+            position:absolute;
+            inset:0;              /* ✅ 貼齊四邊：左/右/上/下 */
+            width:100%;
+            height:100%;
+            object-fit:cover;     /* ✅ 滿版裁切 */
+            opacity:1;            /* ✅ 整張完整顯示（不透明） */
+            filter:none;          /* ✅ 不要濾鏡 */
+            transition: opacity .25s ease;
+        }
+
+        /* tags 外觀（把 span 改 button） */
+        .lifestyle-chip{
+            padding: .5rem 1.25rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,.30);
+            color: #fff;
+            background: rgba(0,0,0,.10);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform .15s ease, border-color .15s ease, background .15s ease;
+        }
+        
+
+        .lifestyle-chip:hover{
+            transform: translateY(-1px);
+            border-color: rgba(255,255,255,.55);
+            background: rgba(255,255,255,.06);
+        }
+
+        .lifestyle-chip.is-active{
+            border-color: rgba(59,130,246,.65); /* 藍色高亮（跟你主視覺一致） */
+            background: rgba(59,130,246,.10);
+        }
+
+        /* 手機：背景圖改滿版（仍以右側視覺為主） */
+        @media (max-width: 768px){
+            .lifestyle-img{
+                width:100%;
+                opacity:.45;
+            }
+            .lifestyle-overlay{
+                background: linear-gradient(
+                180deg,
+                rgba(0,0,0,.85) 0%,
+                rgba(0,0,0,.55) 40%,
+                rgba(0,0,0,.20) 70%,
+                rgba(0,0,0,.10) 100%
+                );
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <script src="components.js"></script>
+
+    <section id="overview" class="relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+
+        <!-- ✅ 背景輪播（只換背景，不動文字） -->
+        <div class="absolute inset-0 -z-20">
+            <div class="hero-slide active"
+                data-link="BH03.html"
+                style="background-image:url('image/BH03/BH03_banner1.png')">
+            </div>
+
+            <div class="hero-slide"
+                data-link="BH03.html"
+                style="background-image:url('image/BH03/BH03_banner2.png')">
+            </div>
+
+            <div class="hero-slide"
+                data-link="BH03.html"
+                style="background-image:url('image/BH03/BH03_banner3.png')">
+            </div>
+
+            <div class="hero-slide"
+                data-link="BH03.html"
+                style="background-image:url('image/BH03/BH03_banner4.png')">
+            </div>                
+        </div>
+
+        <div class="max-w-4xl mx-auto z-10 fade-on-scroll">
+            <h2 data-i18n="hero_badge" class="text-blue-500 font-semibold tracking-wide uppercase text-sm md:text-base mb-4">全新發布</h2>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 text-white">
+                BikTok <span class="text-gray-500">BH-03</span>
+            </h1>
+            <p data-i18n="hero_slogan" class="text-xl md:text-3xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                輕若無物，連結無限。<br>
+                專為戶外運動打造的極致通訊體驗。
+            </p>
+
+            <div class="mt-8 flex items-center justify-center space-x-3 text-blue-400">
+                <div class="flex items-center hover:text-blue-300 cursor-pointer transition-colors">
+                    <span data-i18n="hero_watch">觀看影片</span> <i data-lucide="play-circle" class="w-5 h-5 ml-2"></i>
+                </div>
+                <div class="flex items-center hover:text-blue-300 cursor-pointer transition-colors">
+                    <a data-i18n="hero_buy" href="#buy">立即選購</a> <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 md:mt-6 w-full mx-auto relative z-10 fade-on-scroll delay-100 flex justify-center">
+            <!-- ⚠️ 你這裡目前 w-10 h-10 太小，建議改成 w-full -->
+            <img src="image/product/BH03.png" alt="BikTok BH-03"
+                class="w-[280px] md:w-[420px] lg:w-[520px] h-auto object-contain
+                drop-shadow-2xl transform hover:scale-105 transition-transform duration-700">
+        </div>
+
+        <!-- Background Glow 保留也可以（你想要更乾淨可刪） -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/20 rounded-full blur-[120px] -z-10"></div>
+
+        <!-- ✅ 圓點 -->
+        <div class="hero-dots absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-3"></div>
+    </section>
+
+    <!-- Lightness Section -->
+    <section class="py-32 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div class="fade-on-scroll">
+                    <h2 class="text-4xl md:text-6xl font-bold mb-6 text-white">
+                        <span data-i18n="light_title_main">30g</span><br>
+                        <span data-i18n="light_title_sub" class="text-gray-500 text-3xl md:text-5xl">極致輕量化</span>
+                    </h2>
+                    <p data-i18n="light_desc" class="text-gray-400 text-lg md:text-xl leading-relaxed mb-8">
+                        BH-03專為高性能騎乘追求速度而生，我們挑戰了物理極限，以超輕的結構剔除多餘線條，減輕負擔。J-Trek 工程團隊將強大功能壓縮在羽毛般輕盈的機身中。
+                        僅重30克，確保功能的完整性的同時，長時間佩戴也毫無負擔。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                     <img src="image/BH03/1.png" alt="BH03_1" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/BH03/2.png" alt="BH03_2" class="w-full h-full object-cover" />
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 class="text-4xl md:text-6xl font-bold mb-6 text-white">
+                        <span data-i18n="noise_title_main" 抗風噪通話技術></span><br>
+                        <span data-i18n="noise_title_sub" class="text-gray-500 text-3xl md:text-5xl">只聽見你想聽的</span>
+                    </h2>
+                    <p data-i18n="noise__desc" data-i18n="feat2_desc" class="text-gray-400 text-lg leading-relaxed">
+                        在風中馳騁，寧靜隨行的是內建 CVC 智慧降噪運算法，精準分離人聲與背景風切聲，即使高速的環境中，對話依然如在耳邊，更搭配aptX-HD 發燒級音訊編碼，低音深沉澎湃，高音清透嘹亮——讓每一個細節，都還原音樂最真實的感動。
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-bold mb-6 text-white">
+                        <span data-i18n="mount_title_main">兩種寬度專利扣具</span><br>
+                        <span data-i18n="mount_title_sub" class="text-gray-500 text-3xl md:text-5xl">完美適配</span>
+                    </h2>
+                    <p data-i18n="mount__desc" data-i18n="feat3_desc" class="text-gray-400 text-lg leading-relaxed">
+                        為1/2 頭盔而生的通訊革命。隨附兩種寬度專利扣具，可安裝於 99% 的 Y 型帶頭盔，無需黏貼，安裝僅需數秒。安裝靈活度非常適合用於公路騎行、滑雪、家庭活動，甚至可以帶到各類探險活動中，多元場景任你切換，自由溝通，無極限，開啟無限可能。
+                        不只靈活，更強悍。機身具備 IP65 防水防塵等級，無論是公路騎行的汗水、滑雪場的風雪，還是探險途中的泥濘，都能從容應對。 從城市通勤到極限探險，多元場景自由切換。自由溝通，本該如此無拘無束。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/BH03/3.png" alt="BH03_3" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+    </section>    
+
+    <!-- Features Grid -->
+    <section id="features" class="py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-center mb-12 md:mb-16">
+                <span class="block text-4xl md:text-6xl font-extrabold tracking-tight text-white">
+                <span data-i18n="features_title_prefix">多人連線，</span>
+                <span data-i18n="features_title_highlight" class="text-blue-500">團隊隨行。</span>
+                </span>
+
+                <span data-i18n="features_desc" class="block mt-5 text-sm md:text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto">
+                    透過藍牙 5.4 網狀通訊技術，支援多達 8 人群組對講。<br>距離更遠，連線更穩。
+                </span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Feature 1: 10-Way Intercom -->
+                <div class="group relative bg-zinc-900 rounded-[30px] overflow-hidden aspect-[4/3] md:col-span-2 border border-white/5 fade-on-scroll">
+                    <div class="absolute inset-0">
+                        <img src="image/BH03/4.png" alt="BH03_4" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700 ease-in-out">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-8 md:p-12">
+                        <h3 data-i18n="features_card1_title" class="text-3xl md:text-4xl font-bold text-white mb-3">8 人群組對講</h3>
+                        <p data-i18n="features_card1_desc" class="text-gray-300 text-lg max-w-lg">
+                            支援多達 8 人的實時通訊。無論車隊拉得多長，聲音始終清晰如面談。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Highlight Cards -->
+    <section class="py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+            <!-- 左：大卡（Voice Assistant / 盲操作設計） -->
+            <div class="relative rounded-[28px] overflow-hidden bg-zinc-900/80 border border-white/5 min-h-[340px] lg:min-h-[420px] fade-on-scroll">
+                <!-- 背景圖 -->
+                <img
+                src="image/BH03/5.png"
+                alt="Voice Assistant"
+                class="absolute inset-0 w-full h-full object-cover opacity-70"
+                />
+                <!-- 單色遮罩（不漸層） -->
+                <div class="absolute inset-0 bg-black/45"></div>
+
+                <!-- 內容 -->
+                <div class="relative z-10 h-full p-8 flex flex-col justify-end">
+                    <div class="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/15 border border-blue-400/20">
+                        <i data-lucide="mic" class="w-6 h-6 text-blue-400"></i>
+                    </div>
+
+                    <h3 data-i18n="highlight_control_title" class="text-3xl md:text-4xl font-bold text-white mb-3">盲操作設計</h3>
+
+                    <p data-i18n="highlight_control_desc" class="text-gray-300 max-w-xl leading-relaxed">
+                        特大物理按鍵，戴手套也能精準控制。一鍵喚醒語音助理。
+                    </p>
+                </div>
+
+                <!-- 產品圖（可選：你要像截圖那樣放左上角浮在上面） -->
+                <img
+                src="image/BH03/6.png"
+                alt="BH03"
+                class="absolute left-6 top-6 w-[180px] md:w-[220px] opacity-85 pointer-events-none drop-shadow-2xl"
+                />
+            </div>
+
+            <!-- 右：上下兩張小卡 -->
+            <div class="grid grid-rows-2 gap-8">
+
+                <!-- 右上：15 小時 -->
+                <div class="relative rounded-[28px] overflow-hidden bg-zinc-900/80 border border-white/5 p-8 fade-on-scroll">
+                <div class="flex items-start justify-between gap-6">
+                    <div>
+                        <div data-i18n="highlight_battery_value" class="text-emerald-400 text-4xl font-extrabold leading-none">15 小時</div>
+                        <div data-i18n="highlight_battery_desc" class="text-gray-400 mt-2">超長續航力（400mAh）</div>
+                    </div>
+                </div>
+
+                <!-- 進度條 -->
+                <div class="mt-6 h-2 rounded-full bg-white/10 overflow-hidden">
+                    <div class="h-full w-[88%] bg-emerald-400/90 rounded-full"></div>
+                </div>
+                </div>
+
+                <!-- 右下：IP65 -->
+                <div class="relative rounded-[28px] overflow-hidden bg-zinc-900/80 border border-white/5 min-h-[220px] fade-on-scroll">
+                <!-- 背景圖（產品側躺圖） -->
+                <img
+                    src="image/BH03/7.png"
+                    alt="IP65"
+                    class="absolute inset-0 w-full h-full object-cover"
+                />
+                <div class="absolute inset-0 bg-black/35"></div>
+
+                <div class="relative z-10 h-full p-8 flex flex-col justify-end">
+                    <div data-i18n="highlight_ip_value" class="text-white text-5xl font-extrabold leading-none">IP65</div>
+                    <div data-i18n="highlight_ip_desc" class="text-gray-300 mt-2">防塵防水等級，無懼風雨。</div>
+                </div>
+                </div>
+
+            </div>
+            </div>
+        </div>
+    </section>    
+
+    <!-- Lifestyle Section -->
+    <section id="lifestyle" class="py-24 bg-zinc-900 relative overflow-hidden">
+        <!-- 背景層：右側圖片 + 左側黑漸層 -->
+        <div class="absolute inset-0 pointer-events-none">
+            <!-- ✅ 右側圖片（靠右） -->
+            <img
+            id="lifestyleBg"
+            src="image/BH03/8.png"
+            alt="Lifestyle"
+            class="lifestyle-img"
+            />
+
+            <!-- ✅ 左側黑色漸層（往右透明） -->
+            <div class="lifestyle-overlay"></div>
+        </div>
+
+        <!-- 內容層 -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col justify-center min-h-[60vh] fade-on-scroll">
+            <h2 data-i18n="lifestyle_title" class="text-5xl md:text-7xl font-bold text-white mb-6">不只是通訊<br>更是生活</h2>
+
+            <p data-i18n="lifestyle_desc" class="text-xl md:text-2xl text-gray-300 max-w-xl">
+                適用於多種 1/2 頭盔場景。從城市通勤到極限滑雪，BikTok 都是您保持連結的最佳裝備。
+            </p>
+
+            <!-- ✅ tags：桌機 hover / 手機點選 -->
+            <div class="mt-10 flex flex-wrap gap-4" id="lifestyleTags">
+                <button type="button"
+                    class="lifestyle-chip is-active"
+                    data-img="image/BH03/8.png">
+                    <span data-i18n="lifestyle_tag_bike">單車</span>
+                </button>
+
+                <button type="button"
+                    class="lifestyle-chip"
+                    data-img="image/BH03/9.png">
+                    <span data-i18n="lifestyle_tag_ski">滑雪</span>
+                </button>
+
+                <button type="button"
+                    class="lifestyle-chip"
+                    data-img="image/BH03/10.png">
+                    <span data-i18n="lifestyle_tag_skate">滑板</span>
+                </button>
+
+                <button type="button"
+                    class="lifestyle-chip"
+                    data-img="image/BH03/11.png">
+                    <span data-i18n="lifestyle_tag_climb">攀岩</span>
+                </button>
+
+                <button type="button"
+                    class="lifestyle-chip"
+                    data-img="image/BH03/12.png">
+                    <span data-i18n="lifestyle_tag_family">親子活動</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="buy" class="py-24 bg-zinc-950 border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            
+            <h2 data-i18n="buy_title" class="text-5xl font-bold mb-6" data-i18n="buy_title">
+                準備好出發了嗎？
+            </h2>
+
+            <p data-i18n="buy_desc1" class="text-gray-400 mb-3" data-i18n="buy_title2">
+            立即購買體驗 BikTok 帶來的自由通訊。
+            </p>            
+
+            <p data-i18n="buy_desc2" class="text-gray-400 mb-10" data-i18n="buy_desc">
+            透過官方直營電商平台購買 BH03，享有完整保固與售後支援。
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="globe" class="text-blue-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_west_title" class="text-2xl font-bold text-white">歐美地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Western Markets</p>
+                    </div>
+                    <div class="space-y-4 flex-grow">
+                        <a href="https://www.amazon.com" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon US</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://www.amazon.de" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon Europe</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://www.amazon.uk" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon UK</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>                        
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="map-pin" class="text-red-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_jp_title" class="text-2xl font-bold text-white">日本地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Japan Market</p>
+                    </div>
+                    <div class="space-y-4 flex-grow">
+                        <a href="https://www.amazon.co.jp" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon JP</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://www.rakuten.co.jp" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span data-i18n="platform_rakuten" class="font-medium">Rakuten 樂天市場</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col border-blue-500/20">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="shopping-cart" class="text-emerald-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_tw_title" class="text-2xl font-bold text-white">台灣地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Taiwan Market</p>
+                    </div>
+                    <div class="space-y-4 flex-grow">
+                        <a href="https://iride.1shop.tw/l5c07c" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group border-blue-500/30 bg-blue-500/5">
+                            <span data-i18n="platform_1shop" class="font-medium text-blue-400">1shop 官方店 (推薦)</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-100 text-blue-400"></i>
+                        </a>
+                        <a href="https://www.momoshop.com.tw" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span data-i18n="platform_momo" class="font-medium">momo 購物網</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://shopee.tw" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span data-i18n="platform_shopee" class="font-medium">蝦皮購物 Shopee</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>  
+
+    <!-- Specs Section -->
+    <section id="specs" class="py-24 bg-zinc-900">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 data-i18n="specs_title" class="text-3xl font-bold text-white mb-12 border-b border-gray-700 pb-4">技術規格</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-16 text-gray-300">
+                <div class="space-y-1">
+                    <p data-i18n="specs_cat_general" class="text-sm font-medium text-gray-500 uppercase tracking-wider">一般規格</p>
+                    <p data-i18n="specs_general_weight" class="text-lg text-white">重量（主機）：30 克</p>
+                    <p data-i18n="specs_general_compat" class="text-lg text-white">相容設備： 所有支援藍牙的智慧型裝置</p>
+                    <p data-i18n="specs_general_voice_assistant" class="text-lg text-white">語音助手： 支援 Siri / Google Assistant</p>
+                    <p data-i18n="specs_general_waterproof" class="text-lg text-white">防水等級：IP67級</p>                    
+                </div>
+                
+                <div class="space-y-1">
+                    <p data-i18n="specs_cat_intercom" class="text-sm font-medium text-gray-500 uppercase tracking-wider">對講系統</p>
+                    <p data-i18n="specs_intercom_bt" class="text-lg text-white">藍牙版本：Bluetooth 5.4</p>
+                    <p data-i18n="specs_intercom_range" class="text-lg text-white">通信最大距離：500公尺</p>
+                    <p data-i18n="specs_intercom_riders" class="text-lg text-white">通信人數： 6 ~ 8人</p>
+                    <p data-i18n="specs_intercom_antenna" class="text-lg text-white">對講天線：內置天線</p>
+                </div>
+
+                <div class="space-y-1">
+                    <p data-i18n="specs_cat_battery" class="text-sm font-medium text-gray-500 uppercase tracking-wider">電池電力</p>
+                    <p data-i18n="specs_battery_capacity" class="text-lg text-white">電池規格：400mAh 鋰聚合物電池</p>
+                    <p data-i18n="specs_battery_talk" class="text-lg text-white">通話/對講續航時間：15 小時</p>
+                    <p data-i18n="specs_battery_music" class="text-lg text-white">音樂播放時間：11 小時</p>
+                    <p data-i18n="specs_battery_standby" class="text-lg text-white">待機續航時間：40小時</p>
+                    <p data-i18n="specs_battery_charge_time" class="text-lg text-white">充電時間：30分鐘可充電至80%, 1 小時即可完成充電</p>
+                    <p data-i18n="specs_battery_ovp" class="text-lg text-white">充電過壓保護(OVP)：支援</p>
+                    <p data-i18n="specs_battery_port" class="text-lg text-white">充電接口：USB Type-C</p>
+
+                </div>
+
+                <div class="space-y-1">
+                    <p data-i18n="specs_cat_audio" class="text-sm font-medium text-gray-500 uppercase tracking-wider">音訊技術</p>
+                    <p data-i18n="specs_audio_noise_reduction" class="text-lg text-white">降噪能力：Qualcomm® CVC™ 降噪技術</p>
+                    <p data-i18n="specs_audio_codec" class="text-lg text-white">音訊編碼：aptX-HD 高解析音質</p>
+                    <p data-i18n="specs_audio_hifi" class="text-lg text-white">立體聲HIFI音質：支援</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+    
+    <script>
+        lucide.createIcons();
+
+        // 語言字典
+        const pageLangData = {
+            zh: {
+                /* ===== Hero ===== */
+                hero_badge: '全新發布',
+                hero_slogan: '輕若無物，連結無限。\n專為戶外運動打造的極致通訊體驗。',
+                hero_watch: '觀看影片',
+                hero_buy: '立即選購',
+
+                /* ===== Lightness Section ===== */ 
+                light_title_main: "30g",
+                light_title_sub: "極致輕量化",
+                light_desc:"BH-03 專為高性能騎乘而生，我們挑戰物理極限，以超輕結構剔除多餘線條，減輕配戴負擔。J-Trek 工程團隊將強大功能濃縮於羽毛般輕盈的機身中。僅重 30 克，在保有完整功能的同時，長時間配戴依然舒適無負擔。",
+
+                noise_title_main: "抗風噪通話技術",
+                noise_title_sub: "只聽見你想聽的",
+                noise__desc:"在風中馳騁，寧靜隨行的是內建 CVC 智慧降噪運算法，精準分離人聲與背景風切聲，即使高速的環境中，對話依然如在耳邊，更搭配aptX-HD 發燒級音訊編碼，低音深沉澎湃，高音清透嘹亮——讓每一個細節，都還原音樂最真實的感動。",
+
+                mount_title_main: "兩種寬度專利扣具",
+                mount_title_sub: "完美適配",
+                mount__desc:"為1/2 頭盔而生的通訊革命。隨附兩種寬度專利扣具，可安裝於 99% 的 Y 型帶頭盔，無需黏貼，安裝僅需數秒。安裝靈活度非常適合用於公路騎行、滑雪、家庭活動，甚至可以帶到各類探險活動中，多元場景任你切換，自由溝通，無極限，開啟無限可能。 不只靈活，更強悍。機身具備 IP65 防水防塵等級，無論是公路騎行的汗水、滑雪場的風雪，還是探險途中的泥濘，都能從容應對。 從城市通勤到極限探險，多元場景自由切換。自由溝通，本該如此無拘無束。",
+                
+                /* ===== Features Grid ===== */
+                features_title_prefix: "多人連線，",
+                features_title_highlight: "團隊隨行。",
+                features_desc: "透過藍牙 5.4 網狀通訊技術，支援多達 8 人群組對講。\n距離更遠，連線更穩。",
+                features_card1_title: "8 人群組對講",
+                features_card1_desc: "支援多達 8 人的實時通訊。無論車隊拉得多長，聲音始終清晰如面談。",                
+
+                //
+                highlight_control_title: "盲操作設計",
+                highlight_control_desc: "特大物理按鍵，戴手套也能精準控制。一鍵喚醒語音助理。",
+
+                highlight_battery_value: "15 小時",
+                highlight_battery_desc: "超長續航力（400mAh）",
+
+                highlight_ip_value: "IP65",
+                highlight_ip_desc: "防塵防水等級，無懼風雨。",
+
+                //
+                lifestyle_title: "不只是通訊\n更是生活",
+                lifestyle_desc: "適用於多種 1/2 頭盔場景。從城市通勤到極限滑雪，BikTok 都是您保持連結的最佳裝備。",
+                lifestyle_tag_bike: "單車",
+                lifestyle_tag_ski: "滑雪",
+                lifestyle_tag_skate: "滑板",
+                lifestyle_tag_climb: "攀岩",
+                lifestyle_tag_family: "親子活動",
+
+                //
+                buy_title: '準備好出發了嗎？',
+                buy_desc1: '立即購買體驗 BikTok 帶來的自由通訊。',
+                buy_desc2: '透過官方直營電商平台購買 BH03，享有完整保固與售後支援。',                
+
+                region_west_title: '歐美地區',
+                region_jp_title: '日本地區',
+                region_tw_title: '台灣地區',
+
+                platform_amazon_us: 'Amazon US',
+                platform_amazon_eu: 'Amazon Europe',
+                platform_amazon_jp: 'Amazon JP',
+                platform_rakuten: 'Rakuten 樂天市場',
+                platform_1shop: '1shop 官方店 (推薦)',
+                platform_momo: 'momo 購物網',
+                platform_shopee: '蝦皮購物 Shopee',
+
+                //
+                specs_title: "技術規格",
+
+                specs_cat_general: "一般規格",
+                specs_general_weight: "重量（主機）：30 克",
+                specs_general_compat: "相容設備：所有支援藍牙的智慧型裝置",
+                specs_general_voice_assistant: "語音助手：支援 Siri / Google Assistant",
+                specs_general_waterproof: "防水等級：IP67級",
+
+                specs_cat_intercom: "對講系統",
+                specs_intercom_bt: "藍牙版本：Bluetooth 5.4",
+                specs_intercom_range: "通信最大距離：500 公尺",
+                specs_intercom_riders: "通信人數：6 ~ 8 人",
+                specs_intercom_antenna: "對講天線：內置天線",
+
+                specs_cat_battery: "電池電力",
+                specs_battery_capacity: "電池規格：400mAh 鋰聚合物電池",
+                specs_battery_talk: "通話/對講續航時間：15 小時",
+                specs_battery_music: "音樂播放時間：11 小時",
+                specs_battery_standby: "待機續航時間：40 小時",
+                specs_battery_charge_time: "充電時間：30 分鐘可充電至 80%，1 小時即可完成充電",
+                specs_battery_ovp: "充電過壓保護（OVP）：支援",
+                specs_battery_port: "充電接口：USB Type-C",
+
+                specs_cat_audio: "音訊技術",
+                specs_audio_noise_reduction: "降噪能力：Qualcomm® CVC™ 降噪技術",
+                specs_audio_codec: "音訊編碼：aptX-HD 高解析音質",
+                specs_audio_hifi: "立體聲 HIFI 音質：支援",
+            },
+
+            en: {
+                /* ===== Hero ===== */
+                hero_badge: 'New Release',
+                hero_slogan: 'Featherlight. Limitless connection.\nUltimate communication designed for outdoor sports.',
+                hero_watch: 'Watch Video',
+                hero_buy: 'Shop Now',
+
+                /* ===== Lightness Section ===== */
+                light_title_main: "30g",
+                light_title_sub: "Ultra Lightweight",
+                light_desc:
+                "BH-03 is built for high-performance riding. We push the limits with an ultra-light structure that removes unnecessary bulk to reduce wearing fatigue. The J-Trek engineering team packs powerful features into a featherlight body.At just 30g, it stays comfortable even during long rides—without compromising functionality.",
+
+                noise_title_main: "Wind Noise Reduction",
+                noise_title_sub: "Hear Only What Matters",
+                noise__desc:"Ride into the wind with calm clarity. Built-in CVC intelligent noise reduction precisely separates your voice from wind noise, keeping conversations clear even at high speeds. Paired with aptX-HD high-fidelity audio, it delivers deep, powerful bass and crisp, brilliant highs—bringing every detail back to the music as it was meant to be heard.",
+
+                mount_title_main: "Dual-Width Patented Clips",
+                mount_title_sub: "Perfect Fit",
+                mount__desc:"A communication upgrade made for half helmets. Included are two patented strap clips in different widths, fitting up to 99% of Y-strap helmets—no adhesive required, and installation takes only seconds. The flexible mounting is perfect for road riding, snow sports, family activities, and all kinds of adventures. Switch freely between scenarios and stay connected without limits. Not just flexible—also tough. With an IP65 dust and water resistance rating, it handles sweat on the road, snow and wind on the slopes, and mud on the trail with confidence. From city rides to extreme adventures, switch seamlessly—because true communication should feel this free.",                                
+
+                /* ===== Features Grid ===== */
+                features_title_prefix: "Multi-rider connection,",
+                features_title_highlight: "stay together.",
+                features_desc: "Powered by Bluetooth 5.4 mesh communication, supports up to 8 riders in group intercom.Longer range, more stable connection.",
+                features_card1_title: "8-Way Group Intercom",
+                features_card1_desc: "Real-time communication for up to 8 riders. No matter how far your group spreads out, voices stay clear and consistent.",
+
+                //
+                highlight_control_title: "Glove-Friendly Control",
+                highlight_control_desc: "Oversized physical buttons for precise control—even with gloves on. One press to activate your voice assistant.",
+
+                highlight_battery_value: "15 Hours",
+                highlight_battery_desc: "Extended battery life (400mAh)",
+
+                highlight_ip_value: "IP65",
+                highlight_ip_desc: "Dust and water resistant for all-weather use.",
+
+                //
+                lifestyle_title: "More than communication,\nit’s a lifestyle",
+                lifestyle_desc: "Designed for a wide range of half-helmet scenarios. From city rides to extreme snow sports, BikTok keeps you connected when it matters.",
+                lifestyle_tag_bike: "Cycling",
+                lifestyle_tag_ski: "Skiing",
+                lifestyle_tag_skate: "Skateboarding",
+                lifestyle_tag_climb: "Climbing",
+                lifestyle_tag_family: "Family",
+
+                //
+                buy_title: 'Ready to go?',
+                buy_desc1: 'Get yours now and experience the freedom of BikTok communication.',
+                buy_desc2: 'Buy BH03 from official stores to enjoy full warranty and after-sales support.',
+
+                region_west_title: 'US & Europe',
+                region_jp_title: 'Japan',
+                region_tw_title: 'Taiwan',
+
+                platform_amazon_us: 'Amazon US',
+                platform_amazon_eu: 'Amazon Europe',
+                platform_amazon_jp: 'Amazon Japan',
+                platform_rakuten: 'Rakuten',
+                platform_1shop: '1shop Official Store (Recommended)',
+                platform_momo: 'momo',
+                platform_shopee: 'Shopee',
+
+                //
+                specs_title: "Specifications",
+
+                specs_cat_general: "General",
+                specs_general_weight: "Weight (unit): 30 g",
+                specs_general_compat: "Compatible devices: Any Bluetooth-enabled smart device",
+                specs_general_voice_assistant: "Voice assistant: Siri / Google Assistant supported",
+                specs_general_waterproof: "Waterproof rating: IP67",
+
+                specs_cat_intercom: "Intercom",
+                specs_intercom_bt: "Bluetooth version: Bluetooth 5.4",
+                specs_intercom_range: "Max communication range: 500 m",
+                specs_intercom_riders: "Group size: 6–8 riders",
+                specs_intercom_antenna: "Intercom antenna: Built-in",
+
+                specs_cat_battery: "Battery",
+                specs_battery_capacity: "Battery: 400mAh Li-Polymer",
+                specs_battery_talk: "Talk/Intercom time: 15 hours",
+                specs_battery_music: "Music playback time: 11 hours",
+                specs_battery_standby: "Standby time: 40 hours",
+                specs_battery_charge_time: "Charging time: 80% in 30 minutes; full charge in 1 hour",
+                specs_battery_ovp: "Over-voltage protection (OVP): Supported",
+                specs_battery_port: "Charging port: USB Type-C",
+
+                specs_cat_audio: "Audio",
+                specs_audio_noise_reduction: "Noise reduction: Qualcomm® CVC™",
+                specs_audio_codec: "Audio codec: aptX-HD high-definition audio",
+                specs_audio_hifi: "Stereo Hi-Fi: Supported",
+            },
+
+            jp: {
+                /* ===== Hero ===== */
+                hero_badge: '新発売',
+                hero_slogan: '軽やかに、限界なくつながる。\nアウトドアスポーツのための究極コミュニケーション。',
+                hero_watch: '動画を見る',
+                hero_buy: '今すぐ購入',
+
+                /* ===== Lightness Section ===== */  
+                light_title_main: "30g",
+                light_title_sub: "超軽量設計",
+                light_desc:"BH-03 は高性能ライディングのために設計されました。超軽量構造で無駄を削ぎ落とし、装着負担を低減。J-Trek の開発チームが必要な機能を軽量ボディに凝縮しています。わずか 30g で、機能性を保ちながら長時間でも快適に使用できます。",
+
+                noise_title_main: "風切り音低減技術",
+                noise_title_sub: "聞きたい音だけを",
+                noise__desc:"風の中を駆け抜けても、静けさはそのまま。内蔵の CVC インテリジェントノイズリダクションが人の声と風切り音を的確に分離し、高速走行時でも会話をクリアに保ちます。さらに aptX-HD 高音質コーデックに対応し、深く力強い低音と澄み渡る高音で——音楽の細部まで、ありのままの感動を再現します。",
+
+                mount_title_main: "2 種類幅の特許クリップ",
+                mount_title_sub: "完璧にフィット",
+                mount__desc:"1/2 ヘルメットのためのコミュニケーション革命。幅の異なる 2 種類の特許クリップが付属し、Y ストラップ式ヘルメットの 99% に対応します。粘着不要で、装着はわずか数秒。ロードライド、スノースポーツ、ファミリーアクティビティ、さまざまな冒険シーンまで幅広く活躍し、シーンを自由に切り替えて、制限なくつながれます。柔軟性だけでなく、タフさも。IP65 の防塵防水性能により、走行中の汗、ゲレンデの風雪、冒険中の泥にも安心して対応。街中からハードなアドベンチャーまでシームレスに切り替えられる——自由なコミュニケーションは、こうあるべきです。",                               
+
+                /* ===== Features Grid ===== */
+                features_title_prefix: "複数人接続、",
+                features_title_highlight: "仲間と走る。",
+                features_desc: "Bluetooth 5.4 メッシュ通信により、最大 8 人のグループ通話に対応。\nより遠くまで、より安定してつながります。",
+                features_card1_title: "8人グループ通話",
+                features_card1_desc: "最大 8 人までリアルタイムで通話可能。隊列が伸びても、声はクリアで安定します。",
+
+                //
+                highlight_control_title: "グローブ対応操作",
+                highlight_control_desc: "大きな物理ボタンで、手袋をしたままでも確実に操作。ワンタッチで音声アシスタントを起動できます。",
+
+                highlight_battery_value: "15時間",
+                highlight_battery_desc: "ロングバッテリー（400mAh）",
+
+                highlight_ip_value: "IP65",
+                highlight_ip_desc: "防塵・防水等級。雨風の中でも安心。",
+
+                //
+                lifestyle_title: "通話だけじゃない。\nライフスタイルになる。",
+                lifestyle_desc: "1/2 ヘルメットのさまざまなシーンに対応。街中の移動からスノースポーツまで、BikTok がつながりを支えます。",
+                lifestyle_tag_bike: "サイクリング",
+                lifestyle_tag_ski: "スキー",
+                lifestyle_tag_skate: "スケートボード",
+                lifestyle_tag_climb: "クライミング",
+                lifestyle_tag_family: "ファミリー",
+
+                //
+                buy_title: '出発の準備はできましたか？',
+                buy_desc1: '今すぐ購入して、BikTok の自由なコミュニケーションを体験。',
+                buy_desc2: '公式販売チャネルから BH03 を購入すると、保証とアフターサポートを受けられます。',                
+
+                region_west_title: '欧米地域',
+                region_jp_title: '日本',
+                region_tw_title: '台湾',
+
+                platform_amazon_us: 'Amazon US',
+                platform_amazon_eu: 'Amazon Europe',
+                platform_amazon_jp: 'Amazon JP',
+                platform_rakuten: '楽天市場',
+                platform_1shop: '1shop 公式ストア\n（おすすめ）',
+                platform_momo: 'momo（台湾）',
+                platform_shopee: 'Shopee（台湾）',
+
+                //
+                specs_title: "仕様",
+
+                specs_cat_general: "一般仕様",
+                specs_general_weight: "重量（本体）：30g",
+                specs_general_compat: "対応機器：Bluetooth 対応のスマートデバイス",
+                specs_general_voice_assistant: "音声アシスタント：Siri / Google Assistant 対応",
+                specs_general_waterproof: "防水等級：IP67",
+
+                specs_cat_intercom: "インカム機能",
+                specs_intercom_bt: "Bluetooth バージョン：Bluetooth 5.4",
+                specs_intercom_range: "最大通信距離：500m",
+                specs_intercom_riders: "通信人数：6〜8人",
+                specs_intercom_antenna: "通話アンテナ：内蔵アンテナ",
+
+                specs_cat_battery: "バッテリー",
+                specs_battery_capacity: "バッテリー：400mAh リチウムポリマー",
+                specs_battery_talk: "通話/インカム時間：15時間",
+                specs_battery_music: "音楽再生時間：11時間",
+                specs_battery_standby: "待機時間：40時間",
+                specs_battery_charge_time: "充電時間：30分で80%、約1時間でフル充電",
+                specs_battery_ovp: "過電圧保護（OVP）：対応",
+                specs_battery_port: "充電端子：USB Type-C",
+
+                specs_cat_audio: "オーディオ",
+                specs_audio_noise_reduction: "ノイズ低減：Qualcomm® CVC™",
+                specs_audio_codec: "音声コーデック：aptX-HD 高音質",
+                specs_audio_hifi: "ステレオ Hi-Fi：対応",
+            }
+        };
+
+        if (typeof langData !== 'undefined') {
+            Object.keys(pageLangData).forEach((k) => {
+                langData[k] = Object.assign(langData[k] || {}, pageLangData[k]);
+            });
+        } else {
+            // 若全站字典不存在，至少提供一份在 window 上（避免完全失效）
+            window.langData = pageLangData;
+        }
+        
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach((el) => {
+            const key = el.getAttribute('data-i18n');
+            const lang = localStorage.getItem('lang') || 'zh';
+            const val = (window.langData && window.langData[lang]) ? window.langData[lang][key] : undefined;
+            if (val === undefined || val === null) return;
+
+            // 讓字典可以用 \n 代表換行
+            const html = String(val).replace(/\n/g, '<br>');
+
+            // input / textarea：翻譯 placeholder 或 value
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                if (el.hasAttribute('placeholder')) el.setAttribute('placeholder', String(val));
+                else el.value = String(val);
+                return;
+            }
+
+            // 一般元素：用 innerHTML 才能讓 <br> 生效
+            el.innerHTML = html;
+        });
+
+        // Fade in/out on scroll (and on initial load)
+        const animatedEls = document.querySelectorAll('.fade-on-scroll');
+
+        const io = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+            entry.target.classList.toggle('is-visible', entry.isIntersecting);
+            });
+        },
+        { threshold: 0.15 }
+        );
+
+        animatedEls.forEach((el) => io.observe(el));
+
+        // ===== BH03 Hero Slider JS =====
+        const overview = document.querySelector('#overview');
+        const slides = overview.querySelectorAll('.hero-slide');
+        const dotsWrap = overview.querySelector('.hero-dots');
+
+        let idx = 0;
+        let timer;
+
+        // 建立 dots
+        slides.forEach((_, i) => {
+            const b = document.createElement('button');
+            if (i === 0) b.classList.add('active');
+            b.addEventListener('click', () => show(i));
+            dotsWrap.appendChild(b);
+        });
+
+        const dots = dotsWrap.querySelectorAll('button');
+
+        function show(i){
+            slides[idx].classList.remove('active');
+            dots[idx].classList.remove('active');
+
+            idx = i;
+
+            slides[idx].classList.add('active');
+            dots[idx].classList.add('active');
+
+            reset();
+        }
+
+        function next(){
+            show((idx + 1) % slides.length);
+        }
+
+        function reset(){
+            clearInterval(timer);
+            timer = setInterval(next, 8000); // ✅ 跟 index 一樣，覺得慢就改 10000
+        }
+
+        reset();
+
+        // ✅ 點背景跳連結（如果你想要點 banner 也能跳）
+        slides.forEach(s => {
+            s.style.cursor = 'pointer';
+            s.addEventListener('click', () => {
+                const link = s.dataset.link;
+                if (link) location.href = link;
+            });
+        });
+
+        // ✅ 滑鼠移上去暫停（可選，跟 index 一樣更像官網）
+        overview.addEventListener('mouseenter', () => clearInterval(timer));
+        overview.addEventListener('mouseleave', reset);
+
+        // ===== Lifestyle hover/click switch =====
+        (function () {
+            const bg = document.getElementById('lifestyleBg');
+            const wrap = document.getElementById('lifestyleTags');
+            if (!bg || !wrap) return;
+
+            const chips = wrap.querySelectorAll('.lifestyle-chip');
+
+            function setActive(el){
+                chips.forEach(c => c.classList.remove('is-active'));
+                el.classList.add('is-active');
+
+                const nextSrc = el.dataset.img;
+                if (!nextSrc) return;
+
+                // 小小淡入效果
+                bg.style.opacity = '0.15';
+                const img = new Image();
+                img.onload = () => {
+                    bg.src = nextSrc;
+                    requestAnimationFrame(() => (bg.style.opacity = '0.55'));
+                };
+                img.src = nextSrc;
+            }
+
+            chips.forEach(chip => {
+                // 桌機：滑鼠移入就換
+                chip.addEventListener('mouseenter', () => setActive(chip));
+                chip.addEventListener('focus', () => setActive(chip));
+
+                // 手機：點選就換
+                chip.addEventListener('click', () => setActive(chip));
+            });
+        })();                
+    </script>
+</body>
+</html>

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J-Trek & iRide | 頂尖電子通訊專家</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #f5f5f7;
+            overflow-x: hidden;
+        }
+
+        .apple-gradient-text {
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 下拉選單動畫 */
+        /* 確保下拉選單觸發區域連續，防止點不到 */
+        .dropdown { 
+            position: relative; 
+        }
+
+        /* 核心修正：讓選單緊貼頂部，並在上方加入透明填充，作為滑鼠移動的橋樑 */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* 緊貼父元素底部 */
+            left: 0;
+            z-index: 200;
+            padding-top: 10px; /* 關鍵：增加透明填充，防止滑鼠移動時斷掉 */
+        }
+
+        /* 滑鼠移入時顯示 */
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        /* 巢狀選單 (Nested Menu) 的修正 */
+        .nested-menu {
+            display: none;
+            position: absolute;
+            left: 100%; /* 從右側彈出 */
+            top: 0;
+            padding-left: 5px; /* 側邊的透明橋樑 */
+        }
+
+        .nested-dropdown:hover > .nested-menu {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <script src="components.js"></script>
+
+    <section class="relative pt-32 pb-20 flex flex-col items-center justify-center min-h-screen text-center px-4 overflow-hidden">
+        <div class="absolute inset-0 -z-10">
+            <img
+                src="image/JX03/JX03_banner.png"
+                alt="JX03 banner"
+                class="w-full h-full object-cover object-center"
+            />
+            <!-- Optional dark overlay for better text contrast -->
+            <div class="absolute inset-0 bg-black/35"></div>
+        </div>
+    
+        <div class="max-w-4xl mx-auto md:mx-0 md:self-start md:ml-16 z-10 fade-on-scroll bg-black/20 backdrop-blur-md rounded-2xl px-8 py-10">
+            <h1 class="text-6xl md:text-8xl font-bold tracking-tight mb-6 apple-gradient-text">JX03</h1>
+            <p data-i18n="hero_desc" class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                為騎行而生的藍牙對講系統，<br>通話與音樂，團隊即時共享。
+            </p>
+            <div class="mt-10">
+                <a href="#buy" data-i18n="cta_buy" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all">立即選購</a>
+            </div>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] -z-10"></div>
+    </section>
+
+    <section class="py-32 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat1_title" class="text-4xl font-bold mb-6">雙音訊處理設計</h2>
+                    <p data-i18n="feat1_desc" class="text-gray-400 text-lg leading-relaxed">
+                        JX03 採用 Qualcomm 雙晶片設計，分別處理通話與媒體音訊，
+                        可在對講通話的同時播放音樂或導航提示。
+                        系統會自動調整音量優先順序，通話結束後媒體音訊可順暢恢復，
+                        讓團隊溝通與音樂共享自然切換、不干擾騎行節奏。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/JX03/1.png" alt="JX01_1" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/JX03/2.png" alt="JX01_2" class="w-full h-full object-cover" />
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 data-i18n="feat2_title" class="text-4xl font-bold mb-6">自社 Mesh 群組通訊</h2>
+                    <p data-i18n="feat2_desc" class="text-gray-400 text-lg leading-relaxed">
+                        JX03 搭載自社 JMC1.0 Mesh 網狀通訊技術，
+                        支援最多 8 人進行群組對講。
+                        在開闊環境下，Mesh 模式可提供最遠約 1500 公尺的通訊距離。
+                        成員加入或離開時，系統可自動重建通訊連線，
+                        維持團隊通話的連續性，減少中斷與重新設定的需求。
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat3_title" class="text-4xl font-bold mb-6">高品質揚聲器</h2>
+                    <p data-i18n="feat3_desc" class="text-gray-400 text-lg leading-relaxed">
+                        JX03 採用 40mm 揚聲器單體，經實際騎乘環境調校。
+                        在引擎與風噪干擾下，仍能維持通話清晰與音樂可辨識度。
+                        針對高速騎乘情境優化聲音表現，
+                        讓通話與音樂在行進中保持穩定、自然。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/JX03/3.png" alt="JX01_3" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/JX03/4.png" alt="JX01_4" class="w-full h-full object-cover" />
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 data-i18n="feat4_title" class="text-4xl font-bold mb-6">防水旋鈕與防滑按鍵</h2>
+                    <p data-i18n="feat4_desc" class="text-gray-400 text-lg leading-relaxed">
+                        JX03 採用大型旋鈕與防滑實體按鍵設計，
+                        考量騎士配戴手套時的操作需求，
+                        可在騎行中快速調整音量或切換功能。
+                        明確的實體回饋有助於降低誤操作風險，提升操作便利性。
+
+                        同時具備 IP67 防水結構設計，
+                        在雨天或潮濕環境下仍可安心操作，
+                        確保騎行過程中的穩定使用體驗。
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat5_title" class="text-4xl font-bold mb-6">語音控制與跨品牌連線</h2>
+                    <p data-i18n="feat5_desc" class="text-gray-400 text-lg leading-relaxed">
+                        JX03 支援 Siri 與 Google Assistant，
+                        可透過語音方式進行通話、音樂與導航相關操作，
+                        降低騎行過程中的手動操作需求。
+
+                        內建日文與英文語音提示，
+                        可即時提供電量與連線狀態等基本資訊。
+                        同時支援與其他品牌通訊設備進行單台連線，
+                        提升不同裝備之間的通話相容性。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/JX03/5.png" alt="JX01_5" class="w-full h-full object-cover" />
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="buy" class="py-24 bg-zinc-950 border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            
+            <h2 class="text-3xl font-bold mb-6" data-i18n="buy_title">
+            官方直營購買
+            </h2>
+
+            <p class="text-gray-400 mb-10" data-i18n="buy_desc">
+            透過官方直營電商平台購買 JX03，享有完整保固與售後支援。
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="globe" class="text-blue-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_west_title" class="text-2xl font-bold text-white">歐美地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Western Markets</p>
+                    </div>
+                    <div class="space-y-4 flex-grow">
+                        <a href="https://www.amazon.com" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon US</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://www.amazon.de" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon Europe</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://www.amazon.uk" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon UK</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>                        
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="map-pin" class="text-red-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_jp_title" class="text-2xl font-bold text-white">日本地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Japan Market</p>
+                    </div>
+                    <div class="space-y-4 flex-grow">
+                        <a href="https://www.amazon.co.jp" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span class="font-medium">Amazon JP</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://www.rakuten.co.jp" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span data-i18n="platform_rakuten" class="font-medium">Rakuten 樂天市場</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col border-blue-500/20">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="shopping-cart" class="text-emerald-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_tw_title" class="text-2xl font-bold text-white">台灣地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Taiwan Market</p>
+                    </div>
+                    <div class="space-y-4 flex-grow">
+                        <a href="https://iride.1shop.tw/l5c07c" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group border-blue-500/30 bg-blue-500/5">
+                            <span data-i18n="platform_1shop" class="font-medium text-blue-400">1shop 官方店 (推薦)</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-100 text-blue-400"></i>
+                        </a>
+                        <a href="https://www.momoshop.com.tw" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span data-i18n="platform_momo" class="font-medium">momo 購物網</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                        <a href="https://shopee.tw" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                            <span data-i18n="platform_shopee" class="font-medium">蝦皮購物 Shopee</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>    
+
+    <section class="py-32 bg-black border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 data-i18n="specs_title" class="text-3xl font-bold mb-16">技術規格</h2>
+            <div class="grid md:grid-cols-2 gap-y-12 gap-x-20">
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_general" class="text-xl text-gray-500 uppercase tracking-widest mb-2">一般規格</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_general_weight">重量：50 克</li>
+                        <li data-i18n="spec_general_pack_weight">含包裝重量：365 克</li>
+                        <li data-i18n="spec_general_compat">相容設備：所有支援藍牙的智慧型裝置</li>
+                        <li data-i18n="spec_general_cert">相關認證：FCC/TELEC</li>
+                        <li data-i18n="spec_general_temp">操作溫度：-10°C ~ 55°C</li>
+                        <li data-i18n="spec_general_ip">防水等級：IP67</li>
+                        <li data-i18n="spec_general_design">結構設計： 特殊成型橡膠密封圈、晴雨環境耐候性佳</li>
+                    </ul>
+                </div>
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_intercom" class="text-xl text-gray-500 uppercase tracking-widest mb-2">對講系統</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_intercom_bt">藍牙版本： Bluetooth 5.2</li>
+                        <li data-i18n="spec_intercom_people">最大通話人數：8人</li>
+                        <li data-i18n="spec_intercom_musicshare">多人音樂共享：支援</li>
+                        <li data-i18n="spec_intercom_universal">跨品牌連接： 支援 Cardo / SENA 連線（可跨品牌配對1 台）</li>
+                        <li data-i18n="spec_intercom_range">通訊距離（Mesh）：最遠1500公尺</li>
+                        <li data-i18n="spec_intercom_range2">通訊距離（Bluetooth）：最遠1000公尺</li> 
+                        <li data-i18n="spec_intercom_mode">通訊技術：自社 JMC1.0 Mesh 網路技術</li>
+                        <li data-i18n="spec_intercom_aptx">藍牙多工功能：音樂分享 / 手機通話・多媒體播放混音並行</li>
+                        <li data-i18n="spec_intercom_app">App 操控：支援（快速配對、OTA 韌體更新）</li>
+                        <li data-i18n="spec_intercom_assistant">語音助手：支援 Siri / Google Assistant</li>
+                        <li data-i18n="spec_intercom_voice">語音提示：支援日語與英文語音提示通知</li>
+                        <li data-i18n="spec_intercom_fm">FM廣播：支援</li>
+                    </ul>
+                </div>
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_battery" class="text-xl text-gray-500 uppercase tracking-widest mb-2">電池電力</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_battery_capacity">電池規格：1000mAh</li>
+                        <li data-i18n="spec_battery_life">續航時間：通話 28小時，音樂 30 小時</li>
+                        <li data-i18n="spec_battery_charge">充電方式：USB-5V 充電</li>
+                        <li data-i18n="spec_battery_port">充電接口：USB Type-C</li>
+                    </ul>
+                </div>
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_audio" class="text-xl text-gray-500 uppercase tracking-widest mb-2">音訊技術</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_audio_speaker">揚聲器：40mm 大型高品質單體</li>
+                        <li data-i18n="spec_audio_nc">降噪能力：ENC 雙麥降噪、WNR 風噪抑制、BNE 背景噪音抑制</li>
+                        <li data-i18n="spec_audio_port">耳機接口：Mini USB 音訊接口</li>
+                    </ul>
+                </div>
+            </div>
+        </div>        
+    </section>
+
+    <div id="footer-placeholder"></div>
+    
+    <script>
+        lucide.createIcons();
+
+        // 語言字典
+        const pageLangData = {
+            zh: {
+                hero_desc: '為騎行而生的藍牙對講系統，\n通話與音樂，團隊即時共享。',
+                cta_buy: '立即選購',
+
+                feat1_title: '雙音訊處理設計',
+                feat1_desc:
+                'JX03 採用 Qualcomm 雙晶片設計，分別處理通話與媒體音訊，' +
+                '可在對講通話的同時播放音樂或導航提示。\n\n' +
+                '系統會自動調整音量優先順序，通話結束後媒體音訊可順暢恢復，' +
+                '讓團隊溝通與音樂共享自然切換、不干擾騎行節奏。',
+
+                feat2_title: 'Mesh 群組通訊',
+                feat2_desc:
+                'JX03 搭載 JMC1.0 Mesh 網狀通訊技術，' +
+                '支援最多 8 人進行群組對講。' +
+                '在開闊環境下，Mesh 模式可提供最遠約 1500 公尺的通訊距離。' +
+                '成員加入或離開時，系統可自動重建通訊連線，' +
+                '維持團隊通話的連續性，減少中斷與重新設定的需求。',
+
+                feat3_title: '高品質揚聲器',
+                feat3_desc:
+                'JX03 採用 40mm 揚聲器單體，經實際騎乘環境調校。' +
+                '在引擎與風噪干擾下，仍能維持通話清晰與音樂可辨識度。' +
+                '針對高速騎乘情境優化聲音表現，' +
+                '讓通話與音樂在行進中保持穩定、自然。',
+
+                feat4_title: '防水旋鈕與防滑按鍵',
+                feat4_desc:
+                'JX03 採用大型旋鈕與防滑實體按鍵設計，' +
+                '考量騎士配戴手套時的操作需求，' +
+                '可在騎行中快速調整音量或切換功能。' +
+                '明確的實體回饋有助於降低誤操作風險，提升操作便利性。\n\n' +
+                '同時具備 IP67 防水結構設計，' +
+                '在雨天或潮濕環境下仍可安心操作，' +
+                '確保騎行過程中的穩定使用體驗。',
+
+                feat5_title: '語音控制與跨品牌連線',
+                feat5_desc:
+                'JX03 支援 Siri 與 Google Assistant，' +
+                '可透過語音方式進行通話、音樂與導航相關操作，' +
+                '降低騎行過程中的手動操作需求。\n\n' +
+                '內建日文與英文語音提示，' +
+                '可即時提供電量與連線狀態等基本資訊。\n\n' +
+                '同時支援與其他品牌通訊設備進行單台連線，' +
+                '提升不同裝備之間的通話相容性。',
+
+                buy_title: '官方直營購買',
+                buy_desc: '透過官方直營電商平台購買 JX03，享有完整保固與售後支援。',
+
+                region_west_title: '歐美地區',
+                region_jp_title: '日本地區',
+                region_tw_title: '台灣地區',
+
+                platform_amazon_us: 'Amazon US',
+                platform_amazon_eu: 'Amazon Europe',
+                platform_amazon_jp: 'Amazon JP',
+                platform_rakuten: 'Rakuten 樂天市場',
+                platform_1shop: '1shop 官方店 (推薦)',
+                platform_momo: 'momo 購物網',
+                platform_shopee: '蝦皮購物 Shopee',            
+
+                specs_title: '技術規格',
+                specs_cat_general: '一般規格',
+                specs_cat_intercom: '對講系統',
+                specs_cat_battery: '電池電力',
+                specs_cat_audio: '音訊技術',
+
+                spec_general_weight: '重量：50 克',
+                spec_general_pack_weight: '含包裝重量：365 克',
+                spec_general_compat: '相容設備：所有支援藍牙的智慧型裝置',
+                spec_general_cert: '相關認證：FCC / TELEC',
+                spec_general_temp: '操作溫度：-10°C ~ 55°C',
+                spec_general_ip: '防水等級：IP67',
+                spec_general_design: '結構設計：特殊成型橡膠密封圈，晴雨環境皆適用',
+
+                spec_intercom_bt: '藍牙版本：Bluetooth 5.2',
+                spec_intercom_people: '最大通話人數：8 人',
+                spec_intercom_musicshare: '多人音樂共享：支援',
+                spec_intercom_universal: '跨品牌連線：支援與其他品牌設備單台連線',
+                spec_intercom_range: '通訊距離（Mesh）：最遠約 1500 公尺',
+                spec_intercom_range2: '通訊距離（Bluetooth）：最遠約 1000 公尺',
+                spec_intercom_mode: '通訊技術：JMC1.0 Mesh 網狀通訊',
+                spec_intercom_aptx: '藍牙多工功能：通話與音樂同步處理',
+                spec_intercom_app: 'App 操控：支援（快速配對、OTA 韌體更新）',
+                spec_intercom_assistant: '語音助手：支援 Siri / Google Assistant',
+                spec_intercom_voice: '語音提示：支援日文與英文',
+                spec_intercom_fm: 'FM 廣播：支援',
+
+                spec_battery_capacity: '電池規格：1000 mAh',
+                spec_battery_life: '續航時間：通話約 28 小時，音樂約 30 小時',
+                spec_battery_charge: '充電方式：USB 5V',
+                spec_battery_port: '充電接口：USB Type-C',
+
+                spec_audio_speaker: '揚聲器：40mm 高品質單體',
+                spec_audio_nc: '降噪技術：ENC 雙麥降噪、風噪抑制',
+                spec_audio_port: '音訊接口：Mini USB 音訊接口'
+            },
+
+            en: {
+                hero_desc: 'Bluetooth intercom for riding.\nShare communication and music in real time.',
+                cta_buy: 'Shop Now',
+
+                feat1_title: 'Dual Audio Processing',
+                feat1_desc:
+                'JX03 features a dual-chip Qualcomm design that separately processes voice calls and media audio.' +
+                'You can talk on the intercom while listening to music or navigation prompts.\n\n' +
+                'The system automatically prioritizes audio levels and smoothly restores media playback after calls,' +
+                'allowing communication and music sharing to switch naturally without disrupting the ride.',
+
+                feat2_title: 'Mesh Group Communication',
+                feat2_desc:
+                'JX03 is equipped with JMC 1.0 Mesh communication technology,' +
+                'supporting group intercom for up to 8 riders.' +
+                'In open environments, Mesh mode offers communication ranges of up to approximately 1,500 meters.' +
+                'When riders join or leave, the network automatically reconfigures,' +
+                'maintaining continuous team communication with minimal interruption.',
+
+                feat3_title: 'High-Quality Speakers',
+                feat3_desc:
+                'JX03 uses 40 mm speaker drivers tuned through real-world riding conditions.' +
+                'Even with engine and wind noise, voices remain clear and music stays distinguishable.' +
+                'Sound performance is optimized for high-speed riding,' +
+                'keeping calls and music stable and natural on the move.',
+
+                feat4_title: 'Waterproof Dial & Anti-Slip Buttons',
+                feat4_desc:
+                'JX03 features a large control dial and anti-slip physical buttons,' +
+                'designed for easy operation even while wearing gloves.' +
+                'Riders can quickly adjust volume or switch functions while riding,' +
+                'with clear tactile feedback to reduce accidental input.\n\n' +
+                'With its IP67 waterproof construction,' +
+                'the controls remain reliable in rain or wet conditions,' +
+                'ensuring stable operation throughout the ride.',
+
+                feat5_title: 'Voice Control & Cross-Brand Connectivity',
+                feat5_desc:
+                'JX03 supports Siri and Google Assistant,' +
+                'allowing voice control for calls, music, and navigation,' +
+                'reducing the need for manual operation while riding.\n\n' +
+                'Built-in Japanese and English voice prompts' +
+                'provide real-time status updates such as battery level and connection state.\n\n' +
+                'It also supports single-device cross-brand connections,' +
+                'improving communication compatibility across different gear.',
+
+                buy_title: 'Official Purchase Channels',
+                buy_desc: 'Purchase JX03 through official online stores to enjoy full warranty and after-sales support.',
+
+                region_west_title: 'US & Europe',
+                region_jp_title: 'Japan',
+                region_tw_title: 'Taiwan',
+
+                platform_amazon_us: 'Amazon US',
+                platform_amazon_eu: 'Amazon Europe',
+                platform_amazon_jp: 'Amazon Japan',
+                platform_rakuten: 'Rakuten',
+                platform_1shop: '1shop Official Store (Recommended)',
+                platform_momo: 'momo',
+                platform_shopee: 'Shopee',            
+
+                specs_title: 'Specifications',
+
+                specs_cat_general: 'General',
+                specs_cat_intercom: 'Intercom',
+                specs_cat_battery: 'Battery',
+                specs_cat_audio: 'Audio',
+
+                spec_general_weight: 'Weight: 50 g',
+                spec_general_pack_weight: 'Weight with packaging: 365 g',
+                spec_general_compat: 'Compatibility: All Bluetooth-enabled smart devices',
+                spec_general_cert: 'Certifications: FCC / TELEC',
+                spec_general_temp: 'Operating temperature: -10°C to 55°C',
+                spec_general_ip: 'Waterproof rating: IP67',
+                spec_general_design: 'Design: Molded rubber gasket, suitable for all weather conditions',
+
+                spec_intercom_bt: 'Bluetooth version: Bluetooth 5.2',
+                spec_intercom_people: 'Max riders: 8',
+                spec_intercom_musicshare: 'Multi-user music sharing: Supported',
+                spec_intercom_universal: 'Cross-brand connection: Single-device supported',
+                spec_intercom_range: 'Communication range (Mesh): Up to approx. 1,500 m',
+                spec_intercom_range2: 'Communication range (Bluetooth): Up to approx. 1,000 m',
+                spec_intercom_mode: 'Communication technology: JMC 1.0 Mesh',
+                spec_intercom_aptx: 'Audio multitasking: Calls and music simultaneously',
+                spec_intercom_app: 'App control: Supported (fast pairing, OTA updates)',
+                spec_intercom_assistant: 'Voice assistant: Siri / Google Assistant',
+                spec_intercom_voice: 'Voice prompts: Japanese & English',
+                spec_intercom_fm: 'FM radio: Supported',
+
+                spec_battery_capacity: 'Battery capacity: 1000 mAh',
+                spec_battery_life: 'Battery life: Up to 28 hrs (calls), 30 hrs (music)',
+                spec_battery_charge: 'Charging method: USB 5V',
+                spec_battery_port: 'Charging port: USB Type-C',
+
+                spec_audio_speaker: 'Speaker: 40 mm high-quality driver',
+                spec_audio_nc: 'Noise reduction: ENC dual-mic & wind noise suppression',
+                spec_audio_port: 'Audio port: Mini USB audio interface'
+            },
+
+            jp: {
+                hero_desc: 'ライディング向けBluetoothインカム。\n通話も音楽も、リアルタイムで共有。',
+                cta_buy: '今すぐ購入',
+
+                feat1_title: 'デュアルオーディオ処理',
+                feat1_desc:
+                'JX03 は Qualcomm のデュアルチップ設計を採用し、通話音声とメディア音声を個別に処理します。' +
+                'インカム通話中でも音楽やナビ音声の再生が可能です。\n\n' +
+                '通話終了後は音量を自動調整してメディア再生をスムーズに復帰し、' +
+                '走行の流れを妨げずにコミュニケーションと音楽共有を切り替えられます。',
+
+                feat2_title: 'Mesh グループ通信',
+                feat2_desc:
+                'JX03 は JMC 1.0 Mesh 通信技術を搭載し、' +
+                '最大 8 人までのグループインカムに対応します。' +
+                '開けた環境では、Mesh モードで最長約 1500 m の通信距離を実現。' +
+                'メンバーの参加や離脱時も通信を自動再構成し、' +
+                '通話の途切れや再設定の手間を抑えます。',
+
+                feat3_title: '高品質スピーカー',
+                feat3_desc:
+                'JX03 は実走行環境でチューニングされた 40mm スピーカーを採用。' +
+                'エンジン音や風切り音の中でも、通話と音楽の明瞭さを保ちます。' +
+                '高速走行時に最適化されたサウンド設計により、' +
+                '走行中も安定した自然な音質を実現します。',
+
+                feat4_title: '防水ダイヤル＆滑り止めボタン',
+                feat4_desc:
+                'JX03 は大型ダイヤルと滑り止め付きの物理ボタンを採用し、' +
+                'グローブ着用時でも操作しやすい設計です。' +
+                '走行中でも素早く音量調整や機能切替ができ、' +
+                '確かなクリック感で誤操作を防ぎます。\n\n' +
+                'IP67 防水構造により、' +
+                '雨天や湿潤な環境でも安心して操作でき、' +
+                '安定した使用体験を提供します。',
+
+                feat5_title: '音声操作＆他社接続',
+                feat5_desc:
+                'JX03 は Siri および Google Assistant に対応し、' +
+                '音声操作で通話・音楽・ナビをコントロールできます。' +
+                '走行中の手動操作を減らし、安全性を高めます。\n\n' +
+                '日本語・英語の音声ガイドを内蔵し、' +
+                'バッテリー残量や接続状態などの基本情報を通知。\n\n' +
+                '他社製インカムとの 1 台接続にも対応し、' +
+                '機器間の通話互換性を向上させます。',
+
+                buy_title: '公式販売チャネル',
+                buy_desc: '公式オンラインストアで JX03 を購入すると、正規保証およびアフターサポートが受けられます。',
+
+                region_west_title: '欧米地域',
+                region_jp_title: '日本',
+                region_tw_title: '台湾',
+
+                platform_amazon_us: 'Amazon US',
+                platform_amazon_eu: 'Amazon Europe',
+                platform_amazon_jp: 'Amazon JP',
+                platform_rakuten: '楽天市場',
+                platform_1shop: '1shop 公式ストア\n（おすすめ）',
+                platform_momo: 'momo（台湾）',
+                platform_shopee: 'Shopee（台湾）',
+
+                specs_title: '仕様',
+                specs_cat_general: '一般仕様',
+                specs_cat_intercom: 'インカム',
+                specs_cat_battery: 'バッテリー',
+                specs_cat_audio: 'オーディオ',
+
+                spec_general_weight: '重量：50 g',
+                spec_general_pack_weight: '梱包込み重量：365 g',
+                spec_general_compat: '対応機器：Bluetooth 対応スマートデバイス',
+                spec_general_cert: '認証：FCC / TELEC',
+                spec_general_temp: '動作温度：-10°C ～ 55°C',
+                spec_general_ip: '防水等級：IP67',
+                spec_general_design: '構造：特殊成型ゴムパッキン、全天候対応',
+
+                spec_intercom_bt: 'Bluetooth：5.2',
+                spec_intercom_people: '最大通話人数：8 人',
+                spec_intercom_musicshare: '音楽共有：対応',
+                spec_intercom_universal: '他社接続：他社機器 1 台と接続可能',
+                spec_intercom_range: '通信距離（Mesh）：最長約 1500 m',
+                spec_intercom_range2: '通信距離（Bluetooth）：最長約 1000 m',
+                spec_intercom_mode: '通信技術：JMC1.0 Mesh',
+                spec_intercom_aptx: '音声多重処理：通話と音楽の同時再生',
+                spec_intercom_app: 'アプリ操作：対応（高速ペアリング／OTA 更新）',
+                spec_intercom_assistant: '音声アシスタント：Siri / Google Assistant',
+                spec_intercom_voice: '音声ガイド：日本語／英語',
+                spec_intercom_fm: 'FM ラジオ：対応',
+
+                spec_battery_capacity: 'バッテリー容量：1000 mAh',
+                spec_battery_life: '連続使用時間：通話 約28 時間／音楽 約30 時間',
+                spec_battery_charge: '充電方式：USB 5V',
+                spec_battery_port: '充電端子：USB Type-C',
+
+                spec_audio_speaker: 'スピーカー：40mm 高品質ドライバー',
+                spec_audio_nc: 'ノイズ低減：ENC デュアルマイク・風切り音抑制',
+                spec_audio_port: 'オーディオ端子：Mini USB 音声端子'
+            }
+        };
+
+        if (typeof langData !== 'undefined') {
+            Object.keys(pageLangData).forEach((k) => {
+                langData[k] = Object.assign(langData[k] || {}, pageLangData[k]);
+            });
+        } else {
+            // 若全站字典不存在，至少提供一份在 window 上（避免完全失效）
+            window.langData = pageLangData;
+        }
+        
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach((el) => {
+            const key = el.getAttribute('data-i18n');
+            const val = (window.langData && window.langData[lang]) ? window.langData[lang][key] : undefined;
+            if (val === undefined || val === null) return;
+
+            // 讓字典可以用 \n 代表換行
+            const html = String(val).replace(/\n/g, '<br>');
+
+            // input / textarea：翻譯 placeholder 或 value
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                if (el.hasAttribute('placeholder')) el.setAttribute('placeholder', String(val));
+                else el.value = String(val);
+                return;
+            }
+
+            // 一般元素：用 innerHTML 才能讓 <br> 生效
+            el.innerHTML = html;
+        });
+
+        window.onload = () => changeLang(localStorage.getItem('lang') || 'zh');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
