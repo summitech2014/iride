@@ -85,7 +85,11 @@
             background: rgba(255,255,255,.95);
         }
         
-
+        /* 手機版避免英文長句撐爆畫面 */
+        h1, p {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
 
         /* 下拉選單動畫 */
         /* 確保下拉選單觸發區域連續，防止點不到 */
@@ -154,17 +158,17 @@
             </p>
 
             <div class="flex space-x-4 justify-center">
-            <a href="about.html" class="text-blue-500 hover:underline text-lg flex items-center">
-                <span data-i18n="title_aboutbutton">了解公司理念</span>
-                <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
-            </a>
+                <a href="about.html" class="text-blue-500 hover:underline text-lg flex items-center">
+                    <span data-i18n="title_aboutbutton">了解公司理念</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
+                </a>
             </div>
 
             <div class="flex space-x-4 justify-center">
-            <a href="product.html" class="text-blue-500 hover:underline text-lg flex items-center">
-                <span data-i18n="title_productbutton">探索所有產品</span>
-                <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
-            </a>
+                <a href="product.html" class="text-blue-500 hover:underline text-lg flex items-center">
+                    <span data-i18n="title_productbutton">探索所有產品</span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
+                </a>
             </div>
         </div>
 
@@ -266,7 +270,7 @@
             },
             'en': {
                 'title': 'Communication Without Limits',
-                'title_about': 'Combining advanced communication technology with refined industrial design,bringing life to every sport and adventure.',
+                'title_about': 'Combining advanced communication technology with refined industrial design, bringing life to every sport and adventure.',
                 'title_aboutbutton': 'About Our Vision',
                 'title_productbutton': 'Explore All Products',
                 'new': 'New Arrivals',
