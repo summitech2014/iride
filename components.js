@@ -224,10 +224,10 @@ const footerHTML = `
             <div>
                 <h4 data-i18n="contact_sns" class="text-white font-bold mb-4">社群媒體</h4>
                 <div class="flex space-x-4 text-gray-500">
-                    <a href="https://www.facebook.com/people/J-Trek-i-Ride/61584105245079/" class="hover:text-white"><i data-lucide="facebook"></i></a>
-                    <a href="https://www.instagram.com/summitech2014/" class="hover:text-white"><i data-lucide="instagram"></i></a>
-                    <a href="https://x.com/summitech2014" class="hover:text-white"><i data-lucide="x"></i></a>
-                    <a href="https://www.youtube.com/@summitech2014" class="hover:text-white"><i data-lucide="youtube"></i></a>
+                    <a href="https://www.facebook.com/people/J-Trek-i-Ride/61584105245079/" target="_blank" class="hover:text-white"><i data-lucide="facebook"></i></a>
+                    <a href="https://www.instagram.com/summitech2014/" target="_blank" class="hover:text-white"><i data-lucide="instagram"></i></a>
+                    <a href="https://x.com/summitech2014" target="_blank" class="hover:text-white"><i data-lucide="x"></i></a>
+                    <a href="https://www.youtube.com/@summitech2014" target="_blank" class="hover:text-white"><i data-lucide="youtube"></i></a>
                     <a href="#" class="hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tiktok"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
                     </a>
