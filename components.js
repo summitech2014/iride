@@ -224,7 +224,7 @@ const footerHTML = `
             <div>
                 <h4 data-i18n="contact_sns" class="text-white font-bold mb-4">社群媒體</h4>
                 <div class="flex space-x-4 text-gray-500">
-                    <a href="https://www.facebook.com/profile.php?id=61584105245079&locale=zh_TW" class="hover:text-white"><i data-lucide="facebook"></i></a>
+                    <a href="https://www.facebook.com/people/J-Trek-i-Ride/61584105245079/" class="hover:text-white"><i data-lucide="facebook"></i></a>
                     <a href="https://www.instagram.com/summitech2014/" class="hover:text-white"><i data-lucide="instagram"></i></a>
                     <a href="https://x.com/summitech2014" class="hover:text-white"><i data-lucide="x"></i></a>
                     <a href="https://www.youtube.com/@summitech2014" class="hover:text-white"><i data-lucide="youtube"></i></a>
