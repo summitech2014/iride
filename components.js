@@ -235,7 +235,7 @@ const footerHTML = `
             </div>
         </div>
         <div class="pt-8 border-t border-white/5 text-center text-xs text-gray-600">
-            <p>&copy; 2014 summit. All rights reserved.</p>
+            <p>&copy; 2014 SummitComm. All rights reserved.</p>
         </div>
     </div>
 </footer>
