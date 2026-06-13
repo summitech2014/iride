@@ -100,6 +100,66 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @media (max-width: 767px) {
+            #buy .platform-link {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #buy .platform-link span {
+                text-align: center;
+            }
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .platform-card {
+
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,0.07),
+                rgba(255,255,255,0.02)
+            );
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+        }
+
+        .platform-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            border-radius: inherit;
+
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.18),
+                transparent 38%
+            );
+
+            pointer-events: none;
+        }
+
+        .platform-card > * {
+            position: relative;
+            z-index: 1;
+        }        
     </style>
 </head>
 <body class="antialiased">
@@ -137,10 +197,10 @@
                 <div>
                     <h2 data-i18n="feat1_title" class="text-4xl font-bold mb-6">雙音訊處理設計</h2>
                     <p data-i18n="feat1_desc" class="text-gray-400 text-lg leading-relaxed">
-                        JX03 採用 Qualcomm 雙晶片設計，分別處理通話與媒體音訊，
-                        可在對講通話的同時播放音樂或導航提示。
-                        系統會自動調整音量優先順序，通話結束後媒體音訊可順暢恢復，
-                        讓團隊溝通與音樂共享自然切換、不干擾騎行節奏。
+                            JX03 採用 Qualcomm 雙晶片設計，分別處理通話與媒體音訊，
+                            可在對講通話的同時播放音樂或導航提示。
+                            系統會自動調整音量優先順序，通話結束後媒體音訊可順暢恢復，
+                            讓團隊溝通與音樂共享自然切換、不干擾騎行節奏。
                     </p>
                 </div>
                 <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
@@ -153,13 +213,11 @@
                     <img src="image/JX03/2.png" alt="JX01_2" class="w-full h-full object-cover" />
                 </div>
                 <div class="order-1 md:order-2">
-                    <h2 data-i18n="feat2_title" class="text-4xl font-bold mb-6">自社 Mesh 群組通訊</h2>
+                    <h2 data-i18n="feat2_title" class="text-4xl font-bold mb-6">多人群組通訊</h2>
                     <p data-i18n="feat2_desc" class="text-gray-400 text-lg leading-relaxed">
-                        JX03 搭載自社 JMC1.0 Mesh 網狀通訊技術，
-                        支援最多 8 人進行群組對講。
-                        在開闊環境下，Mesh 模式可提供最遠約 1500 公尺的通訊距離。
-                        成員加入或離開時，系統可自動重建通訊連線，
-                        維持團隊通話的連續性，減少中斷與重新設定的需求。
+                        JX03 搭載穩定的多人對講技術，支援最多 8 人進行群組對講。
+                        在開闊環境下，可提供最遠約 1000 公尺的通訊距離。
+                        即使在騎行、滑雪或戶外活動中， 也能保持清晰穩定的團隊通訊體驗，讓成員之間的溝通更加即時順暢。
                     </p>
                 </div>
             </div>
@@ -220,6 +278,20 @@
 
     </section>
 
+    <section class="py-24 bg-black border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4 text-center fade-on-scroll">
+            <h2 data-i18n="video_title" class="text-3xl md:text-4xl font-bold mb-4">操作影片</h2>
+
+            <p data-i18n="video_desc" class="text-gray-400 text-lg mb-10">
+                觀看 JX03 操作教學，快速了解配對、通話與日常使用方式。
+            </p>
+
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/o71trS02WmU?si=PBPdY8bxJ-ZC-xha" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>    
+
     <section id="buy" class="py-24 bg-zinc-950 border-t border-white/10">
         <div class="max-w-5xl mx-auto px-4 text-center">
             
@@ -241,19 +313,11 @@
                         <h2 data-i18n="region_west_title" class="text-2xl font-bold text-white">歐美地區</h2>
                         <p class="text-gray-500 text-sm mt-1">Western Markets</p>
                     </div>
-                    <div class="space-y-4 flex-grow">
-                        <a href="https://www.amazon.com" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
-                            <span class="font-medium">Amazon US</span>
-                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                        </a>
-                        <a href="https://www.amazon.de" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
-                            <span class="font-medium">Amazon Europe</span>
-                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                        </a>
-                        <a href="https://www.amazon.uk" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
-                            <span class="font-medium">Amazon UK</span>
-                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                        </a>                        
+                    <div class="platform-link flex items-center justify-center text-center p-4 rounded-2xl opacity-50 cursor-not-allowed">
+                        <span data-i18n="platform_not_available">
+                            尚未於此地區販售<br>
+                            <span class="text-sm text-gray-500">Not Available Yet</span>
+                        </span>
                     </div>
                 </div>
 
@@ -266,10 +330,6 @@
                         <p class="text-gray-500 text-sm mt-1">Japan Market</p>
                     </div>
                     <div class="space-y-4 flex-grow">
-                        <a href="https://www.amazon.co.jp" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
-                            <span class="font-medium">Amazon JP</span>
-                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                        </a>
                         <a href="https://item.rakuten.co.jp/twdirect/j-trekandiride_03/" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
                             <span data-i18n="platform_rakuten" class="font-medium">Rakuten 樂天市場</span>
                             <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
@@ -277,7 +337,7 @@
                     </div>
                 </div>
 
-                <div class="platform-card rounded-[32px] p-8 flex flex-col border-blue-500/20">
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
                     <div class="mb-8">
                         <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4">
                             <i data-lucide="shopping-cart" class="text-emerald-500 w-6 h-6"></i>
@@ -286,15 +346,11 @@
                         <p class="text-gray-500 text-sm mt-1">Taiwan Market</p>
                     </div>
                     <div class="space-y-4 flex-grow">
-                        <a href="https://iride.1shop.tw/l5c07c" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group border-blue-500/30 bg-blue-500/5">
+                        <a href="https://iride.1shop-app.com/1dlm8f" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group border-blue-500/30 bg-blue-500/5">
                             <span data-i18n="platform_1shop" class="font-medium text-blue-400">1shop 官方店 (推薦)</span>
                             <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-100 text-blue-400"></i>
                         </a>
-                        <a href="https://www.momoshop.com.tw" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
-                            <span data-i18n="platform_momo" class="font-medium">momo 購物網</span>
-                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                        </a>
-                        <a href="https://shopee.tw" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                        <a href="https://shopee.tw/product/1668655284/43281112772" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
                             <span data-i18n="platform_shopee" class="font-medium">蝦皮購物 Shopee</span>
                             <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                         </a>
@@ -326,12 +382,11 @@
                     <p data-i18n="specs_cat_intercom" class="text-xl text-gray-500 uppercase tracking-widest mb-2">對講系統</p>
                     <ul class="text-gray-300 space-y-2">
                         <li data-i18n="spec_intercom_bt">藍牙版本： Bluetooth 5.2</li>
+                        <li data-i18n="spec_intercom_mixing">混音功能：支援</li>
                         <li data-i18n="spec_intercom_people">最大通話人數：8人</li>
                         <li data-i18n="spec_intercom_musicshare">多人音樂共享：支援</li>
                         <li data-i18n="spec_intercom_universal">跨品牌連接： 支援 Cardo / SENA 連線（可跨品牌配對1 台）</li>
-                        <li data-i18n="spec_intercom_range">通訊距離（Mesh）：最遠1500公尺</li>
-                        <li data-i18n="spec_intercom_range2">通訊距離（Bluetooth）：最遠1000公尺</li> 
-                        <li data-i18n="spec_intercom_mode">通訊技術：自社 JMC1.0 Mesh 網路技術</li>
+                        <li data-i18n="spec_intercom_range">通訊距離（Bluetooth）：最遠1000公尺</li> 
                         <li data-i18n="spec_intercom_aptx">藍牙多工功能：音樂分享 / 手機通話・多媒體播放混音並行</li>
                         <li data-i18n="spec_intercom_assistant">語音助手：支援 Siri / Google Assistant</li>
                         <li data-i18n="spec_intercom_voice">語音提示：支援日語與英文語音提示通知</li>
@@ -377,13 +432,11 @@
                 '系統會自動調整音量優先順序，通話結束後媒體音訊可順暢恢復，' +
                 '讓團隊溝通與音樂共享自然切換、不干擾騎行節奏。',
 
-                feat2_title: 'Mesh 群組通訊',
+                feat2_title: '多人群組通訊',
                 feat2_desc:
-                'JX03 搭載 JMC1.0 Mesh 網狀通訊技術，' +
-                '支援最多 8 人進行群組對講。' +
-                '在開闊環境下，Mesh 模式可提供最遠約 1500 公尺的通訊距離。' +
-                '成員加入或離開時，系統可自動重建通訊連線，' +
-                '維持團隊通話的連續性，減少中斷與重新設定的需求。',
+                'JX03 搭載穩定的多人對講技術，支援最多 8 人進行群組對講。' +
+                '在開闊環境下，可提供最遠約 1000 公尺的通訊距離。' +
+                '即使在騎行、滑雪或戶外活動中，也能保持清晰穩定的團隊通訊體驗，讓成員之間的溝通更加即時順暢。',
 
                 feat3_title: '高品質揚聲器',
                 feat3_desc:
@@ -412,6 +465,10 @@
                 '同時支援與其他品牌通訊設備進行單台連線，' +
                 '提升不同裝備之間的通話相容性。',
 
+                /* ===== Video Section ===== */
+                video_title: "操作影片",
+                video_desc: "觀看 JX03 操作教學，快速了解配對、通話與日常使用方式。",
+
                 buy_title: '官方直營購買',
                 buy_desc: '透過官方直營電商平台購買 JX03，享有完整保固與售後支援。',
 
@@ -419,6 +476,7 @@
                 region_jp_title: '日本地區',
                 region_tw_title: '台灣地區',
 
+                platform_not_available: "尚未於此地區販售<br><span class=\"text-sm text-gray-500\">Not Available Yet</span>",
                 platform_amazon_us: 'Amazon US',
                 platform_amazon_eu: 'Amazon Europe',
                 platform_amazon_jp: 'Amazon JP',
@@ -442,12 +500,11 @@
                 spec_general_design: '結構設計：特殊成型橡膠密封圈，晴雨環境皆適用',
 
                 spec_intercom_bt: '藍牙版本：Bluetooth 5.2',
+                spec_intercom_mixing: '混音功能：支援',
                 spec_intercom_people: '最大通話人數：8 人',
                 spec_intercom_musicshare: '多人音樂共享：支援',
                 spec_intercom_universal: '跨品牌連線：支援與其他品牌設備單台連線',
-                spec_intercom_range: '通訊距離（Mesh）：最遠約 1500 公尺',
-                spec_intercom_range2: '通訊距離（Bluetooth）：最遠約 1000 公尺',
-                spec_intercom_mode: '通訊技術：JMC1.0 Mesh 網狀通訊',
+                spec_intercom_range: '通訊距離（Bluetooth）：最遠約 1000 公尺',
                 spec_intercom_aptx: '藍牙多工功能：通話與音樂同步處理',
                 spec_intercom_assistant: '語音助手：支援 Siri / Google Assistant',
                 spec_intercom_voice: '語音提示：支援日文與英文',
@@ -474,13 +531,11 @@
                 'The system automatically prioritizes audio levels and smoothly restores media playback after calls,' +
                 'allowing communication and music sharing to switch naturally without disrupting the ride.',
 
-                feat2_title: 'Mesh Group Communication',
+                feat2_title: 'Multi-Rider Group Communication',
                 feat2_desc:
-                'JX03 is equipped with JMC 1.0 Mesh communication technology,' +
-                'supporting group intercom for up to 8 riders.' +
-                'In open environments, Mesh mode offers communication ranges of up to approximately 1,500 meters.' +
-                'When riders join or leave, the network automatically reconfigures,' +
-                'maintaining continuous team communication with minimal interruption.',
+                'JX03 features stable multi-rider intercom technology, supporting group communication for up to 8 riders.' +
+                'In open environments, it provides a communication range of up to approximately 1,000 meters.' +
+                'Whether riding, skiing, or enjoying outdoor activities, it helps maintain clear and stable team communication for smoother real-time interaction.',
 
                 feat3_title: 'High-Quality Speakers',
                 feat3_desc:
@@ -509,6 +564,10 @@
                 'It also supports single-device cross-brand connections,' +
                 'improving communication compatibility across different gear.',
 
+                /* ===== Video Section ===== */
+                video_title: "Tutorial Video",
+                video_desc: "Watch the JX03 tutorial video to quickly learn pairing, intercom, and everyday operation.",
+
                 buy_title: 'Official Purchase Channels',
                 buy_desc: 'Purchase JX03 through official online stores to enjoy full warranty and after-sales support.',
 
@@ -516,6 +575,7 @@
                 region_jp_title: 'Japan',
                 region_tw_title: 'Taiwan',
 
+                platform_not_available: "Not Available Yet<br><span class=\"text-sm text-gray-500\">Currently unavailable in this region</span>",
                 platform_amazon_us: 'Amazon US',
                 platform_amazon_eu: 'Amazon Europe',
                 platform_amazon_jp: 'Amazon Japan',
@@ -540,12 +600,11 @@
                 spec_general_design: 'Design: Molded rubber gasket, suitable for all weather conditions',
 
                 spec_intercom_bt: 'Bluetooth version: Bluetooth 5.2',
+                spec_intercom_mixing: 'Audio Mixing: Supported',
                 spec_intercom_people: 'Max riders: 8',
                 spec_intercom_musicshare: 'Multi-user music sharing: Supported',
                 spec_intercom_universal: 'Cross-brand connection: Single-device supported',
-                spec_intercom_range: 'Communication range (Mesh): Up to approx. 1,500 m',
-                spec_intercom_range2: 'Communication range (Bluetooth): Up to approx. 1,000 m',
-                spec_intercom_mode: 'Communication technology: JMC 1.0 Mesh',
+                spec_intercom_range: 'Communication range (Bluetooth): Up to approx. 1,000 m',
                 spec_intercom_aptx: 'Audio multitasking: Calls and music simultaneously',
                 spec_intercom_assistant: 'Voice assistant: Siri / Google Assistant',
                 spec_intercom_voice: 'Voice prompts: Japanese & English',
@@ -572,13 +631,11 @@
                 '通話終了後は音量を自動調整してメディア再生をスムーズに復帰し、' +
                 '走行の流れを妨げずにコミュニケーションと音楽共有を切り替えられます。',
 
-                feat2_title: 'Mesh グループ通信',
+                feat2_title: '複数人グループ通信',
                 feat2_desc:
-                'JX03 は JMC 1.0 Mesh 通信技術を搭載し、' +
-                '最大 8 人までのグループインカムに対応します。' +
-                '開けた環境では、Mesh モードで最長約 1500 m の通信距離を実現。' +
-                'メンバーの参加や離脱時も通信を自動再構成し、' +
-                '通話の途切れや再設定の手間を抑えます。',
+                'JX03 は安定した複数人インカム技術を搭載し、最大 8 人までのグループ通話に対応します。' +
+                '開けた環境では、最長約 1000 m の通信距離を提供します。' +
+                'ツーリング、スキー、アウトドア活動中でも、クリアで安定したチーム通信を維持し、メンバー同士のスムーズなリアルタイム通話をサポートします。',
 
                 feat3_title: '高品質スピーカー',
                 feat3_desc:
@@ -607,6 +664,9 @@
                 '他社製インカムとの 1 台接続にも対応し、' +
                 '機器間の通話互換性を向上させます。',
 
+                video_title: "操作動画",
+                video_desc: "JX03 の操作動画で、ペアリング、通話、日常操作をすばやく確認できます。",
+
                 buy_title: '公式販売チャネル',
                 buy_desc: '公式オンラインストアで JX03 を購入すると、正規保証およびアフターサポートが受けられます。',
 
@@ -614,6 +674,7 @@
                 region_jp_title: '日本',
                 region_tw_title: '台湾',
 
+                platform_not_available: "この地域ではまだ販売していません<br><span class=\"text-sm text-gray-500\">Not Available Yet</span>",
                 platform_amazon_us: 'Amazon US',
                 platform_amazon_eu: 'Amazon Europe',
                 platform_amazon_jp: 'Amazon JP',
@@ -637,12 +698,11 @@
                 spec_general_design: '構造：特殊成型ゴムパッキン、全天候対応',
 
                 spec_intercom_bt: 'Bluetooth：5.2',
+                spec_intercom_mixing: 'オーディオミキシング：対応',
                 spec_intercom_people: '最大通話人数：8 人',
                 spec_intercom_musicshare: '音楽共有：対応',
                 spec_intercom_universal: '他社接続：他社機器 1 台と接続可能',
-                spec_intercom_range: '通信距離（Mesh）：最長約 1500 m',
-                spec_intercom_range2: '通信距離（Bluetooth）：最長約 1000 m',
-                spec_intercom_mode: '通信技術：JMC1.0 Mesh',
+                spec_intercom_range: '通信距離（Bluetooth）：最長約 1000 m',
                 spec_intercom_aptx: '音声多重処理：通話と音楽の同時再生',
                 spec_intercom_assistant: '音声アシスタント：Siri / Google Assistant',
                 spec_intercom_voice: '音声ガイド：日本語／英語',

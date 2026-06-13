@@ -98,6 +98,40 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .platform-card {
+            position: relative;
+            overflow: hidden;
+
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,0.07),
+                rgba(255,255,255,0.02)
+            );
+
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .platform-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            border-radius: inherit;
+
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.18),
+                transparent 38%
+            );
+
+            pointer-events: none;
+        }
+
+        .platform-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
     </style>
 </head>
 <body class="antialiased">
@@ -155,7 +189,7 @@
                     </div>
                 </div>
 
-                <div class="platform-card rounded-[32px] p-8 flex flex-col border-blue-500/20">
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
                     <div class="mb-8">
                         <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4">
                             <i data-lucide="shopping-cart" class="text-emerald-500 w-6 h-6"></i>

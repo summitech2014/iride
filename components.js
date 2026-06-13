@@ -35,10 +35,12 @@ const navbarHTML = `
                             <div class="relative nested-dropdown px-4 py-2 text-base text-gray-300 hover:bg-white/10 hover:text-white cursor-default flex justify-between items-center group/nested">
                                 <span data-i18n="cat_moto">J-TREK 系列</span> <i data-lucide="chevron-right" class="w-4 h-4"></i>
                                 <div class="nested-menu">
-                                    <div class="w-40 bg-zinc-900 border border-white/10 rounded-xl shadow-2xl py-2">
-                                        <a href="JX01.html" class="block px-4 py-2 text-base text-gray-400 hover:text-white hover:bg-white/5">JX01</a>
+                                    <div class="w-40 bg-zinc-900 border border-white/10 rounded-xl shadow-2xl py-2">                                        
+                                        <a href="JX09PRO.html" class="block px-4 py-2 text-base text-gray-400 hover:text-white hover:bg-white/5">JX09 PRO</a>
+                                        <a href="JX06PRO.html" class="block px-4 py-2 text-base text-gray-400 hover:text-white hover:bg-white/5">JX06 PRO</a>
+                                        <a href="JX06se.html" class="block px-4 py-2 text-base text-gray-400 hover:text-white hover:bg-white/5">JX06 se</a>
                                         <a href="JX03.html" class="block px-4 py-2 text-base text-gray-400 hover:text-white hover:bg-white/5">JX03</a>
-                                        <a href="JX09.html" class="block px-4 py-2 text-base text-gray-400 hover:text-white hover:bg-white/5">JX09</a>
+                                        <a href="JX01.html" class="block px-4 py-2 text-base text-gray-400 hover:text-white hover:bg-white/5">JX01</a>                    
                                     </div>
                                 </div>
                             </div>
@@ -144,9 +146,11 @@ const navbarHTML = `
                             <i data-lucide="chevron-down" class="w-4 h-4 transition-transform"></i>
                         </button>
                         <div id="mobile-moto-panel" class="hidden pl-3 space-y-1">
-                            <a href="JX01.html" class="block px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/5 hover:text-white" onclick="closeMobileMenu()">JX01</a>
+                            <a href="JX09PRO.html" class="block px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/5 hover:text-white" onclick="closeMobileMenu()">JX09 PRO</a>
+                            <a href="JX06PRO.html" class="block px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/5 hover:text-white" onclick="closeMobileMenu()">JX06 PRO</a>
+                            <a href="JX06se.html" class="block px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/5 hover:text-white" onclick="closeMobileMenu()">JX06 se</a>                                                    
                             <a href="JX03.html" class="block px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/5 hover:text-white" onclick="closeMobileMenu()">JX03</a>
-                            <a href="JX09.html" class="block px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/5 hover:text-white" onclick="closeMobileMenu()">JX09</a>
+                            <a href="JX01.html" class="block px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/5 hover:text-white" onclick="closeMobileMenu()">JX01</a>
                         </div>
 
                         <!-- Nested accordion: BIKTOK Systems -->
@@ -224,12 +228,20 @@ const footerHTML = `
             <div>
                 <h4 data-i18n="contact_sns" class="text-white font-bold mb-4">社群媒體</h4>
                 <div class="flex space-x-4 text-gray-500">
-                    <a href="https://www.facebook.com/people/J-Trek-i-Ride/61584105245079/" target="_blank" class="hover:text-white"><i data-lucide="facebook"></i></a>
-                    <a href="https://www.instagram.com/summitech2014/" target="_blank" class="hover:text-white"><i data-lucide="instagram"></i></a>
-                    <a href="https://x.com/summitech2014" target="_blank" class="hover:text-white"><i data-lucide="x"></i></a>
-                    <a href="https://www.youtube.com/@summitech2014" target="_blank" class="hover:text-white"><i data-lucide="youtube"></i></a>
-                    <a href="#" class="hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tiktok"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                    <a href="https://www.facebook.com/people/J-Trek-i-Ride/61584105245079/" target="_blank" rel="noopener noreferrer" class="hover:text-white" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.48 17.52 2 11.94 2S2 6.48 2 12.06c0 5.02 3.66 9.19 8.44 9.94v-7.03H7.9v-2.91h2.54V9.84c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.78-.75 8.45-4.92 8.45-9.94Z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/summitech2014/" target="_blank" rel="noopener noreferrer" class="hover:text-white" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    </a>
+                    <a href="https://x.com/summitech2014" target="_blank" rel="noopener noreferrer" class="hover:text-white" aria-label="X">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.78L23.2 22h-6.26l-4.9-6.41L6.43 22H3.32l7.28-8.32L2.93 2h6.42l4.43 5.86L18.9 2Zm-1.1 17.85h1.72L8.41 4.04H6.56l11.24 15.81Z"/></svg>
+                    </a>
+                    <a href="https://www.youtube.com/@summitech2014" target="_blank" rel="noopener noreferrer" class="hover:text-white" aria-label="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8ZM9.6 15.5v-7l6.2 3.5-6.2 3.5Z"/></svg>
+                    </a>
+                    <a href="#" class="hover:text-white" aria-label="TikTok">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82a5.98 5.98 0 0 0 3.4 1.09v3.28a9.23 9.23 0 0 1-3.34-.63v6.18A6.26 6.26 0 1 1 10.4 9.5c.34 0 .67.03 1 .08v3.37a2.92 2.92 0 1 0 1.96 2.76V2h3.24c.17 1.49.98 2.81 2.12 3.68l-2.12.14Z"/></svg>
                     </a>
                 </div>
             </div>

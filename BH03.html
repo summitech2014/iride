@@ -207,6 +207,67 @@
                 );
             }
         }
+
+        @media (max-width: 767px) {
+            #buy .platform-link {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #buy .platform-link span {
+                text-align: center;
+            }
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .platform-card {
+
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,0.07),
+                rgba(255,255,255,0.02)
+            );
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+        }
+
+        .platform-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            border-radius: inherit;
+
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.18),
+                transparent 38%
+            );
+
+            pointer-events: none;
+        }
+
+        .platform-card > * {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -525,19 +586,11 @@
                         <h2 data-i18n="region_west_title" class="text-2xl font-bold text-white">歐美地區</h2>
                         <p class="text-gray-500 text-sm mt-1">Western Markets</p>
                     </div>
-                    <div class="space-y-4 flex-grow">
-                        <a href="https://www.amazon.com" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
-                            <span class="font-medium">Amazon US</span>
-                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                        </a>
-                        <a href="https://www.amazon.de" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
-                            <span class="font-medium">Amazon Europe</span>
-                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                        </a>
-                        <a href="https://www.amazon.uk" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
-                            <span class="font-medium">Amazon UK</span>
-                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                        </a>                        
+                    <div class="platform-link flex items-center justify-center text-center p-4 rounded-2xl opacity-50 cursor-not-allowed">
+                        <span data-i18n="platform_not_available">
+                            尚未於此地區販售<br>
+                            <span class="text-sm text-gray-500">Not Available Yet</span>
+                        </span>
                     </div>
                 </div>
 
@@ -550,10 +603,6 @@
                         <p class="text-gray-500 text-sm mt-1">Japan Market</p>
                     </div>
                     <div class="space-y-4 flex-grow">
-                        <a href="https://www.amazon.co.jp" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
-                            <span class="font-medium">Amazon JP</span>
-                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                        </a>
                         <a href="https://item.rakuten.co.jp/twdirect/j-trekandiride_04/" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
                             <span data-i18n="platform_rakuten" class="font-medium">Rakuten 樂天市場</span>
                             <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
@@ -561,7 +610,7 @@
                     </div>
                 </div>
 
-                <div class="platform-card rounded-[32px] p-8 flex flex-col border-blue-500/20">
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
                     <div class="mb-8">
                         <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4">
                             <i data-lucide="shopping-cart" class="text-emerald-500 w-6 h-6"></i>
@@ -570,15 +619,15 @@
                         <p class="text-gray-500 text-sm mt-1">Taiwan Market</p>
                     </div>
                     <div class="space-y-4 flex-grow">
-                        <a href="https://iride.1shop.tw/J-TREK" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group border-blue-500/30 bg-blue-500/5">
+                        <a href="https://iride.1shop-app.com/l5c07c" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group border-blue-500/30 bg-blue-500/5">
                             <span data-i18n="platform_1shop" class="font-medium text-blue-400">1shop 官方店 (推薦)</span>
                             <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-100 text-blue-400"></i>
                         </a>
-                        <a href="https://www.momoshop.com.tw" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                        <a href="https://www.momoshop.com.tw/goods/GoodsDetail.jsp?i_code=15112645" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
                             <span data-i18n="platform_momo" class="font-medium">momo 購物網</span>
                             <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                         </a>
-                        <a href="https://shopee.tw" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
+                        <a href="https://shopee.tw/product/1668655284/56256157991" target="_blank" class="platform-link flex items-center justify-between p-4 rounded-2xl group">
                             <span data-i18n="platform_shopee" class="font-medium">蝦皮購物 Shopee</span>
                             <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                         </a>
@@ -697,6 +746,7 @@
                 region_jp_title: '日本地區',
                 region_tw_title: '台灣地區',
 
+                platform_not_available: "尚未於此地區販售<br><span class=\"text-sm text-gray-500\">Not Available Yet</span>",
                 platform_amazon_us: 'Amazon US',
                 platform_amazon_eu: 'Amazon Europe',
                 platform_amazon_jp: 'Amazon JP',
@@ -791,6 +841,7 @@
                 region_jp_title: 'Japan',
                 region_tw_title: 'Taiwan',
 
+                platform_not_available: "Not Available Yet<br><span class=\"text-sm text-gray-500\">Currently unavailable in this region</span>",
                 platform_amazon_us: 'Amazon US',
                 platform_amazon_eu: 'Amazon Europe',
                 platform_amazon_jp: 'Amazon Japan',
@@ -884,6 +935,7 @@
                 region_jp_title: '日本',
                 region_tw_title: '台湾',
 
+                platform_not_available: "この地域ではまだ販売していません<br><span class=\"text-sm text-gray-500\">Not Available Yet</span>",
                 platform_amazon_us: 'Amazon US',
                 platform_amazon_eu: 'Amazon Europe',
                 platform_amazon_jp: 'Amazon JP',
