@@ -270,7 +270,6 @@
         }
 
         @media (max-width: 767px) {
-            #overview .hero-actions,
             #overview .hero-product {
                 display: none;
             }
@@ -312,18 +311,23 @@
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4 text-white">
                 BikTok <span class="text-gray-500">BH-03</span>
             </h1>
-            <p data-i18n="hero_slogan" class="text-xl md:text-3xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            <p data-i18n="hero_slogan" class="text-base md:text-2xl text-neutral-300 [text-shadow:0_2px_8px_rgba(0,0,0,0.9)] max-w-2xl mx-auto leading-relaxed">
                 輕若無物，連結無限。<br>
                 專為戶外運動打造的極致通訊體驗。
             </p>
 
-            <div class="hero-actions mt-6 flex items-center justify-center space-x-3 text-blue-400">
+            <div class="hero-actions mt-6 flex items-center justify-center gap-4 md:gap-8 text-blue-400 text-sm md:text-base">
+
                 <div class="flex items-center hover:text-blue-300 cursor-pointer transition-colors">
-                    <span data-i18n="hero_watch">觀看影片</span> <i data-lucide="play-circle" class="w-5 h-5 ml-2"></i>
+                    <span data-i18n="hero_watch">觀看影片</span>
+                    <i data-lucide="play-circle" class="w-4 h-4 md:w-5 md:h-5 ml-2"></i>
                 </div>
+
                 <div class="flex items-center hover:text-blue-300 cursor-pointer transition-colors">
-                    <a data-i18n="hero_buy" href="#buy">立即選購</a> <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
+                    <a data-i18n="hero_buy" href="#buy">立即選購</a>
+                    <i data-lucide="chevron-right" class="w-4 h-4 md:w-5 md:h-5 ml-1"></i>
                 </div>
+
             </div>
         </div>
 
@@ -331,19 +335,12 @@
             <!-- ⚠️ 你這裡目前 w-10 h-10 太小，建議改成 w-full -->
             <img src="image/product/BH03.png" alt="BikTok BH-03"
             class="
-
                 w-[clamp(180px,35vw,460px)]
-
                 max-h-[40vh]
-
                 h-auto object-contain
-
                 drop-shadow-2xl
-
                 transform hover:scale-105
-
                 transition-transform duration-700
-
             ">
         </div>
 
