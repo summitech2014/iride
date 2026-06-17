@@ -142,6 +142,18 @@
             display: block;
         }
 
+        .brand-gradient-text {
+            background: linear-gradient(
+                90deg,
+                #ffffff 0%,
+                #ffffff 35%,
+                #a1a1a6 65%,
+                #5f5f63 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-5px); }
             to { opacity: 1; transform: translateY(0); }
@@ -179,11 +191,6 @@
             </button>
         </div>
 
-
-
-                   
-        </div>
-
         <!-- ✅ 你的文字層：固定不動 -->
         <div class="max-w-5xl mx-auto z-10 fade-on-scroll">
             <h1 data-i18n="title" class="text-4xl md:text-8xl font-bold tracking-tight mb-4 md:mb-6 apple-gradient-text">
@@ -211,79 +218,141 @@
         <!-- ✅ 你原本那顆藍色模糊光保留，位置在文字後面 -->
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] -z-10"></div>
 
-
-
     </section>
 
     <section class="py-24 bg-zinc-900/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
             <h1 data-i18n="new" class="text-4xl md:text-6xl font-bold tracking-tight mb-6 apple-gradient-text">
-                最新上市
+                精選系列
             </h1>
             <p data-i18n="new_about" class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed mb-10">
-                全新通訊系統，正式登場
+                從通勤、騎行到戶外運動，探索你的專屬選擇。
             </p>            
         </div>
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
 
-            <div class="group relative aspect-[16/10]
-                rounded-[40px] overflow-hidden
-                bg-zinc-800/10
-                backdrop-blur-md
-                fade-on-scroll">
+            <div class="group relative w-full max-w-[380px] min-h-[360px] md:aspect-[4/5] rounded-[32px] overflow-hidden bg-black fade-on-scroll flex flex-col">
 
-                <!-- ✅ 產品圖片層（半透明） -->
-                <img
-                src="image/product/JX09.png"
-                alt="JX09"
-                class="absolute inset-0 w-full h-full object-contain opacity-40 pointer-events-none
-                        scale-110 transition-transform duration-700
-                        group-hover:scale-125"
-                />
-
-                <!-- ✅ 讓文字更穩的遮罩（很淡，不會像板子擋產品） -->
-                <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/65 via-black/30 to-black/10">
+                <!-- 圖片區 -->
+                <div class="h-[58%] md:h-[62%] flex items-center justify-center px-6 md:px-8 pt-6 md:pt-8">
+                    <img
+                        src="image/product/T1.png"
+                        alt="T1"
+                        class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                    />
                 </div>
 
-                <!-- ✅ 內容層 -->
-                <div class="absolute inset-0 flex flex-col items-center justify-center p-12 text-center z-10">
-                    <h3 class="text-5xl font-bold mb-4">JX09</h3>
-                    <p data-i18n="left" class="text-gray-400 text-lg">專業、強悍、無限連接</p>
-                    <a href="JX09PRO.html" data-i18n="go_product"
-                    class="inline-flex items-center justify-center mt-8 px-6 py-2 bg-white text-black rounded-full text-sm font-semibold hover:bg-gray-200 transition-colors">
-                    探索系列產品
-                    </a>
-                </div>
-            </div>
-
-            <div class="group relative aspect-[16/10]
-                rounded-[40px] overflow-hidden
-                bg-zinc-800/10
-                backdrop-blur-md
-                fade-on-scroll">
-
-                <!-- ✅ 產品圖片層（半透明） -->
-                <img
-                src="image/product/BH03.png"
-                alt="BH03"
-                class="absolute inset-0 w-full h-full object-contain opacity-40 pointer-events-none
-                        scale-110 transition-transform duration-700
-                        group-hover:scale-125"
-                />
-
-                <!-- ✅ 讓文字更穩的遮罩（很淡，不會像板子擋產品） -->
-                <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/65 via-black/30 to-black/10">
-                </div>
-                <div class="absolute inset-0 flex flex-col items-center justify-center p-12 text-center z-10">
-                    <h3 class="text-5xl font-bold mb-4">BH03</h3>
-                    <p data-i18n="right" class="text-gray-400 text-lg">輕便、潮流、自在騎行</p>
-                    <a href="BH03.html" data-i18n="go_product" class="inline-flex items-center justify-center mt-8 px-6 py-2 bg-white text-black rounded-full text-sm font-semibold hover:bg-gray-200 transition-colors">
+                <!-- 文字區 -->
+                <div class="h-[42%] md:h-[38%] flex flex-col items-center justify-center text-center px-6 md:px-8 pb-6 md:pb-8">
+                    <h3 class="text-2xl md:text-4xl font-bold mb-2 md:mb-3">T1</h3>
+                    <p data-i18n="Left" class="text-gray-400 text-sm md:text-lg leading-relaxed">為城市騎行而設計</p>
+                    <a href="T1.html" data-i18n="go_product"
+                        class="inline-flex items-center justify-center mt-4 md:mt-6 px-5 md:px-6 py-2 bg-white text-black rounded-full text-xs md:text-sm font-semibold hover:bg-gray-200 transition-colors">
                         探索系列產品
                     </a>
                 </div>
+
+            </div>            
+
+            <div class="group relative w-full max-w-[380px] min-h-[360px] md:aspect-[4/5] rounded-[32px] overflow-hidden bg-black fade-on-scroll flex flex-col">
+
+                <!-- 圖片區 -->
+                <div class="h-[58%] md:h-[62%] flex items-center justify-center px-6 md:px-8 pt-6 md:pt-8">
+                    <img
+                        src="image/product/JX09.png"
+                        alt="JX09"
+                        class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                    />
+                </div>
+
+                <!-- 文字區 -->
+                <div class="h-[42%] md:h-[38%] flex flex-col items-center justify-center text-center px-6 md:px-8 pb-6 md:pb-8">
+                    <h3 class="text-2xl md:text-4xl font-bold mb-2 md:mb-3">JX09</h3>
+                    <p data-i18n="Center" class="text-gray-400 text-sm md:text-lg leading-relaxed">專業、強悍、無限連接</p>
+                    <a href="JX09PRO.html" data-i18n="go_product"
+                        class="inline-flex items-center justify-center mt-4 md:mt-6 px-5 md:px-6 py-2 bg-white text-black rounded-full text-xs md:text-sm font-semibold hover:bg-gray-200 transition-colors">
+                        探索系列產品
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="group relative w-full max-w-[380px] min-h-[360px] md:aspect-[4/5] rounded-[32px] overflow-hidden bg-black fade-on-scroll flex flex-col">
+
+                <!-- 圖片區 -->
+                <div class="h-[58%] md:h-[62%] flex items-center justify-center px-6 md:px-8 pt-6 md:pt-8">
+                    <img
+                        src="image/product/BH03.png"
+                        alt="BH03"
+                        class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                    />
+                </div>
+
+                <!-- 文字區 -->
+                <div class="h-[42%] md:h-[38%] flex flex-col items-center justify-center text-center px-6 md:px-8 pb-6 md:pb-8">
+                    <h3 class="text-2xl md:text-4xl font-bold mb-2 md:mb-3">BH03</h3>
+                    <p data-i18n="Right" class="text-gray-400 text-sm md:text-lg leading-relaxed">輕便、潮流、自在騎行</p>
+                    <a href="BH03.html" data-i18n="go_product"
+                        class="inline-flex items-center justify-center mt-4 md:mt-6 px-5 md:px-6 py-2 bg-white text-black rounded-full text-xs md:text-sm font-semibold hover:bg-gray-200 transition-colors">
+                        探索系列產品
+                    </a>
+                </div>
+
             </div>
         </div>
     </section>
+
+    <!-- 品牌理念 -->
+    <section class="py-20 bg-black">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-16">
+                iRide & J-TREK
+            </h2>
+            <p data-i18n="brand_manifesto" class="text-base md:text-2xl italic text-zinc-400 leading-[2] font-normal">
+                傳遞清晰的通訊，紀錄旅程中的安全與精彩。<br><br>
+
+                無論城市通勤、長途騎行或戶外運動，<br><br>
+
+                我們專注於通訊、音訊與移動影像科技，<br>
+                讓科技自然融入每一次出發。
+            </p>
+        </div>
+    </section>
+
+    <!-- 品牌系列 -->
+    <section class="py-20 bg-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <div class="bg-zinc-900/70 rounded-[28px] p-8 md:p-10 min-h-[320px] border border-white/5">
+                    <span class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4 block">Motorcycle Intercom</span>
+                    <h3 data-i18n="brand_iride_title" class="text-3xl font-bold text-white mb-6">iRide</h3>
+                    <p data-i18n="brand_iride_desc" class="text-zinc-400 leading-relaxed">
+                        為城市通勤而設計，整合清晰通話、日常音訊與行車紀錄，讓每一次移動更輕鬆、更安心。
+                    </p>
+                </div>
+
+                <div class="bg-zinc-900/70 rounded-[28px] p-8 md:p-10 min-h-[320px] border border-white/5">
+                    <span class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4 block">Motorcycle Intercom</span>
+                    <h3 data-i18n="brand_jtrek_title" class="text-3xl font-bold text-white mb-6">J-TREK</h3>
+                    <p data-i18n="brand_jtrek_desc" class="text-zinc-400 leading-relaxed">
+                        專注於機車騎行通訊，從雙人對講到多人群組連線，提供穩定、直覺、可靠的騎行體驗。
+                    </p>
+                </div>
+
+                <div class="bg-zinc-900/70 rounded-[28px] p-8 md:p-10 min-h-[320px] border border-white/5">
+                    <span class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4 block">Sports Intercom</span>
+                    <h3 data-i18n="brand_biktok_title" class="text-3xl font-bold text-white mb-6">BIKTOK</h3>
+                    <p data-i18n="brand_biktok_desc" class="text-zinc-400 leading-relaxed">
+                        面向自行車、滑雪與戶外運動場景，打造輕量化通訊設備，讓團隊移動時也能保持清晰連結。
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>  
+
+    
 
     <div id="footer-placeholder"></div>
     
@@ -293,37 +362,82 @@
         // 語言字典
         const pageLangData = {
             'zh': {
-                'title':'溝通，無遠弗屆', 
-                'title_about':'結合頂尖通訊技術與極致工藝設計，<br>為每一次的運動與冒險注入生命力。', 
-                'title_aboutbutton':'了解公司理念', 
+                'title':'溝通，無遠弗屆',
+                'title_about':'結合頂尖通訊技術與極致工藝設計，<br>為每一次的運動與冒險注入生命力。',
+                'title_aboutbutton':'了解公司理念',
                 'title_productbutton':'探索所有產品',
-                'new':'最新上市', 
-                'new_about':'全新通訊系統，正式登場', 
-                'left':'專業、強悍、無限連接', 
-                'right':'輕便、潮流、自在騎行', 
-                'go_product':'探索系列產品'
+
+                'new':'精選系列',
+                'new_about':'從通勤、騎行到戶外運動，探索你的專屬選擇。',
+
+                'Left':'為城市騎行而設計',
+                'Center':'專業、強悍、無限連接',
+                'Right':'輕便、潮流、自在騎行',
+
+                'go_product':'探索系列產品',
+
+                'brand_manifesto':'傳遞清晰的通訊，紀錄旅程中的安全與精彩。<br><br>無論城市通勤、長途騎行或戶外運動，<br><br>我們專注於通訊、音訊與移動影像科技，<br>讓科技自然融入每一次出發。',
+
+                'brand_iride_title':'iRide',
+                'brand_iride_desc':'為城市通勤而設計，整合清晰通話、日常音訊與行車紀錄，讓每一次移動更輕鬆、更安心。',
+
+                'brand_jtrek_title':'J-TREK',
+                'brand_jtrek_desc':'專注於機車騎行通訊，從雙人對講到多人群組連線，提供穩定、直覺、可靠的騎行體驗。',
+
+                'brand_biktok_title':'BIKTOK',
+                'brand_biktok_desc':'面向自行車、滑雪與戶外運動場景，打造輕量化通訊設備，讓團隊移動時也能保持清晰連結。'
             },
             'en': {
                 'title': 'Stay Connected',
                 'title_about': 'Communication, Redefined.',
                 'title_aboutbutton': 'About Our Vision',
                 'title_productbutton': 'Explore All Products',
-                'new': 'New Arrivals',
-                'new_about': 'A new generation of communication systems, now available',
-                'left': 'Professional, powerful, limitless connectivity',
-                'right': 'Lightweight, stylish, effortless riding',
-                'go_product': 'Explore the Series'
+
+                'new':'Featured Series',
+                'new_about':'From daily commuting and long-distance riding to outdoor adventures, discover the series that fits your journey.',
+
+                'Left':'Designed for Urban Commuting',
+                'Center':'Professional, Powerful, Always Connected',
+                'Right':'Lightweight, Stylish, Ready for Adventure',
+
+                'go_product':'Explore the Series',
+
+                'brand_manifesto':'Delivering clear communication and capturing every journey’s safety and memorable moments.<br><br>Whether for urban commuting, long-distance riding, or outdoor sports,<br><br>we focus on communication, audio, and mobile imaging technology,<br>making technology a natural part of every journey.',
+
+                'brand_iride_title':'iRide',
+                'brand_iride_desc':'Designed for urban commuting, combining clear communication, everyday audio, and ride recording to make every trip easier and more enjoyable.',
+
+                'brand_jtrek_title':'J-TREK',
+                'brand_jtrek_desc':'Focused on motorcycle communication, from rider-to-rider intercom to multi-rider group connectivity, delivering a stable, intuitive, and reliable riding experience.',
+
+                'brand_biktok_title':'BIKTOK',
+                'brand_biktok_desc':'Built for cycling, skiing, and outdoor activities, providing lightweight communication solutions that keep teams connected on the move.',
             },
             'jp': {
                 'title': 'どこまでも。',
                 'title_about': '先進の通信技術と洗練されたデザインで、<br>スポーツと冒険をもっと自由に。',
                 'title_aboutbutton': '私たちの理念',
                 'title_productbutton': 'すべての製品を見る',
-                'new': '新製品',
-                'new_about': '次世代コミュニケーションシステム、登場',
-                'left': 'プロフェッショナル、パワフル、無限の接続性',
-                'right': '軽量、スタイリッシュ、快適なライディング',
-                'go_product': 'シリーズを見る'
+
+                'new':'おすすめシリーズ',
+                'new_about':'通勤、ツーリング、アウトドアまで。あなたに最適なシリーズを見つけよう。',
+
+                'Left':'街乗りのために設計',
+                'Center':'プロフェッショナル、パワフル、いつでもつながる',
+                'Right':'軽量、スタイリッシュ、自由なライディング',
+
+                'go_product':'シリーズを見る',
+
+                'brand_manifesto':'クリアなコミュニケーションを届け、旅の安全と感動を記録する。<br><br>街乗り、ロングツーリング、アウトドアスポーツまで。<br><br>私たちは通信、オーディオ、モバイル映像技術に取り組み、<br>あらゆる旅に自然に溶け込むテクノロジーを追求しています。',
+
+                'brand_iride_title':'iRide',
+                'brand_iride_desc':'都市部の通勤向けに設計。クリアな通話、日常のオーディオ体験、走行記録を組み合わせ、毎日の移動をより快適にします。',
+
+                'brand_jtrek_title':'J-TREK',
+                'brand_jtrek_desc':'バイク向けコミュニケーションに特化。1対1の通話からグループ接続まで、安定した直感的なライディング体験を提供します。',
+
+                'brand_biktok_title':'BIKTOK',
+                'brand_biktok_desc':'サイクリング、スキー、アウトドア向けに設計。軽量な通信ソリューションで、移動中でもチームのつながりを保ちます。',
             }
         };
 
