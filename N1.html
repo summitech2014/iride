@@ -154,39 +154,12 @@
             );
 
             pointer-events: none;
-                    }
+        }
 
-                    .platform-card > * {
-                        position: relative;
-                        z-index: 1;
-                    }
-
-                    @media (max-width: 767px) {
-                .hero-section {
-                    aspect-ratio: auto;
-                    height: 420px;
-                    margin-top: 0;
-                }
-
-                .hero-content h1 {
-                    font-size: 4rem;
-                    margin-bottom: 1rem;
-                }
-
-                .hero-content p {
-                    font-size: 1.35rem;
-                    line-height: 1.6;
-                }
-
-                .hero-content .mt-10 {
-                    margin-top: 1.5rem;
-                }
-
-                .hero-content a {
-                    padding: 0.75rem 2rem;
-                    font-size: 1.1rem;
-                }
-            }
+        .platform-card > * {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -195,7 +168,7 @@
 
     <script src="components.js"></script>
 
-    <section class="hero-section relative flex flex-col items-center justify-center aspect-[1050/591] text-center px-4 overflow-hidden">
+    <section class="relative flex flex-col items-center justify-center aspect-[1050/591] text-center px-4 overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full">
             <img
                 src="image/N1/N1_banner.png"
@@ -206,16 +179,16 @@
             <div class="absolute inset-0 bg-black/35"></div>
         </div>
     
-        <div class="hero-content absolute z-10 left-1/2 md:left-16 top-1/2 -translate-x-1/2 md:translate-x-0 -translate-y-1/2 max-w-[88%] md:max-w-4xl fade-on-scroll bg-black/20 backdrop-blur-md rounded-2xl px-4 py-5 md:px-8 md:py-10">
-            <h1 class="text-6xl md:text-8xl font-bold tracking-tight mb-6 apple-gradient-text">N1</h1>
-            <p data-i18n="hero_desc" class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+        <div class="absolute z-10 left-4 right-4 md:left-16 md:right-auto top-1/2 -translate-y-1/2 md:max-w-4xl fade-on-scroll md:bg-black/20 md:backdrop-blur-md rounded-2xl px-2 py-4 md:px-8 md:py-10">
+            <h1 class="text-4xl md:text-8xl font-bold tracking-tight mb-4 md:mb-6 apple-gradient-text">N1</h1>
+            <p class="text-base md:text-2xl text-neutral-300 max-w-2xl mx-auto leading-relaxed">
                 專為通勤與外送設計，<br>滿足通話與導航的日常需求。
             </p>
             <div class="mt-10">
                 <a href="#buy" data-i18n="cta_buy" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all">立即選購</a>
             </div>
         </div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] -z-10"></div>
+        
     </section>
 
     <section class="py-32 bg-zinc-950">
