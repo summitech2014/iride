@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iRide & J-Trek | N1</title>
+
+    <!-- 基本 Open Graph -->
+    <meta property="og:title" content="iRide & J-Trek">
+    <meta property="og:description" content="注於打造穩定、可靠的通訊設備">
+    <meta property="og:image" content="https://iride.com.tw/image/iRide_og.png">
+    <meta property="og:url" content="https://iride.com.tw">
+    <meta property="og:type" content="website">
+    
+    <!-- 建議加，避免部分平台抓錯 -->
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <link rel="icon" href="/image/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="image/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">  
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #f5f5f7;
+            overflow-x: hidden;
+        }
+
+        .apple-gradient-text {
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 下拉選單動畫 */
+        /* 確保下拉選單觸發區域連續，防止點不到 */
+        .dropdown { 
+            position: relative; 
+        }
+
+        /* 核心修正：讓選單緊貼頂部，並在上方加入透明填充，作為滑鼠移動的橋樑 */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* 緊貼父元素底部 */
+            left: 0;
+            z-index: 200;
+            padding-top: 10px; /* 關鍵：增加透明填充，防止滑鼠移動時斷掉 */
+        }
+
+        /* 滑鼠移入時顯示 */
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        /* 巢狀選單 (Nested Menu) 的修正 */
+        .nested-menu {
+            display: none;
+            position: absolute;
+            left: 100%; /* 從右側彈出 */
+            top: 0;
+            padding-left: 5px; /* 側邊的透明橋樑 */
+        }
+
+        .nested-dropdown:hover > .nested-menu {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 767px) {
+            #buy .platform-link {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #buy .platform-link span {
+                text-align: center;
+            }
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .platform-card {
+
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,0.07),
+                rgba(255,255,255,0.02)
+            );
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+        }
+
+        .platform-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            border-radius: inherit;
+
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.18),
+                transparent 38%
+            );
+
+            pointer-events: none;
+        }
+
+        .platform-card > * {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <script src="components.js"></script>
+
+    <section class="relative flex flex-col items-center justify-center aspect-[1050/591] text-center px-4 overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full">
+            <img
+                src="image/N1/N1_banner.png"
+                alt="N1 banner"
+                class="w-full h-full object-cover object-center"
+            />
+            <!-- Optional dark overlay for better text contrast -->
+            <div class="absolute inset-0 bg-black/35"></div>
+        </div>
+    
+        <div class="absolute z-10 left-4 md:left-16 top-1/2 -translate-y-1/2 max-w-[90%] md:max-w-4xl fade-on-scroll bg-black/20 backdrop-blur-md rounded-2xl px-5 py-6 md:px-8 md:py-10">
+            <h1 class="text-6xl md:text-8xl font-bold tracking-tight mb-6 apple-gradient-text">N1</h1>
+            <p data-i18n="hero_desc" class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                專為通勤與外送設計，<br>滿足通話與導航的日常需求。
+            </p>
+            <div class="mt-10">
+                <a href="#buy" data-i18n="cta_buy" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all">立即選購</a>
+            </div>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] -z-10"></div>
+    </section>
+
+    <section class="py-32 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat1_title" class="text-4xl font-bold mb-6">藍牙穩定連線</h2>
+                    <p data-i18n="feat1_desc" class="text-gray-400 text-lg leading-relaxed">
+                        透過藍牙連接手機，支援免持通話、語音導航與音樂播放，滿足通勤與外送途中最常使用的需求。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/N1/1.png" alt="N1_1" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/N1/2.png" alt="N1_2" class="w-full h-full object-cover" />
+                </div>
+
+                <div class="order-1 md:order-2">
+                    <h2 data-i18n="feat3_title" class="text-4xl font-bold mb-6">隱藏式安裝</h2>
+                    <p data-i18n="feat3_desc" class="text-gray-400 text-lg leading-relaxed">
+                        專為安全帽預留安裝空間設計，無需將主機額外固定於帽體外側，安裝快速便利，同時保有整潔一致的外觀。
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="grid md:grid-cols-2 gap-20 items-center fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat5_title" class="text-4xl font-bold mb-6">可靠耐用</h2>
+                    <p data-i18n="feat5_desc" class="text-gray-400 text-lg leading-relaxed">
+                        具備長時間續航能力與 IPX6 防水等級，無論日常通勤、外送接單或突遇降雨，都能安心使用。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/N1/3.png" alt="N1_3" class="w-full h-full object-cover" />
+                </div>
+            </div>
+        </div>
+    </section>  
+
+    <section id="buy" class="py-24 bg-zinc-950 border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            
+            <h2 class="text-3xl font-bold mb-6" data-i18n="buy_title">
+            官方直營購買
+            </h2>
+
+            <p class="text-gray-400 mb-10" data-i18n="buy_desc">
+            透過官方直營電商平台購買 N1，享有完整保固與售後支援。
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="globe" class="text-blue-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_west_title" class="text-2xl font-bold text-white">歐美地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Western Markets</p>
+                    </div>
+                    <div class="platform-link flex items-center justify-center text-center p-4 rounded-2xl opacity-50 cursor-not-allowed">
+                        <span data-i18n="platform_not_available">
+                            尚未於此地區販售<br>
+                            <span class="text-sm text-gray-500">Not Available Yet</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="map-pin" class="text-red-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_jp_title" class="text-2xl font-bold text-white">日本地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Japan Market</p>
+                    </div>
+                    <div class="platform-link flex items-center justify-center text-center p-4 rounded-2xl opacity-50 cursor-not-allowed">
+                        <span data-i18n="platform_not_available">
+                            尚未於此地區販售<br>
+                            <span class="text-sm text-gray-500">Not Available Yet</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="shopping-cart" class="text-emerald-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_tw_title" class="text-2xl font-bold text-white">台灣地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Taiwan Market</p>
+                    </div>
+                    <div class="platform-link flex items-center justify-center text-center p-4 rounded-2xl opacity-50 cursor-not-allowed">
+                        <span data-i18n="platform_not_available">
+                            尚未於此地區販售<br>
+                            <span class="text-sm text-gray-500">Not Available Yet</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>    
+
+    <section class="py-32 bg-black border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 data-i18n="specs_title" class="text-3xl font-bold mb-16">技術規格</h2>
+            <div class="grid md:grid-cols-2 gap-y-12 gap-x-20">
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_general" class="text-xl text-gray-500 uppercase tracking-widest mb-2">一般規格</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_general_product">產品類型：安全帽藍牙耳機</li>
+                        <li data-i18n="spec_general_compat">相容設備：支援藍牙的智慧型手機</li>
+                        <li data-i18n="spec_general_ip">防水等級：IPX6</li>
+                    </ul>
+                </div>
+
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_bluetooth" class="text-xl text-gray-500 uppercase tracking-widest mb-2">藍牙功能</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_bluetooth_version">藍牙版本：Bluetooth 5.4</li>
+                        <li data-i18n="spec_bluetooth_call">免持通話：支援</li>
+                        <li data-i18n="spec_bluetooth_nav">GPS 語音導航：支援</li>
+                        <li data-i18n="spec_bluetooth_music">音樂播放：支援</li>
+                        <li data-i18n="spec_bluetooth_assistant">語音助理：支援 Siri / Google Assistant</li>
+                    </ul>
+                </div>
+
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_battery" class="text-xl text-gray-500 uppercase tracking-widest mb-2">電池電力</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_battery_life">續航時間：依使用模式而定</li>
+                        <li data-i18n="spec_battery_port">充電接口：USB Type-C</li>
+                    </ul>
+                </div>
+
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_audio_install" class="text-xl text-gray-500 uppercase tracking-widest mb-2">音訊與安裝</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_audio_mic">麥克風：安全帽內嵌式麥克風</li>
+                        <li data-i18n="spec_audio_install">安裝方式：隱藏式安裝設計</li>
+                        <li data-i18n="spec_audio_design">外觀設計：無需外掛主機於安全帽外側</li>
+                    </ul>
+                </div>
+            </div>
+        </div> 
+    </section>
+
+    <div id="footer-placeholder"></div>
+    
+    <script>
+        lucide.createIcons();
+
+        // 語言字典
+        const pageLangData = {
+        zh: {
+            /* ===== Hero ===== */
+            hero_title: "N1",
+            hero_desc: "專為通勤與外送設計，\n滿足通話與導航的日常需求。",
+            cta_buy: "立即選購",
+
+            /* ===== Feature 1 ===== */
+            feat1_title: "藍牙穩定連線",
+            feat1_desc:
+            "透過藍牙連接手機，支援免持通話、語音導航與音樂播放，滿足通勤與外送途中最常使用的需求。",
+
+            /* ===== Feature 2 ===== */
+
+
+            /* ===== Feature 3 ===== */
+            feat3_title: "隱藏式安裝",
+            feat3_desc:
+            "專為安全帽預留安裝空間設計，無需將主機額外固定於帽體外側，安裝快速便利，同時保有整潔一致的外觀。",
+
+            /* ===== Feature 4 ===== */
+
+
+            /* ===== Feature 5 ===== */
+            feat5_title: "可靠耐用",
+            feat5_desc:
+            "具備長時間續航能力與 IPX6 防水等級，無論日常通勤、外送接單或突遇降雨，都能安心使用。",
+
+            /* ===== Video Section ===== */
+            video_title: "操作影片",
+            video_desc: "觀看 N1 操作教學，快速了解配對、通話與日常使用方式。",
+
+            /* ===== Buy Section ===== */
+            buy_title: "官方直營購買",
+            buy_desc: "透過官方直營電商平台購買 N1，享有完整保固與售後支援。",
+
+            region_west_title: "歐美地區",
+            region_jp_title: "日本地區",
+            region_tw_title: "台灣地區",
+
+            platform_not_available: "尚未於此地區販售<br><span class=\"text-sm text-gray-500\">Not Available Yet</span>",
+            platform_amazon_us: "Amazon US",
+            platform_amazon_eu: "Amazon Europe",
+            platform_amazon_uk: "Amazon UK",
+            platform_amazon_jp: "Amazon JP",
+            platform_rakuten: "Rakuten 樂天市場",
+            platform_1shop: "1shop 官方店（推薦）",
+            platform_momo: "momo 購物網",
+            platform_shopee: "蝦皮購物 Shopee",
+
+            /* ===== Specs ===== */
+            specs_title: "技術規格",
+            specs_cat_general: "一般規格",
+            specs_cat_battery: "電池電力",
+            specs_cat_bluetooth: "藍牙功能",
+            specs_cat_audio_install: "音訊與安裝",
+
+            spec_general_product: "產品類型：安全帽藍牙耳機",
+            spec_general_compat: "相容設備：支援藍牙的智慧型手機",
+            spec_general_ip: "防水等級：IPX6",
+
+            spec_bluetooth_version: "藍牙版本：Bluetooth 5.4",
+            spec_bluetooth_call: "免持通話：支援",
+            spec_bluetooth_nav: "GPS 語音導航：支援",
+            spec_bluetooth_music: "音樂播放：支援",
+            spec_bluetooth_assistant: "語音助理：支援 Siri / Google Assistant",
+
+            spec_battery_life: "續航時間：依使用模式而定",
+            spec_battery_port: "充電接口：USB Type-C",
+
+            spec_audio_mic: "麥克風：安全帽內嵌式麥克風",
+            spec_audio_install: "安裝方式：隱藏式安裝設計",
+            spec_audio_design: "外觀設計：無需外掛主機於安全帽外側",
+        },
+
+        en: {
+            /* ===== Hero ===== */
+            hero_title: "N1",
+            hero_desc: "Designed for commuting and delivery riders.\nStay connected with calls and navigation every day.",
+            cta_buy: "Shop Now",
+
+            /* ===== Feature 1 ===== */
+            feat1_title: "Stable Bluetooth Connection",
+            feat1_desc:
+            "Connect to your smartphone via Bluetooth and enjoy hands-free calling, GPS navigation, and music playback—ideal for daily commuting and delivery work.",
+
+            /* ===== Feature 3 ===== */
+            feat3_title: "Hidden Installation",
+            feat3_desc:
+            "Designed to fit inside compatible helmets without mounting an external control unit. Quick to install while maintaining a clean and integrated appearance.",
+
+            /* ===== Feature 5 ===== */
+            feat5_title: "Reliable & Durable",
+            feat5_desc:
+            "Built with long battery life and IPX6 water resistance, allowing reliable use during daily commutes, delivery work, and unexpected rain.",
+
+            /* ===== Video Section ===== */
+            video_title: "Tutorial Video",
+            video_desc: "Watch the N1 tutorial video to quickly learn pairing and everyday operation.",
+
+            /* ===== Buy Section ===== */
+            buy_title: "Official Purchase Channels",
+            buy_desc: "Purchase N1 through official stores to enjoy full warranty and after-sales support.",
+
+            region_west_title: "US & Europe",
+            region_jp_title: "Japan",
+            region_tw_title: "Taiwan",
+
+            platform_not_available: "Not Available Yet<br><span class=\"text-sm text-gray-500\">Currently unavailable in this region</span>",
+            platform_amazon_us: "Amazon US",
+            platform_amazon_eu: "Amazon Europe",
+            platform_amazon_uk: "Amazon UK",
+            platform_amazon_jp: "Amazon JP",
+            platform_rakuten: "Rakuten",
+            platform_1shop: "1shop Official Store (Recommended)",
+            platform_momo: "momo",
+            platform_shopee: "Shopee",
+
+            /* ===== Specs ===== */
+            specs_title: "Specifications",
+            specs_cat_general: "General",
+            specs_cat_battery: "Battery",
+            specs_cat_bluetooth: "Bluetooth Features",
+            specs_cat_audio_install: "Audio & Installation",
+
+            spec_general_product: "Product Type: Helmet Bluetooth Headset",
+            spec_general_compat: "Compatibility: Bluetooth-enabled Smartphones",
+            spec_general_ip: "Water Resistance: IPX6",
+
+            spec_bluetooth_version: "Bluetooth Version: Bluetooth 5.4",
+            spec_bluetooth_call: "Hands-free Calling: Supported",
+            spec_bluetooth_nav: "GPS Navigation: Supported",
+            spec_bluetooth_music: "Music Playback: Supported",
+            spec_bluetooth_assistant: "Voice Assistant: Siri / Google Assistant",
+
+            spec_battery_life: "Battery Life: Depends on Usage",
+            spec_battery_port: "Charging Port: USB Type-C",
+
+            spec_audio_mic: "Microphone: Built-in Helmet Microphone",
+            spec_audio_install: "Installation: Hidden Integrated Design",
+            spec_audio_design: "Appearance: No External Control Unit Required",
+        },
+
+        jp: {
+            /* ===== Hero ===== */
+            hero_title: "N1",
+            hero_desc: "通勤やデリバリー向けに設計。\n通話とナビをもっと便利に。",
+            cta_buy: "今すぐ購入",
+
+            /* ===== Feature 1 ===== */
+            feat1_title: "Bluetooth接続",
+            feat1_desc:
+            "スマートフォンとBluetooth接続し、ハンズフリー通話、音声ナビ、音楽再生に対応。通勤やデリバリーで便利に使用できます。",
+
+            /* ===== Feature 3 ===== */
+            feat3_title: "埋め込み式設計",
+            feat3_desc:
+            "対応ヘルメットの内部にすっきり収納できる設計。外部ユニットを取り付ける必要がなく、ヘルメット本来のデザインを維持できます。",
+
+            /* ===== Feature 5 ===== */
+            feat5_title: "高い耐久性",
+            feat5_desc:
+            "長時間バッテリーとIPX6防水性能を備え、通勤やデリバリー、突然の雨でも安心して使用できます。",
+
+            /* ===== Video Section ===== */
+            video_title: "操作動画",
+            video_desc: "N1の操作動画で、ペアリングや日常操作をすばやく確認できます。",
+
+            /* ===== Buy Section ===== */
+            buy_title: "公式購入チャネル",
+            buy_desc: "公式販売チャネルからN1を購入すると、正規保証とアフターサポートが受けられます。",
+
+            region_west_title: "欧米地域",
+            region_jp_title: "日本",
+            region_tw_title: "台湾",
+
+            platform_not_available: "この地域ではまだ販売していません<br><span class=\"text-sm text-gray-500\">Not Available Yet</span>",
+            platform_amazon_us: "Amazon US",
+            platform_amazon_eu: "Amazon Europe",
+            platform_amazon_uk: "Amazon UK",
+            platform_amazon_jp: "Amazon JP",
+            platform_rakuten: "楽天市場",
+            platform_1shop: "1shop公式ストア（おすすめ）",
+            platform_momo: "momo",
+            platform_shopee: "Shopee",
+
+            /* ===== Specs ===== */
+            specs_title: "仕様",
+            specs_cat_general: "一般仕様",
+            specs_cat_battery: "バッテリー",
+            specs_cat_bluetooth: "Bluetooth機能",
+            specs_cat_audio_install: "オーディオ・取付",
+
+            spec_general_product: "製品タイプ：ヘルメットBluetoothヘッドセット",
+            spec_general_compat: "対応機器：Bluetooth対応スマートフォン",
+            spec_general_ip: "防水性能：IPX6",
+
+            spec_bluetooth_version: "Bluetooth：Bluetooth 5.4",
+            spec_bluetooth_call: "ハンズフリー通話：対応",
+            spec_bluetooth_nav: "音声ナビ：対応",
+            spec_bluetooth_music: "音楽再生：対応",
+            spec_bluetooth_assistant: "音声アシスタント：Siri / Google Assistant対応",
+
+            spec_battery_life: "連続使用時間：使用状況による",
+            spec_battery_port: "充電端子：USB Type-C",
+
+            spec_audio_mic: "マイク：ヘルメット内蔵マイク",
+            spec_audio_install: "取付方式：埋め込み式デザイン",
+            spec_audio_design: "外観設計：ヘルメット外部への本体取付不要",
+        }
+        };
+
+        if (typeof langData !== 'undefined') {
+            Object.keys(pageLangData).forEach((k) => {
+                langData[k] = Object.assign(langData[k] || {}, pageLangData[k]);
+            });
+        } else {
+            // 若全站字典不存在，至少提供一份在 window 上（避免完全失效）
+            window.langData = pageLangData;
+        }
+        
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach((el) => {
+            const key = el.getAttribute('data-i18n');
+            const val = (window.langData && window.langData[lang]) ? window.langData[lang][key] : undefined;
+            if (val === undefined || val === null) return;
+
+            // 讓字典可以用 \n 代表換行
+            const html = String(val).replace(/\n/g, '<br>');
+
+            // input / textarea：翻譯 placeholder 或 value
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                if (el.hasAttribute('placeholder')) el.setAttribute('placeholder', String(val));
+                else el.value = String(val);
+                return;
+            }
+
+            // 一般元素：用 innerHTML 才能讓 <br> 生效
+            el.innerHTML = html;
+        });
+
+        window.onload = () => changeLang(localStorage.getItem('lang') || 'zh');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

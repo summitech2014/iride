@@ -268,6 +268,13 @@
             position: relative;
             z-index: 1;
         }
+
+        @media (max-width: 767px) {
+            #overview .hero-actions,
+            #overview .hero-product {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -276,7 +283,7 @@
 
     <script src="components.js"></script>
 
-    <section id="overview" class="relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+    <section id="overview" class="relative flex flex-col items-center justify-center aspect-[1050/591] text-center px-4 overflow-hidden">
 
         <!-- ✅ 背景輪播（只換背景，不動文字） -->
         <div class="absolute inset-0 -z-20">
@@ -302,7 +309,6 @@
         </div>
 
         <div class="max-w-4xl mx-auto z-10 fade-on-scroll">
-            <h2 data-i18n="hero_badge" class="text-blue-500 font-semibold tracking-wide uppercase text-sm md:text-base mb-4">全新發布</h2>
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4 text-white">
                 BikTok <span class="text-gray-500">BH-03</span>
             </h1>
@@ -311,7 +317,7 @@
                 專為戶外運動打造的極致通訊體驗。
             </p>
 
-            <div class="mt-6 flex items-center justify-center space-x-3 text-blue-400">
+            <div class="hero-actions mt-6 flex items-center justify-center space-x-3 text-blue-400">
                 <div class="flex items-center hover:text-blue-300 cursor-pointer transition-colors">
                     <span data-i18n="hero_watch">觀看影片</span> <i data-lucide="play-circle" class="w-5 h-5 ml-2"></i>
                 </div>
@@ -321,16 +327,23 @@
             </div>
         </div>
 
-        <div class="mt-2 md:mt-4 w-full mx-auto relative z-10 fade-on-scroll delay-100 flex justify-center">
+        <div class="hero-product mt-2 md:mt-4 w-full mx-auto relative z-10 fade-on-scroll delay-100 flex justify-center">
             <!-- ⚠️ 你這裡目前 w-10 h-10 太小，建議改成 w-full -->
             <img src="image/product/BH03.png" alt="BikTok BH-03"
             class="
-                w-[260px] md:w-[380px] lg:w-[460px]
-                max-h-[35vh] md:max-h-[40vh]
+
+                w-[clamp(180px,35vw,460px)]
+
+                max-h-[40vh]
+
                 h-auto object-contain
+
                 drop-shadow-2xl
+
                 transform hover:scale-105
+
                 transition-transform duration-700
+
             ">
         </div>
 

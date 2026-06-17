@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iRide & J-Trek | R3</title>
+
+    <!-- 基本 Open Graph -->
+    <meta property="og:title" content="iRide & J-Trek">
+    <meta property="og:description" content="注於打造穩定、可靠的通訊設備">
+    <meta property="og:image" content="https://iride.com.tw/image/iRide_og.png">
+    <meta property="og:url" content="https://iride.com.tw">
+    <meta property="og:type" content="website">
+    
+    <!-- 建議加，避免部分平台抓錯 -->
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <link rel="icon" href="/image/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="image/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">     
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #f5f5f7;
+            overflow-x: hidden;
+        }
+
+        .apple-gradient-text {
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 下拉選單動畫 */
+        /* 確保下拉選單觸發區域連續，防止點不到 */
+        .dropdown { 
+            position: relative; 
+        }
+
+        /* 核心修正：讓選單緊貼頂部，並在上方加入透明填充，作為滑鼠移動的橋樑 */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* 緊貼父元素底部 */
+            left: 0;
+            z-index: 200;
+            padding-top: 10px; /* 關鍵：增加透明填充，防止滑鼠移動時斷掉 */
+        }
+
+        /* 滑鼠移入時顯示 */
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        /* 巢狀選單 (Nested Menu) 的修正 */
+        .nested-menu {
+            display: none;
+            position: absolute;
+            left: 100%; /* 從右側彈出 */
+            top: 0;
+            padding-left: 5px; /* 側邊的透明橋樑 */
+        }
+
+        .nested-dropdown:hover > .nested-menu {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 767px) {
+            #buy .platform-link {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #buy .platform-link span {
+                text-align: center;
+            }
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .platform-card {
+
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,0.07),
+                rgba(255,255,255,0.02)
+            );
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+        }
+
+        .platform-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            border-radius: inherit;
+
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.18),
+                transparent 38%
+            );
+
+            pointer-events: none;
+        }
+
+        .platform-card > * {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <script src="components.js"></script>
+
+    <section class="relative flex flex-col items-center justify-center aspect-[1050/591] text-center px-4 overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full">
+            <img
+
+                src="image/R3/R3_banner.png"
+
+                alt="R3 banner"
+
+                class="w-full h-auto object-top"
+
+            />
+            <!-- Optional dark overlay for better text contrast -->
+            <div class="absolute inset-0 bg-black/35"></div>
+        </div>
+    
+        <div class="absolute z-10 left-4 md:left-16 top-1/2 -translate-y-1/2 max-w-[90%] md:max-w-4xl fade-on-scroll bg-black/20 backdrop-blur-md rounded-2xl px-5 py-6 md:px-8 md:py-10">
+            <h1 class="text-6xl md:text-8xl font-bold tracking-tight mb-6 apple-gradient-text">R3</h1>
+            <p data-i18n="hero_desc" class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                輕巧隨行，日常騎行，<br>記錄每個值得回味的瞬間。
+            </p>
+            <div class="mt-10">
+                <a href="#buy" data-i18n="cta_buy" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all">立即選購</a>
+            </div>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] -z-10"></div>
+    </section>
+
+    <section class="py-32 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat1_title" class="text-4xl font-bold mb-6">1080P 高清錄影與 120° 廣角視野</h2>
+                    <p data-i18n="feat1_desc" class="text-gray-400 text-lg leading-relaxed">
+                        搭載 1080P 高畫質錄影與 120° 廣角鏡頭，完整記錄騎行過程中的每個重要瞬間。
+
+                        無論是日常通勤、假日出遊或戶外騎行，都能捕捉更完整的道路畫面與沿途景色，留下清晰且自然的影像紀錄。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/R3/1.png" alt="R3_1" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/R3/2.png" alt="R3_2" class="w-full h-full object-cover" />
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 data-i18n="feat2_title" class="text-4xl font-bold mb-6">Wi-Fi 無線傳輸</h2>
+                    <p data-i18n="feat2_desc" class="text-gray-400 text-lg leading-relaxed">
+                        內建 Wi-Fi 無線連線功能，可透過手機快速查看與管理錄影內容。
+
+                        無需拆卸記憶卡，即可即時下載影片與照片，讓影像分享與備份更加方便。
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat3_title" class="text-4xl font-bold mb-6">輕巧機身</h2>
+                    <p data-i18n="feat3_desc" class="text-gray-400 text-lg leading-relaxed">
+                        採用輕量化設計，不增加騎行負擔。
+
+                        適用於機車、自行車與各類戶外活動場景，安裝簡單且攜帶方便，讓記錄變得更加輕鬆自在。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/R3/3.png" alt="R3_3" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/R3/4.png" alt="R3_4" class="w-full h-full object-cover" />
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 data-i18n="feat4_title" class="text-4xl font-bold mb-6">防水設計</h2>
+                    <p data-i18n="feat4_desc" class="text-gray-400 text-lg leading-relaxed">
+                        具備防水能力，可應對日常騎行中的小雨與潮濕環境。
+
+                        無論晴天通勤或戶外活動，都能維持穩定運作，讓影像記錄不受天候影響。
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat5_title" class="text-4xl font-bold mb-6">長效續航</h2>
+                    <p data-i18n="feat5_desc" class="text-gray-400 text-lg leading-relaxed">
+                        內建鋰聚合物電池，最長可提供約 3 小時連續使用時間。
+
+                        滿足日常通勤、休閒騎行與短途旅程需求，減少頻繁充電困擾，陪伴每一次出發。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/R3/5.png" alt="R3_5" class="w-full h-full object-cover" />
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <section id="buy" class="py-24 bg-zinc-950 border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            
+            <h2 class="text-3xl font-bold mb-6" data-i18n="buy_title">
+            官方直營購買
+            </h2>
+
+            <p class="text-gray-400 mb-10" data-i18n="buy_desc">
+            透過官方直營電商平台購買 R3，享有完整保固與售後支援。
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="globe" class="text-blue-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_west_title" class="text-2xl font-bold text-white">歐美地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Western Markets</p>
+                    </div>
+                    <div class="platform-link flex items-center justify-center text-center p-4 rounded-2xl opacity-50 cursor-not-allowed">
+                        <span data-i18n="platform_not_available">
+                            尚未於此地區販售<br>
+                            <span class="text-sm text-gray-500">Not Available Yet</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="map-pin" class="text-red-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_jp_title" class="text-2xl font-bold text-white">日本地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Japan Market</p>
+                    </div>
+                    <div class="platform-link flex items-center justify-center text-center p-4 rounded-2xl opacity-50 cursor-not-allowed">
+                        <span data-i18n="platform_not_available">
+                            尚未於此地區販售<br>
+                            <span class="text-sm text-gray-500">Not Available Yet</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="shopping-cart" class="text-emerald-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_tw_title" class="text-2xl font-bold text-white">台灣地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Taiwan Market</p>
+                    </div>
+                    <div class="platform-link flex items-center justify-center text-center p-4 rounded-2xl opacity-50 cursor-not-allowed">
+                        <span data-i18n="platform_not_available">
+                            尚未於此地區販售<br>
+                            <span class="text-sm text-gray-500">Not Available Yet</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>    
+
+    <section class="py-32 bg-black border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 data-i18n="specs_title" class="text-3xl font-bold mb-16">技術規格</h2>
+            <div class="grid md:grid-cols-2 gap-y-12 gap-x-20">
+
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_general" class="text-xl text-gray-500 uppercase tracking-widest mb-2">一般規格</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_general_type">攝影機類型：運動攝影機</li>
+
+                        <li data-i18n="spec_general_weight">產品特性：輕量化設計</li>
+
+                        <li data-i18n="spec_general_recommend">適用場景：戶外活動、機車、自行車</li>
+
+                        <li data-i18n="spec_general_waterproof">防水設計：支援日常防水</li>
+                    </ul>
+                </div>
+
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_video" class="text-xl text-gray-500 uppercase tracking-widest mb-2">圖像和視頻</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_video_resolution">最高錄影解析度：1080P</li>
+
+                        <li data-i18n="spec_video_fps">錄影幀率：30fps</li>
+
+                        <li data-i18n="spec_video_format">影片格式：MP4</li>
+
+                        <li data-i18n="spec_video_ratio">畫面比例：16:9</li>
+
+                        <li data-i18n="spec_video_image_format">照片格式：JPEG</li>
+
+                        <li data-i18n="spec_video_wb">白平衡：自動</li>
+
+                        <li data-i18n="spec_video_file">檔案格式：MP4</li>
+                    </ul>
+                </div>
+
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_lens" class="text-xl text-gray-500 uppercase tracking-widest mb-2">鏡頭與顯示</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_lens_angle">視角：120°</li>
+
+                        <li data-i18n="spec_lens_type">鏡頭類型：定焦</li>
+
+                        <li data-i18n="spec_lens_max_focal">焦距：5mm</li>
+
+                        <li data-i18n="spec_display_size">螢幕尺寸：1 吋</li>
+
+                        <li data-i18n="spec_display_resolution">螢幕解析度：1080P FHD</li>
+                    </ul>
+                </div>
+
+                <div class="border-b border-white/10 pb-6">
+                    <p data-i18n="specs_cat_storage" class="text-xl text-gray-500 uppercase tracking-widest mb-2">內存與相容性</p>
+                    <ul class="text-gray-300 space-y-2">
+                        <li data-i18n="spec_storage_type">記憶卡類型：microSD</li>
+
+                        <li data-i18n="spec_storage_speed">記憶卡速度等級：Class 2 以上</li>
+
+                        <li data-i18n="spec_compat_device">相容設備：智慧型手機</li>
+
+                        <li data-i18n="spec_battery_included">內建電池：是</li>
+
+                        <li data-i18n="spec_battery_type">電池類型：鋰聚合物電池</li>
+
+                        <li data-i18n="spec_battery_life">連續錄影時間：約 3 小時</li>
+                    </ul>
+                </div>
+
+            </div>   
+        </div>      
+    </section>
+
+    <div id="footer-placeholder"></div>
+    
+    <script>
+        lucide.createIcons();
+
+        // 語言字典
+        const pageLangData = {
+            'zh': {
+                hero_desc: '輕巧隨行，日常騎行，<br>記錄每個值得回味的瞬間。',
+                cta_buy: '立即選購',
+
+                feat1_title: '1080P 高清錄影與 120° 廣角視野',
+                feat1_desc:
+                    '搭載 1080P 高畫質錄影與 120° 廣角鏡頭，完整記錄騎行過程中的每個重要瞬間。\n\n' +
+                    '無論是日常通勤、假日出遊或戶外騎行，都能捕捉更完整的道路畫面與沿途景色，留下清晰且自然的影像紀錄。',
+
+                feat2_title: 'Wi-Fi 無線傳輸',
+                feat2_desc:
+                    '內建 Wi-Fi 無線連線功能，可透過手機快速查看與管理錄影內容。\n\n' +
+                    '無需拆卸記憶卡，即可即時下載影片與照片，讓影像分享與備份更加方便。',
+
+                feat3_title: '輕巧機身',
+                feat3_desc:
+                    '採用輕量化設計，不增加騎行負擔。\n\n' +
+                    '適用於機車、自行車與各類戶外活動場景，安裝簡單且攜帶方便，讓記錄變得更加輕鬆自在。',
+
+                feat4_title: '防水設計',
+                feat4_desc:
+                    '具備防水能力，可應對日常騎行中的小雨與潮濕環境。\n\n' +
+                    '無論晴天通勤或戶外活動，都能維持穩定運作，讓影像記錄不受天候影響。',
+
+                feat5_title: '長效續航',
+                feat5_desc:
+                    '內建鋰聚合物電池，最長可提供約 3 小時連續使用時間。\n\n' +
+                    '滿足日常通勤、休閒騎行與短途旅程需求，減少頻繁充電困擾，陪伴每一次出發。',
+
+                buy_title: '官方直營購買',
+                buy_desc: '透過官方直營電商平台購買 R3，享有完整保固與售後支援。',
+
+                region_west_title: '歐美地區',
+                region_jp_title: '日本地區',
+                region_tw_title: '台灣地區',
+
+                platform_not_available: "尚未於此地區販售<br><span class=\"text-sm text-gray-500\">Not Available Yet</span>",
+                platform_amazon_us: 'Amazon US',
+                platform_amazon_eu: 'Amazon Europe',
+                platform_amazon_jp: 'Amazon JP',
+                platform_rakuten: 'Rakuten 樂天市場',
+                platform_1shop: '1shop 官方店 (推薦)',
+                platform_momo: 'momo 購物網',
+                platform_shopee: '蝦皮購物 Shopee',
+
+                specs_title: '技術規格',
+
+                specs_cat_general: '一般規格',
+                specs_cat_video: '影像與錄影',
+                specs_cat_lens: '鏡頭與顯示',
+                specs_cat_storage: '記憶卡與相容性',
+
+                spec_general_type: '攝影機類型：運動攝影機',
+                spec_general_color: '顏色：黑色',
+                spec_general_weight: '產品特性：輕量化設計',
+                spec_general_recommend: '適用場景：戶外活動、機車、自行車',
+                spec_general_waterproof: '防水設計：支援日常防水',
+
+                spec_video_resolution: '最高錄影解析度：1080P',
+                spec_video_fps: '錄影幀率：30fps',
+                spec_video_format: '影片格式：MP4',
+                spec_video_ratio: '畫面比例：16:9',
+                spec_video_image_format: '照片格式：JPEG',
+                spec_video_wb: '白平衡：自動',
+                spec_video_file: '檔案格式：MP4',
+                spec_video_exposure: '曝光補償：自動',
+
+                spec_lens_angle: '視角：120°',
+                spec_lens_type: '鏡頭類型：定焦',
+                spec_lens_max_focal: '焦距：5mm',
+                spec_display_size: '螢幕尺寸：1 吋',
+                spec_display_resolution: '螢幕解析度：1080P FHD',
+
+                spec_storage_type: '記憶卡類型：microSD',
+                spec_storage_speed: '記憶卡速度等級：Class 2 以上',
+                spec_compat_device: '相容設備：智慧型手機',
+
+                spec_battery_included: '內建電池：是',
+                spec_battery_type: '電池類型：鋰聚合物電池',
+                spec_battery_life: '連續錄影時間：約 3 小時',
+            },
+            'en': {
+                hero_desc: 'Compact and lightweight for everyday riding.<br>Capture every memorable moment.',
+
+                cta_buy: 'Shop Now',
+
+                feat1_title: '1080P Video Recording & 120° Wide-Angle View',
+                feat1_desc:
+                    'Equipped with 1080P Full HD recording and a 120° wide-angle lens, capturing every important moment of your ride.\n\n' +
+                    'Whether for daily commuting, weekend trips, or outdoor adventures, it records a wider view of the road and scenery with clear and natural image quality.',
+
+                feat2_title: 'Wi-Fi Wireless Transfer',
+                feat2_desc:
+                    'Built-in Wi-Fi connectivity allows you to quickly view and manage recordings directly from your smartphone.\n\n' +
+                    'No need to remove the memory card—download videos and photos instantly for convenient sharing and backup.',
+
+                feat3_title: 'Compact & Lightweight',
+                feat3_desc:
+                    'Designed with a lightweight body that minimizes riding burden.\n\n' +
+                    'Suitable for motorcycles, bicycles, and various outdoor activities, offering easy installation and portability for effortless recording.',
+
+                feat4_title: 'Water-Resistant Design',
+                feat4_desc:
+                    'Designed to withstand light rain and damp riding conditions.\n\n' +
+                    'Whether commuting or enjoying outdoor activities, it continues recording reliably without being affected by changing weather.',
+
+                feat5_title: 'Long Battery Life',
+                feat5_desc:
+                    'Built-in lithium polymer battery provides up to approximately 3 hours of continuous recording.\n\n' +
+                    'Perfect for daily commuting, leisure rides, and short trips while reducing the need for frequent charging.',
+
+                buy_title: 'Official Purchase Channels',
+                buy_desc: 'Purchase R3 through official sales channels and enjoy full warranty coverage and after-sales support.',
+
+                region_west_title: 'US & Europe',
+                region_jp_title: 'Japan',
+                region_tw_title: 'Taiwan',
+
+                platform_not_available: "Not Available Yet<br><span class=\"text-sm text-gray-500\">Currently unavailable in this region</span>",
+                platform_amazon_us: 'Amazon US',
+                platform_amazon_eu: 'Amazon Europe',
+                platform_amazon_jp: 'Amazon Japan',
+                platform_rakuten: 'Rakuten',
+                platform_1shop: '1shop Official Store (Recommended)',
+                platform_momo: 'momo',
+                platform_shopee: 'Shopee',
+
+                specs_title: 'Specifications',
+
+                specs_cat_general: 'General',
+                specs_cat_video: 'Video & Imaging',
+                specs_cat_lens: 'Lens & Display',
+                specs_cat_storage: 'Storage & Compatibility',
+
+                spec_general_type: 'Camera Type: Action Camera',
+                spec_general_color: 'Color: Black',
+                spec_general_weight: 'Product Feature: Lightweight Design',
+                spec_general_recommend: 'Recommended Use: Outdoor Activities, Motorcycles, Bicycles',
+                spec_general_waterproof: 'Water Resistance: Daily Water-Resistant Design',
+
+                spec_video_resolution: 'Maximum Video Resolution: 1080P',
+                spec_video_fps: 'Frame Rate: 30fps',
+                spec_video_format: 'Video Format: MP4',
+                spec_video_ratio: 'Aspect Ratio: 16:9',
+                spec_video_image_format: 'Photo Format: JPEG',
+                spec_video_wb: 'White Balance: Auto',
+                spec_video_file: 'File Format: MP4',
+                spec_video_exposure: 'Exposure Compensation: Auto',
+
+                spec_lens_angle: 'Viewing Angle: 120°',
+                spec_lens_type: 'Lens Type: Fixed Focus',
+                spec_lens_max_focal: 'Focal Length: 5mm',
+                spec_display_size: 'Screen Size: 1 inch',
+                spec_display_resolution: 'Display Resolution: 1080P FHD',
+
+                spec_storage_type: 'Memory Card Type: microSD',
+                spec_storage_speed: 'Memory Card Speed Class: Class 2 or Higher',
+                spec_compat_device: 'Compatible Devices: Smartphones',
+
+                spec_battery_included: 'Built-in Battery: Yes',
+                spec_battery_type: 'Battery Type: Lithium Polymer Battery',
+                spec_battery_life: 'Continuous Recording Time: Approx. 3 Hours',
+            },
+            'jp': {
+                hero_desc: 'コンパクトで軽量な設計。<br>日常のライディングを気軽に記録。',
+
+                cta_buy: '今すぐ購入',
+
+                feat1_title: '1080P録画・120°広角レンズ',
+                feat1_desc:
+                    '1080PフルHD録画と120°広角レンズを搭載し、走行中の大切な瞬間をしっかり記録します。\n\n' +
+                    '通勤、ツーリング、アウトドアアクティビティなど、さまざまなシーンで広い視野と自然で鮮明な映像を撮影できます。',
+
+                feat2_title: 'Wi-Fiワイヤレス転送',
+                feat2_desc:
+                    'Wi-Fi機能を内蔵し、スマートフォンから録画データの確認や管理が可能です。\n\n' +
+                    'メモリーカードを取り外すことなく、動画や写真をすぐにダウンロードできます。',
+
+                feat3_title: '軽量コンパクト設計',
+                feat3_desc:
+                    '軽量設計により、ライディング時の負担を軽減します。\n\n' +
+                    'バイク、自転車、アウトドア活動など幅広い用途に対応し、持ち運びや取り付けも簡単です。',
+
+                feat4_title: '防水設計',
+                feat4_desc:
+                    '小雨や湿気のある環境でも使用できる防水設計を採用しています。\n\n' +
+                    '天候の変化に左右されず、安定した映像記録をサポートします。',
+
+                feat5_title: '長時間バッテリー',
+                feat5_desc:
+                    'リチウムポリマーバッテリーを内蔵し、最大約3時間の連続録画が可能です。\n\n' +
+                    '通勤やショートツーリングなどの日常使用に十分なバッテリー性能を備えています。',
+
+                buy_title: '公式販売チャネル',
+                buy_desc: 'R3を公式販売チャネルから購入すると、保証およびアフターサポートをご利用いただけます。',
+
+                region_west_title: '欧米地域',
+                region_jp_title: '日本地域',
+                region_tw_title: '台湾地域',
+
+                platform_not_available: "この地域ではまだ販売していません<br><span class=\"text-sm text-gray-500\">Not Available Yet</span>",
+                platform_amazon_us: 'Amazon US',
+                platform_amazon_eu: 'Amazon Europe',
+                platform_amazon_jp: 'Amazon JP',
+                platform_rakuten: '楽天市場',
+                platform_1shop: '1shop公式ストア（おすすめ）',
+                platform_momo: 'momo',
+                platform_shopee: 'Shopee',
+
+                specs_title: '仕様',
+
+                specs_cat_general: '一般仕様',
+                specs_cat_video: '映像・録画',
+                specs_cat_lens: 'レンズ・ディスプレイ',
+                specs_cat_storage: 'メモリーカード・対応機器',
+
+                spec_general_type: 'カメラタイプ：アクションカメラ',
+                spec_general_color: 'カラー：ブラック',
+                spec_general_weight: '製品特長：軽量設計',
+                spec_general_recommend: '用途：アウトドア、バイク、自転車',
+                spec_general_waterproof: '防水性能：日常防水対応',
+
+                spec_video_resolution: '最大録画解像度：1080P',
+                spec_video_fps: 'フレームレート：30fps',
+                spec_video_format: '動画形式：MP4',
+                spec_video_ratio: 'アスペクト比：16:9',
+                spec_video_image_format: '写真形式：JPEG',
+                spec_video_wb: 'ホワイトバランス：自動',
+                spec_video_file: 'ファイル形式：MP4',
+                spec_video_exposure: '露出補正：自動',
+
+                spec_lens_angle: '画角：120°',
+                spec_lens_type: 'レンズタイプ：固定焦点',
+                spec_lens_max_focal: '焦点距離：5mm',
+                spec_display_size: '画面サイズ：1インチ',
+                spec_display_resolution: 'ディスプレイ解像度：1080P FHD',
+
+                spec_storage_type: 'メモリーカード：microSD',
+                spec_storage_speed: '対応速度クラス：Class 2以上',
+                spec_compat_device: '対応機器：スマートフォン',
+
+                spec_battery_included: '内蔵バッテリー：あり',
+                spec_battery_type: 'バッテリー：リチウムポリマー',
+                spec_battery_life: '連続録画時間：約3時間',
+            }
+        };
+
+        if (typeof langData !== 'undefined') {
+            Object.keys(pageLangData).forEach((k) => {
+                langData[k] = Object.assign(langData[k] || {}, pageLangData[k]);
+            });
+        } else {
+            // 若全站字典不存在，至少提供一份在 window 上（避免完全失效）
+            window.langData = pageLangData;
+        }
+        
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach((el) => {
+            const key = el.getAttribute('data-i18n');
+            const val = (window.langData && window.langData[lang]) ? window.langData[lang][key] : undefined;
+            if (val === undefined || val === null) return;
+
+            // 讓字典可以用 \n 代表換行
+            const html = String(val).replace(/\n/g, '<br>');
+
+            // input / textarea：翻譯 placeholder 或 value
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                if (el.hasAttribute('placeholder')) el.setAttribute('placeholder', String(val));
+                else el.value = String(val);
+                return;
+            }
+
+            // 一般元素：用 innerHTML 才能讓 <br> 生效
+            el.innerHTML = html;
+        });
+
+        window.onload = () => changeLang(localStorage.getItem('lang') || 'zh');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

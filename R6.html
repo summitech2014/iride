@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iRide & J-Trek | R6</title>
+
+    <!-- 基本 Open Graph -->
+    <meta property="og:title" content="iRide & J-Trek">
+    <meta property="og:description" content="注於打造穩定、可靠的通訊設備">
+    <meta property="og:image" content="https://iride.com.tw/image/iRide_og.png">
+    <meta property="og:url" content="https://iride.com.tw">
+    <meta property="og:type" content="website">
+    
+    <!-- 建議加，避免部分平台抓錯 -->
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <link rel="icon" href="/image/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="image/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">     
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #f5f5f7;
+            overflow-x: hidden;
+        }
+
+        .apple-gradient-text {
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 下拉選單動畫 */
+        /* 確保下拉選單觸發區域連續，防止點不到 */
+        .dropdown { 
+            position: relative; 
+        }
+
+        /* 核心修正：讓選單緊貼頂部，並在上方加入透明填充，作為滑鼠移動的橋樑 */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%; /* 緊貼父元素底部 */
+            left: 0;
+            z-index: 200;
+            padding-top: 10px; /* 關鍵：增加透明填充，防止滑鼠移動時斷掉 */
+        }
+
+        /* 滑鼠移入時顯示 */
+        .dropdown:hover > .dropdown-menu {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        /* 巢狀選單 (Nested Menu) 的修正 */
+        .nested-menu {
+            display: none;
+            position: absolute;
+            left: 100%; /* 從右側彈出 */
+            top: 0;
+            padding-left: 5px; /* 側邊的透明橋樑 */
+        }
+
+        .nested-dropdown:hover > .nested-menu {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 767px) {
+            #buy .platform-link {
+                justify-content: center;
+                text-align: center;
+            }
+
+            #buy .platform-link span {
+                text-align: center;
+            }
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .platform-card {
+
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,0.07),
+                rgba(255,255,255,0.02)
+            );
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+        }
+
+        .platform-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            border-radius: inherit;
+
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.18),
+                transparent 38%
+            );
+
+            pointer-events: none;
+        }
+
+        .platform-card > * {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="nav-placeholder"></div>
+
+    <script src="components.js"></script>
+
+    <section class="relative flex flex-col items-center justify-center aspect-[1050/591] text-center px-4 overflow-hidden">
+        <div class="absolute inset-0 -z-10">
+            <img
+                src="image/R6/R6_banner.png"
+                alt="R6 banner"
+                class="w-full h-full object-cover object-center"
+            />
+            <!-- Optional dark overlay for better text contrast -->
+            <div class="absolute inset-0 bg-black/35"></div>
+        </div>
+    
+        <div class="absolute z-10 left-4 md:left-16 top-1/2 -translate-y-1/2 max-w-[90%] md:max-w-4xl fade-on-scroll bg-black/20 backdrop-blur-md rounded-2xl px-5 py-6 md:px-8 md:py-10">            
+            <h1 class="text-6xl md:text-8xl font-bold tracking-tight mb-6 apple-gradient-text">R6</h1>
+            <p data-i18n="hero_desc" class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+                前後同步記錄，<br>不錯過每一個精彩瞬間。
+            </p>
+            <div class="mt-10">
+                <a href="#buy" data-i18n="cta_buy" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full text-lg font-semibold transition-all">立即選購</a>
+            </div>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] -z-10"></div>
+    </section>
+
+    <section class="py-32 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat1_title" class="text-4xl font-bold mb-6">前後雙錄，不漏精彩</h2>
+                    <p data-i18n="feat1_desc" class="text-gray-400 text-lg leading-relaxed">
+                        前後鏡頭同步錄影，完整記錄旅程中的每一個瞬間。
+
+                        無論是沿途風景、突發狀況，還是值得回味的騎行時刻，都能安心保存，留下更完整的影像紀錄。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/R6/1.png" alt="R6_1" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/R6/2.png" alt="R6_2" class="w-full h-full object-cover" />
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 data-i18n="feat2_title" class="text-4xl font-bold mb-6">單錄 4K，雙錄 2K</h2>
+                    <p data-i18n="feat2_desc" class="text-gray-400 text-lg leading-relaxed">
+                        支援 4K、2K 與 1080P 多種錄影模式。
+
+                        單鏡頭錄影最高支援 4K UHD 畫質，雙鏡頭同步錄影最高支援 2K 高畫質錄影，兼顧畫面細節與完整紀錄，讓每段旅程都更加清晰。 
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat3_title" class="text-4xl font-bold mb-6">Wi-Fi 秒傳，快速查看</h2>
+                    <p data-i18n="feat3_desc" class="text-gray-400 text-lg leading-relaxed">
+                        透過手機即可快速查看、下載與分享錄影內容。
+
+                        搭配碰撞鎖檔功能，當發生撞擊或異常震動時，系統將自動保存重要影片，讓關鍵畫面不怕遺失。 
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/R6/3.png" alt="R6_3" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/R6/4.png" alt="R6_4" class="w-full h-full object-cover" />
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 data-i18n="feat4_title" class="text-4xl font-bold mb-6">無懼風雨，穩定記錄</h2>
+                    <p data-i18n="feat4_desc" class="text-gray-400 text-lg leading-relaxed">
+                        具備 IP67 防護等級，能有效抵禦雨水與灰塵侵擾。
+
+                        無論日常通勤、戶外活動或雨天騎行，都能穩定運作，陪伴每一次出發。
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-20 items-center mb-32 fade-on-scroll">
+                <div>
+                    <h2 data-i18n="feat5_title" class="text-4xl font-bold mb-6">最長 5 小時續航</h2>
+                    <p data-i18n="feat5_desc" class="text-gray-400 text-lg leading-relaxed">
+                        內建 2000mAh 電池，支援快速充電。
+
+                        單鏡頭 4K 錄影模式下最長可達約 5 小時錄影時間，滿足日常通勤、長途旅行與戶外活動需求。
+                    </p>
+                </div>
+                <div class="order-2 md:order-1 bg-zinc-900 aspect-square rounded-[40px] border border-white/5 overflow-hidden relative">
+                    <img src="image/R6/5.png" alt="R6_5" class="w-full h-full object-cover" />
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <section id="buy" class="py-24 bg-zinc-950 border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            
+            <h2 class="text-3xl font-bold mb-6" data-i18n="buy_title">
+            官方直營購買
+            </h2>
+
+            <p class="text-gray-400 mb-10" data-i18n="buy_desc">
+            透過官方直營電商平台購買 R6，享有完整保固與售後支援。
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="globe" class="text-blue-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_west_title" class="text-2xl font-bold text-white">歐美地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Western Markets</p>
+                    </div>
+                    <div class="platform-link flex items-center justify-center text-center p-4 rounded-2xl opacity-50 cursor-not-allowed">
+                        <span data-i18n="platform_not_available">
+                            尚未於此地區販售<br>
+                            <span class="text-sm text-gray-500">Not Available Yet</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="map-pin" class="text-red-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_jp_title" class="text-2xl font-bold text-white">日本地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Japan Market</p>
+                    </div>
+                    <div class="platform-link flex items-center justify-center text-center p-4 rounded-2xl opacity-50 cursor-not-allowed">
+                        <span data-i18n="platform_not_available">
+                            尚未於此地區販售<br>
+                            <span class="text-sm text-gray-500">Not Available Yet</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="platform-card rounded-[32px] p-8 flex flex-col">
+                    <div class="mb-8">
+                        <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-4">
+                            <i data-lucide="shopping-cart" class="text-emerald-500 w-6 h-6"></i>
+                        </div>
+                        <h2 data-i18n="region_tw_title" class="text-2xl font-bold text-white">台灣地區</h2>
+                        <p class="text-gray-500 text-sm mt-1">Taiwan Market</p>
+                    </div>
+                    <div class="platform-link flex items-center justify-center text-center p-4 rounded-2xl opacity-50 cursor-not-allowed">
+                        <span data-i18n="platform_not_available">
+                            尚未於此地區販售<br>
+                            <span class="text-sm text-gray-500">Not Available Yet</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>    
+
+    <section class="py-32 bg-black border-t border-white/10">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 data-i18n="specs_title" class="text-3xl font-bold mb-16">技術規格</h2>
+            <div class="grid md:grid-cols-2 gap-y-12 gap-x-20">
+
+            <div class="border-b border-white/10 pb-6">
+                <p data-i18n="specs_cat_general" class="text-xl text-gray-500 uppercase tracking-widest mb-2">一般規格</p>
+                <ul class="text-gray-300 space-y-2">
+                    <li data-i18n="spec_general_recording">錄影方式：前後雙鏡頭同步錄影</li>
+                    <li data-i18n="spec_general_waterproof">防護等級：IP67 防塵防水</li>
+                    <li data-i18n="spec_general_auto">智慧啟停：移動即錄影，靜止約 3 分鐘自動關機</li>
+                    <li data-i18n="spec_general_size">產品尺寸：L128 × W38 × H38 mm</li>
+                    <li data-i18n="spec_general_temp">適用溫度：-20°C ～ +70°C</li>
+                </ul>
+            </div>
+
+            <div class="border-b border-white/10 pb-6">
+                <p data-i18n="specs_cat_video" class="text-xl text-gray-500 uppercase tracking-widest mb-2">影像與錄影</p>
+                <ul class="text-gray-300 space-y-2">
+                    <li data-i18n="spec_video_single_4k">單鏡錄影：最高 4K UHD 30FPS</li>
+                    <li data-i18n="spec_video_single_2k">單鏡錄影：2K 60FPS</li>
+                    <li data-i18n="spec_video_single_1080p">單鏡錄影：1080P 60FPS</li>
+                    <li data-i18n="spec_video_dual_2k">雙鏡錄影：2K 30FPS + 2K 30FPS</li>
+                    <li data-i18n="spec_video_dual_1080p">雙鏡錄影：1080P 60FPS + 1080P 60FPS</li>
+                    <li data-i18n="spec_video_stabilization">電子防震：支援 EIS</li>
+                </ul>
+            </div>
+
+            <div class="border-b border-white/10 pb-6">
+                <p data-i18n="specs_cat_lens" class="text-xl text-gray-500 uppercase tracking-widest mb-2">鏡頭與功能</p>
+                <ul class="text-gray-300 space-y-2">
+                    <li data-i18n="spec_lens_angle">鏡頭視角：120°</li>
+                    <li data-i18n="spec_lens_aperture">鏡頭規格：6G / F1.8 光圈</li>
+                    <li data-i18n="spec_audio_recording">錄音功能：單聲道降噪錄音</li>
+                    <li data-i18n="spec_gsensor">碰撞鎖檔：內建 G-Sensor</li>
+                    <li data-i18n="spec_auto_recording">智慧啟停：移動即錄影，靜止約 3 分鐘自動關機</li>
+                    <li data-i18n="spec_wifi">無線連線：5G Wi-Fi</li>
+                </ul>
+            </div>
+
+            <div class="border-b border-white/10 pb-6">
+                <p data-i18n="specs_cat_storage" class="text-xl text-gray-500 uppercase tracking-widest mb-2">儲存與電池</p>
+                <ul class="text-gray-300 space-y-2">
+                    <li data-i18n="spec_storage_type">記憶卡：最高支援 256GB microSD</li>
+                    <li data-i18n="spec_storage_speed">建議規格：U3 或以上速度等級</li>
+                    <li data-i18n="spec_video_encoder">影片編碼：H.264 / H.265</li>
+                    <li data-i18n="spec_video_format">影片格式：MP4 / TS</li>
+                    <li data-i18n="spec_battery_capacity">電池容量：2000mAh，支援快速充電</li>
+                    <li data-i18n="spec_battery_life">續航時間：單鏡 4K 最長約 300 分鐘，雙鏡 2K 約 240 分鐘</li>
+                </ul>
+            </div>
+
+            </div>   
+        </div>      
+    </section>
+
+    <div id="footer-placeholder"></div>
+    
+    <script>
+        lucide.createIcons();
+
+        // 語言字典
+        const pageLangData = {
+            'zh': {
+                hero_desc: '前後同步記錄，<br>不錯過每一個精彩瞬間。',
+                cta_buy: '立即選購',
+
+                feat1_title: '前後雙錄，不漏精彩',
+                feat1_desc:
+                    '前後鏡頭同步錄影，完整記錄旅程中的每一個瞬間。\n\n' +
+                    '無論是沿途風景、突發狀況，還是值得回味的騎行時刻，都能安心保存，留下更完整的影像紀錄。',
+
+                feat2_title: '單錄 4K，雙錄 2K',
+                feat2_desc:
+                    '支援 4K、2K 與 1080P 多種錄影模式。\n\n' +
+                    '單鏡頭錄影最高支援 4K UHD 畫質，雙鏡頭同步錄影最高支援 2K 高畫質錄影，兼顧畫面細節與完整紀錄，讓每段旅程都更加清晰。 ',
+
+                feat3_title: 'Wi-Fi 秒傳，快速查看',
+                feat3_desc:
+                    '透過手機即可快速查看、下載與分享錄影內容。\n\n' +
+                    '搭配碰撞鎖檔功能，當發生撞擊或異常震動時，系統將自動保存重要影片，讓關鍵畫面不怕遺失。 ',
+
+                feat4_title: '無懼風雨，穩定記錄',
+                feat4_desc:
+                    '具備 IP67 防護等級，能有效抵禦雨水與灰塵侵擾。\n\n' +
+                    '無論日常通勤、戶外活動或雨天騎行，都能穩定運作，陪伴每一次出發。',
+
+                feat5_title: '最長 5 小時續航',
+                feat5_desc:
+                    '內建 2000mAh 電池，支援快速充電。\n\n' +
+                    '單鏡頭 4K 錄影模式下最長可達約 5 小時錄影時間，滿足日常通勤、長途旅行與戶外活動需求。',
+
+                buy_title: '官方直營購買',
+                buy_desc: '透過官方直營電商平台購買 R6，享有完整保固與售後支援。',
+
+                region_west_title: '歐美地區',
+                region_jp_title: '日本地區',
+                region_tw_title: '台灣地區',
+
+                platform_not_available: "尚未於此地區販售<br><span class=\"text-sm text-gray-500\">Not Available Yet</span>",
+                platform_amazon_us: 'Amazon US',
+                platform_amazon_eu: 'Amazon Europe',
+                platform_amazon_jp: 'Amazon JP',
+                platform_rakuten: 'Rakuten 樂天市場',
+                platform_1shop: '1shop 官方店 (推薦)',
+                platform_momo: 'momo 購物網',
+                platform_shopee: '蝦皮購物 Shopee',
+
+                specs_title: '技術規格',
+
+                specs_cat_general: '一般規格',
+                specs_cat_video: '影像與錄影',
+                specs_cat_lens: '鏡頭與功能',
+                specs_cat_storage: '儲存與電池',
+
+                spec_general_recording: '錄影方式：前後雙鏡頭同步錄影',
+                spec_general_waterproof: '防護等級：IP67 防塵防水',
+                spec_general_auto: '智慧啟停：移動即錄影，靜止約 3 分鐘自動關機',
+                spec_general_size: '產品尺寸：L128 × W38 × H38 mm',
+                spec_general_temp: '適用溫度：-20°C ～ +70°C',
+
+                spec_video_single_4k: '單鏡錄影：最高 4K UHD 30FPS',
+                spec_video_single_2k: '單鏡錄影：2K 60FPS',
+                spec_video_single_1080p: '單鏡錄影：1080P 60FPS',
+                spec_video_dual_2k: '雙鏡錄影：2K 30FPS + 2K 30FPS',
+                spec_video_dual_1080p: '雙鏡錄影：1080P 60FPS + 1080P 60FPS',
+                spec_video_stabilization: '電子防震：支援 EIS',
+
+                spec_lens_angle: '鏡頭視角：120°',
+                spec_lens_aperture: '鏡頭規格：6G / F1.8 光圈',
+                spec_audio_recording: '錄音功能：單聲道降噪錄音',
+                spec_gsensor: '碰撞鎖檔：內建 G-Sensor',
+                spec_auto_recording: '智慧啟停：移動即錄影，靜止約 3 分鐘自動關機',
+                spec_wifi: '無線連線：5G Wi-Fi',
+
+                spec_storage_type: '記憶卡：最高支援 256GB microSD',
+                spec_storage_speed: '建議規格：U3 或以上速度等級',
+                spec_video_encoder: '影片編碼：H.264 / H.265',
+                spec_video_format: '影片格式：MP4 / TS',
+                spec_battery_capacity: '電池容量：2000mAh，支援快速充電',
+                spec_battery_life: '續航時間：單鏡 4K 最長約 300 分鐘，雙鏡 2K 約 240 分鐘',
+            },
+            'en': {
+                hero_desc: 'Front and rear recording,<br>capture every exciting moment.',
+
+                cta_buy: 'Shop Now',
+
+                feat1_title: 'Dual Recording, Nothing Missed',
+                feat1_desc:
+                    'Front and rear cameras record at the same time, capturing every moment of your ride.\n\n' +
+                    'From scenic roads to unexpected situations, R6 helps you keep a more complete record of every journey.',
+
+                feat2_title: '4K Single, 2K Dual',
+                feat2_desc:
+                    'Supports multiple recording modes, including 4K, 2K, and 1080P.\n\n' +
+                    'Single-camera recording supports up to 4K UHD, while dual-camera recording supports up to 2K, giving you clear details and complete coverage.',
+
+                feat3_title: 'Wi-Fi Transfer, Quick Access',
+                feat3_desc:
+                    'Quickly view, download, and share recordings from your smartphone.\n\n' +
+                    'With G-Sensor emergency lock, important footage can be automatically saved when impact or unusual vibration is detected.',
+
+                feat4_title: 'Rain or Shine, Keep Recording',
+                feat4_desc:
+                    'With IP67 dustproof and waterproof protection, R6 is built for daily rides and outdoor conditions.\n\n' +
+                    'Whether commuting, touring, or riding in the rain, it keeps recording reliably.',
+
+                feat5_title: 'Up to 5 Hours Battery Life',
+                feat5_desc:
+                    'Built-in 2000mAh battery with fast charging support.\n\n' +
+                    'Single-camera 4K recording lasts up to approximately 5 hours, suitable for daily rides, long trips, and outdoor use.',
+
+
+
+                buy_title: 'Official Purchase Channels',
+                buy_desc: 'Purchase R6 through official sales channels and enjoy full warranty coverage and after-sales support.',
+
+                region_west_title: 'US & Europe',
+                region_jp_title: 'Japan',
+                region_tw_title: 'Taiwan',
+
+                platform_not_available: "Not Available Yet<br><span class=\"text-sm text-gray-500\">Currently unavailable in this region</span>",
+                platform_amazon_us: 'Amazon US',
+                platform_amazon_eu: 'Amazon Europe',
+                platform_amazon_jp: 'Amazon Japan',
+                platform_rakuten: 'Rakuten',
+                platform_1shop: '1shop Official Store (Recommended)',
+                platform_momo: 'momo',
+                platform_shopee: 'Shopee',
+
+                specs_title: 'Specifications',
+
+                specs_cat_general: 'Main Features',
+                specs_cat_video: 'Video Recording',
+                specs_cat_lens: 'Lens & Functions',
+                specs_cat_storage: 'Storage & Battery',
+
+                spec_general_recording: 'Recording Mode: Front and Rear Dual Recording',
+                spec_general_waterproof: 'Protection Rating: IP67 Dustproof and Waterproof',
+                spec_general_auto: 'Auto Start/Stop: Starts recording while moving, powers off after about 3 minutes of inactivity',
+                spec_general_size: 'Dimensions: L128 × W38 × H38 mm',
+                spec_general_temp: 'Operating Temperature: -20°C to +70°C',
+
+                spec_video_single_4k: 'Single-Camera Recording: Up to 4K UHD 30FPS',
+                spec_video_single_2k: 'Single-Camera Recording: 2K 60FPS',
+                spec_video_single_1080p: 'Single-Camera Recording: 1080P 60FPS',
+                spec_video_dual_2k: 'Dual-Camera Recording: 2K 30FPS + 2K 30FPS',
+                spec_video_dual_1080p: 'Dual-Camera Recording: 1080P 60FPS + 1080P 60FPS',
+                spec_video_stabilization: 'Stabilization: EIS Supported',
+
+                spec_lens_angle: 'Field of View: 120°',
+                spec_lens_aperture: 'Lens: 6G / F1.8 Aperture',
+                spec_audio_recording: 'Audio Recording: Mono Recording with Noise Reduction',
+                spec_gsensor: 'Emergency Lock: Built-in G-Sensor',
+                spec_auto_recording: 'Auto Start/Stop: Starts recording while moving, powers off after about 3 minutes of inactivity',
+                spec_wifi: 'Wireless Connection: 5G Wi-Fi',
+
+                spec_storage_type: 'Memory Card: Supports up to 256GB microSD',
+                spec_storage_speed: 'Recommended Speed Class: U3 or Above',
+                spec_video_encoder: 'Video Encoding: H.264 / H.265',
+                spec_video_format: 'Video Format: MP4 / TS',
+                spec_battery_capacity: 'Battery Capacity: 2000mAh, Fast Charging Supported',
+                spec_battery_life: 'Battery Life: Up to approx. 300 minutes in single 4K mode, approx. 240 minutes in dual 2K mode',
+            },
+            'jp': {
+                hero_desc: '前後を同時に記録し、<br>大切な瞬間を逃さない。',
+
+                cta_buy: '今すぐ購入',
+
+                feat1_title: '前後同時録画、しっかり記録',
+
+                feat1_desc:
+
+                    '前後カメラで同時に録画し、走行中の大切な瞬間をしっかり記録します。\n\n' +
+
+                    '景色の記録から突然の出来事まで、より完整なライディング映像を残せます。',
+
+                feat2_title: '単録4K、前後2K',
+
+                feat2_desc:
+
+                    '4K、2K、1080Pなど、複数の録画モードに対応しています。\n\n' +
+
+                    'シングルカメラ録画では最大4K UHD、前後同時録画では最大2Kに対応し、映像の鮮明さと記録範囲を両立します。',
+
+                feat3_title: 'Wi-Fi転送、すぐ確認',
+
+                feat3_desc:
+
+                    'スマートフォンから録画データをすばやく確認、ダウンロード、共有できます。\n\n' +
+
+                    'Gセンサーによる緊急録画ロックに対応し、衝撃や異常な振動を検知した際に重要な映像を自動保存します。',
+
+                feat4_title: '雨の日も、安定して記録',
+
+                feat4_desc:
+
+                    'IP67の防塵・防水性能により、日常の走行やアウトドア環境にも対応します。\n\n' +
+
+                    '通勤、ツーリング、雨天時の走行でも、安定した録画をサポートします。',
+
+                feat5_title: '最長約5時間のバッテリー',
+
+                feat5_desc:
+
+                    '2000mAhバッテリーを内蔵し、急速充電に対応しています。\n\n' +
+
+                    'シングルカメラ4K録画では最長約5時間の録画が可能で、日常の移動から長時間のライディングまで対応します。',
+
+                buy_title: '公式販売チャネル',
+                buy_desc: 'R6を公式販売チャネルから購入すると、保証およびアフターサポートをご利用いただけます。',
+
+                region_west_title: '欧米地域',
+                region_jp_title: '日本地域',
+                region_tw_title: '台湾地域',
+
+                platform_not_available: "この地域ではまだ販売していません<br><span class=\"text-sm text-gray-500\">Not Available Yet</span>",
+                platform_amazon_us: 'Amazon US',
+                platform_amazon_eu: 'Amazon Europe',
+                platform_amazon_jp: 'Amazon JP',
+                platform_rakuten: '楽天市場',
+                platform_1shop: '1shop公式ストア（おすすめ）',
+                platform_momo: 'momo',
+                platform_shopee: 'Shopee',
+
+                specs_title: '仕様',
+
+                specs_cat_general: '主な仕様',
+                specs_cat_video: '映像・録画',
+                specs_cat_lens: 'レンズ・機能',
+                specs_cat_storage: 'ストレージ・バッテリー',
+
+                spec_general_recording: '録画方式：前後デュアル録画',
+                spec_general_waterproof: '防塵・防水性能：IP67',
+                spec_general_auto: '自動録画：移動時に録画開始、約3分間静止すると自動電源オフ',
+                spec_general_size: '本体サイズ：L128 × W38 × H38 mm',
+                spec_general_temp: '動作温度：-20°C ～ +70°C',
+
+                spec_video_single_4k: 'シングル録画：最大4K UHD 30FPS',
+                spec_video_single_2k: 'シングル録画：2K 60FPS',
+                spec_video_single_1080p: 'シングル録画：1080P 60FPS',
+                spec_video_dual_2k: '前後同時録画：2K 30FPS + 2K 30FPS',
+                spec_video_dual_1080p: '前後同時録画：1080P 60FPS + 1080P 60FPS',
+                spec_video_stabilization: '手ブレ補正：EIS対応',
+
+                spec_lens_angle: '画角：120°',
+                spec_lens_aperture: 'レンズ：6G / F1.8絞り',
+                spec_audio_recording: '録音機能：ノイズ低減対応モノラル録音',
+                spec_gsensor: '緊急録画ロック：Gセンサー内蔵',
+                spec_auto_recording: '自動録画：移動時に録画開始、約3分間静止すると自動電源オフ',
+                spec_wifi: '無線接続：5G Wi-Fi',
+
+                spec_storage_type: 'メモリーカード：最大256GB microSD対応',
+                spec_storage_speed: '推奨速度クラス：U3以上',
+                spec_video_encoder: '動画エンコード：H.264 / H.265',
+                spec_video_format: '動画形式：MP4 / TS',
+                spec_battery_capacity: 'バッテリー容量：2000mAh、急速充電対応',
+                spec_battery_life: '録画時間：シングル4Kで最長約300分、前後2Kで約240分',
+            }
+        };
+
+        if (typeof langData !== 'undefined') {
+            Object.keys(pageLangData).forEach((k) => {
+                langData[k] = Object.assign(langData[k] || {}, pageLangData[k]);
+            });
+        } else {
+            // 若全站字典不存在，至少提供一份在 window 上（避免完全失效）
+            window.langData = pageLangData;
+        }
+        
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach((el) => {
+            const key = el.getAttribute('data-i18n');
+            const val = (window.langData && window.langData[lang]) ? window.langData[lang][key] : undefined;
+            if (val === undefined || val === null) return;
+
+            // 讓字典可以用 \n 代表換行
+            const html = String(val).replace(/\n/g, '<br>');
+
+            // input / textarea：翻譯 placeholder 或 value
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                if (el.hasAttribute('placeholder')) el.setAttribute('placeholder', String(val));
+                else el.value = String(val);
+                return;
+            }
+
+            // 一般元素：用 innerHTML 才能讓 <br> 生效
+            el.innerHTML = html;
+        });
+
+        window.onload = () => changeLang(localStorage.getItem('lang') || 'zh');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

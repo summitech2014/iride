@@ -1,6 +1,6 @@
 // 1. 導航欄組件 (Navbar)
 const navbarHTML = `
-<nav class="fixed w-full z-50 top-0 nav-blur border-b border-white/10">
+<nav class="fixed w-full z-50 top-0 left-0 nav-blur border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
@@ -29,6 +29,9 @@ const navbarHTML = `
                                 <div class="nested-menu">
                                     <div class="w-40 bg-zinc-900 border border-white/10 rounded-xl shadow-2xl py-2">
                                         <a href="T1.html" class="block px-4 py-2 text-base text-gray-400 hover:text-white hover:bg-white/5">T1</a>
+                                        <a href="N1.html" class="block px-4 py-2 text-base text-gray-400 hover:text-white hover:bg-white/5">N1</a>
+                                        <a href="R6.html" class="block px-4 py-2 text-base text-gray-400 hover:text-white hover:bg-white/5">R6</a>
+                                        <a href="R3.html" class="block px-4 py-2 text-base text-gray-400 hover:text-white hover:bg-white/5">R3</a>
                                     </div>
                                 </div>
                             </div>                    
@@ -132,7 +135,10 @@ const navbarHTML = `
 
                         <div id="mobile-iride-panel" class="hidden pl-3 space-y-1">
                             <a href="T1.html" class="block px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/5 hover:text-white" onclick="closeMobileMenu()">T1</a>
-                        </div>                     
+                            <a href="N1.html" class="block px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/5 hover:text-white" onclick="closeMobileMenu()">N1</a>
+                            <a href="R6.html" class="block px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/5 hover:text-white" onclick="closeMobileMenu()">R6</a>
+                            <a href="R3.html" class="block px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/5 hover:text-white" onclick="closeMobileMenu()">R3</a>
+                        </div>
 
                         <!-- Nested accordion: Motorcycle Systems -->
                         <button
@@ -308,7 +314,10 @@ function initPage() {
     const navElem = document.getElementById('nav-placeholder');
     const footerElem = document.getElementById('footer-placeholder');
 
-    if (navElem) navElem.innerHTML = navbarHTML;
+    if (navElem) {
+        navElem.innerHTML = navbarHTML;
+        navElem.classList.add('h-16');
+    }
     if (footerElem) footerElem.innerHTML = footerHTML;
 
     lucide.createIcons(); // 必須在注入 HTML 後執行
