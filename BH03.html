@@ -285,30 +285,30 @@
     <section id="overview" class="relative flex flex-col items-center justify-center aspect-[1050/591] text-center px-4 overflow-hidden">
 
         <!-- ✅ 背景輪播（只換背景，不動文字） -->
-        <div class="absolute inset-y-0 left-4 flex items-center z-20">
+        <div class="hidden md:flex absolute inset-y-0 left-4 items-center z-20">
             <button id="hero-prev"
                 class="bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full p-2 md:p-3 transition">
                 <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6 text-white"></i>
             </button>
         </div>
 
-            <div class="hero-slide active"
-                style="background-image:url('image/BH03/BH03_banner1.png')">
-            </div>
+        <div class="hero-slide active"
+            style="background-image:url('image/BH03/BH03_banner1.png')">
+        </div>
 
-            <div class="hero-slide"
-                style="background-image:url('image/BH03/BH03_banner2.png')">
-            </div>
+        <div class="hero-slide"
+            style="background-image:url('image/BH03/BH03_banner2.png')">
+        </div>
 
-            <div class="hero-slide"
-                style="background-image:url('image/BH03/BH03_banner3.png')">
-            </div>
+        <div class="hero-slide"
+            style="background-image:url('image/BH03/BH03_banner3.png')">
+        </div>
 
-            <div class="hero-slide"
-                style="background-image:url('image/BH03/BH03_banner4.png')">
-            </div>    
+        <div class="hero-slide"
+            style="background-image:url('image/BH03/BH03_banner4.png')">
+        </div>    
 
-        <div class="absolute inset-y-0 right-4 flex items-center z-20">
+        <div class="hidden md:flex absolute inset-y-0 right-4 items-center z-20">
             <button id="hero-next"
                 class="bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full p-2 md:p-3 transition">
                 <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6 text-white"></i>
