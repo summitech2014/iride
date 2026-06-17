@@ -158,7 +158,12 @@
     <section id="hero" class="relative flex flex-col items-center justify-center aspect-[1050/591] text-center px-4 overflow-hidden">
 
         <!-- ✅ 背景輪播（只換背景，不動文字） -->
-        <div class="absolute inset-0 -z-20">
+         <div class="absolute inset-y-0 left-4 flex items-center z-20">
+            <button id="hero-prev"
+                class="bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full p-3 transition">
+                <i data-lucide="chevron-left" class="w-6 h-6 text-white"></i>
+            </button>
+        </div>
 
             <div class="hero-slide active" style="background-image:url('image/JX09/JX09_banner.png')"></div>
             <div class="hero-slide" style="background-image:url('image/BH03/BH03_banner1.png')"></div>
@@ -166,6 +171,16 @@
             <div class="hero-slide" style="background-image:url('image/JX06se/JX06se_banner.png')"></div>
             <div class="hero-slide" style="background-image:url('image/JX03/JX03_banner.png')"></div>
             <div class="hero-slide" style="background-image:url('image/JX01/JX01_banner.png')"></div>
+
+        <div class="absolute inset-y-0 right-4 flex items-center z-20">
+            <button id="hero-next"
+                class="bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full p-3 transition">
+                <i data-lucide="chevron-right" class="w-6 h-6 text-white"></i>
+            </button>
+        </div>
+
+
+
                    
         </div>
 
@@ -196,8 +211,7 @@
         <!-- ✅ 你原本那顆藍色模糊光保留，位置在文字後面 -->
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] -z-10"></div>
 
-        <!-- ✅ 圓點（可點選） -->
-        <div class="hero-dots absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-3"></div>
+
 
     </section>
 
@@ -330,32 +344,26 @@
         document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
 
         const heroSlides = document.querySelectorAll('#hero .hero-slide');
-        const dotsWrap = document.querySelector('#hero .hero-dots');
 
         let heroIndex = 0;
         let heroTimer;
 
-        // 建 dots
-        heroSlides.forEach((_, i) => {
-            const b = document.createElement('button');
-            if (i === 0) b.classList.add('active');
-            b.addEventListener('click', () => heroShow(i));
-            dotsWrap.appendChild(b);
-        });
 
-        const heroDots = dotsWrap.querySelectorAll('button');
 
         function heroShow(i){
             heroSlides[heroIndex].classList.remove('active');
-            heroDots[heroIndex].classList.remove('active');
-
             heroIndex = i;
-
             heroSlides[heroIndex].classList.add('active');
-            heroDots[heroIndex].classList.add('active');
-
             heroReset();
         }
+
+        document.getElementById('hero-prev').addEventListener('click', () => {
+            heroShow((heroIndex - 1 + heroSlides.length) % heroSlides.length);
+        });
+
+        document.getElementById('hero-next').addEventListener('click', () => {
+            heroShow((heroIndex + 1) % heroSlides.length);
+        });
 
         function heroNext(){
             heroShow((heroIndex + 1) % heroSlides.length);
@@ -369,10 +377,10 @@
         heroReset();
 
         // ✅ 點背景導向該產品頁（不影響你的固定文字）
-        heroSlides.forEach(s => {
-            s.style.cursor = 'pointer';
-            s.addEventListener('click', () => location.href = s.dataset.link);
-        });        
+        //heroSlides.forEach(s => {
+            //s.style.cursor = 'pointer';
+            //s.addEventListener('click', () => location.href = s.dataset.link);
+        //});        
     </script>
 </body>
 </html>

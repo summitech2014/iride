@@ -285,26 +285,34 @@
     <section id="overview" class="relative flex flex-col items-center justify-center aspect-[1050/591] text-center px-4 overflow-hidden">
 
         <!-- ✅ 背景輪播（只換背景，不動文字） -->
-        <div class="absolute inset-0 -z-20">
+        <div class="absolute inset-y-0 left-4 flex items-center z-20">
+            <button id="hero-prev"
+                class="bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full p-2 md:p-3 transition">
+                <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6 text-white"></i>
+            </button>
+        </div>
+
             <div class="hero-slide active"
-                data-link="BH03.html"
                 style="background-image:url('image/BH03/BH03_banner1.png')">
             </div>
 
             <div class="hero-slide"
-                data-link="BH03.html"
                 style="background-image:url('image/BH03/BH03_banner2.png')">
             </div>
 
             <div class="hero-slide"
-                data-link="BH03.html"
                 style="background-image:url('image/BH03/BH03_banner3.png')">
             </div>
 
             <div class="hero-slide"
-                data-link="BH03.html"
                 style="background-image:url('image/BH03/BH03_banner4.png')">
-            </div>                
+            </div>    
+
+        <div class="absolute inset-y-0 right-4 flex items-center z-20">
+            <button id="hero-next"
+                class="bg-black/30 hover:bg-black/50 backdrop-blur-md rounded-full p-2 md:p-3 transition">
+                <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6 text-white"></i>
+            </button>
         </div>
 
         <div class="max-w-4xl mx-auto z-10 fade-on-scroll">
@@ -347,8 +355,6 @@
         <!-- Background Glow 保留也可以（你想要更乾淨可刪） -->
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/20 rounded-full blur-[120px] -z-10"></div>
 
-        <!-- ✅ 圓點 -->
-        <div class="hero-dots absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-3"></div>
     </section>
 
     <!-- Lightness Section -->
@@ -1032,32 +1038,28 @@
         // ===== BH03 Hero Slider JS =====
         const overview = document.querySelector('#overview');
         const slides = overview.querySelectorAll('.hero-slide');
-        const dotsWrap = overview.querySelector('.hero-dots');
+
 
         let idx = 0;
         let timer;
 
-        // 建立 dots
-        slides.forEach((_, i) => {
-            const b = document.createElement('button');
-            if (i === 0) b.classList.add('active');
-            b.addEventListener('click', () => show(i));
-            dotsWrap.appendChild(b);
-        });
-
-        const dots = dotsWrap.querySelectorAll('button');
-
         function show(i){
             slides[idx].classList.remove('active');
-            dots[idx].classList.remove('active');
 
             idx = i;
 
             slides[idx].classList.add('active');
-            dots[idx].classList.add('active');
 
             reset();
         }
+
+        document.getElementById('hero-prev').addEventListener('click', () => {
+            show((idx - 1 + slides.length) % slides.length);
+        });
+
+        document.getElementById('hero-next').addEventListener('click', () => {
+            show((idx + 1) % slides.length);
+        });
 
         function next(){
             show((idx + 1) % slides.length);
@@ -1070,14 +1072,6 @@
 
         reset();
 
-        // ✅ 點背景跳連結（如果你想要點 banner 也能跳）
-        slides.forEach(s => {
-            s.style.cursor = 'pointer';
-            s.addEventListener('click', () => {
-                const link = s.dataset.link;
-                if (link) location.href = link;
-            });
-        });
 
         // ✅ 滑鼠移上去暫停（可選，跟 index 一樣更像官網）
         overview.addEventListener('mouseenter', () => clearInterval(timer));
