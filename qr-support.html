@@ -388,18 +388,24 @@
             }
 
             .store-badge-row {
-                gap: 10px;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+                width: 100%;
             }
 
             .store-badge-link {
+                width: 100%;
                 min-width: 0;
-                flex: 1;
+                display: flex;
+                justify-content: center;
             }
 
             .store-badge-link img {
+                display: block;
                 width: 100%;
-                height: auto;
-                max-height: 44px;
+                height: 44px;
+                object-fit: contain;
             }
         }
 
