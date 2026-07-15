@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>iRide Support</title>
+
+    <link rel="icon" href="image/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            color-scheme: dark;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(37, 99, 235, 0.16), transparent 34%),
+                #000000;
+            color: #f5f5f7;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .page-shell {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 28px 18px 44px;
+        }
+
+        .phone-page {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+
+        .brand-logo {
+            display: block;
+            width: 180px;
+            height: auto;
+            margin: 0 auto;
+            object-fit: contain;
+        }
+
+        .brand-subtitle {
+            margin: 12px 0 0;
+            font-size: 22px;
+            font-weight: 600;
+            color: #a1a1aa;
+            letter-spacing: -0.02em;
+        }
+
+        .screen {
+            display: none;
+            animation: screenIn 0.35s ease both;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .topbar {
+            min-height: 42px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .back-button {
+            width: 42px;
+            height: 42px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            background: rgba(39, 39, 42, 0.72);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .back-button:active {
+            transform: scale(0.96);
+        }
+
+        .page-title {
+            margin: 0 0 30px;
+            font-size: clamp(34px, 7vw, 42px);
+            line-height: 1.12;
+            font-weight: 600;
+            letter-spacing: -0.04em;
+        }
+
+        .support-title {
+            text-align: center;
+
+            background: linear-gradient(
+                180deg,
+                #ffffff 0%,
+                #f2f2f4 38%,
+                #c9c9cf 72%,
+                #9a9aa3 100%
+            );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+
+            text-shadow: none;
+        }
+
+        .page-description {
+            margin: 0 0 28px;
+            color: #a1a1a6;
+            font-size: 16px;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .option-list {
+            display: grid;
+            gap: 24px;
+        }
+
+        .option-card {
+            width: 100%;
+            min-height: 72px;
+            padding: 15px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 18px;
+            background: rgba(39, 39, 42, 0.78);
+            color: #ffffff;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            transition:
+                transform 0.2s ease,
+                background-color 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .option-card:hover {
+            background: rgba(52, 52, 56, 0.9);
+            border-color: rgba(59, 130, 246, 0.45);
+        }
+
+        .option-card:active {
+            transform: scale(0.985);
+        }
+
+        .option-icon {
+            width: 48px;
+            height: 48px;
+            flex: 0 0 auto;
+            border-radius: 15px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(37, 99, 235, 0.16);
+            color: #3b82f6;
+        }
+
+        .option-copy {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .option-title {
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .option-text {
+            display: block;
+            margin-top: 5px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #8e8e93;
+        }
+
+        .option-arrow {
+            color: #71717a;
+            flex: 0 0 auto;
+        }
+
+        .language-card {
+            min-height: 72px;
+        }
+
+        .language-code {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.055);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .language-label {
+            margin: 6px 0 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #60a5fa;
+            letter-spacing: 0.01em;
+        }
+
+        .section-label {
+            margin: 30px 0 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #71717a;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .product-card {
+            min-height: 72px;
+        }
+
+        .app-download-layout {
+            display: grid;
+            gap: 22px;
+            max-width: 460px;
+            margin: 0 auto;
+        }
+
+        .app-download-layout + .app-download-layout {
+            margin-top: 38px;
+            padding-top: 38px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .app-product-row {
+            display: grid;
+            grid-template-columns: 104px minmax(0, 1fr);
+            gap: 16px;
+            align-items: center;
+        }
+
+        .app-icon-card {
+            width: 104px;
+            height: 104px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+        }
+
+        .app-icon-card img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-info-card {
+            min-height: 104px;
+            padding: 20px 22px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.045);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .app-name {
+            margin: 0;
+            font-size: 26px;
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .app-compatible {
+            margin: 12px 0 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #a1a1aa;
+        }
+
+        .store-badge-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: nowrap;
+            margin-top: 2px;
+        }
+
+        .store-badge-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            line-height: 0;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .store-badge-link:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .store-badge-link img {
+            display: block;
+            width: auto;
+            height: 48px;
+            max-width: 100%;
+        }
+
+        .store-badge-link:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .store-badge-link img {
+            display: block;
+            width: auto;
+            height: 52px;
+            max-width: none;
+        }
+
+        @media (max-width: 420px) {
+            .app-product-row {
+                grid-template-columns: 88px minmax(0, 1fr);
+                gap: 14px;
+            }
+
+            .app-icon-card {
+                width: 88px;
+                height: 88px;
+                border-radius: 21px;
+            }
+
+            .app-info-card {
+                min-height: 88px;
+                padding: 16px 18px;
+            }
+
+            .app-name {
+                font-size: 21px;
+            }
+
+            .app-compatible {
+                margin-top: 8px;
+                font-size: 12px;
+            }
+
+            .store-badge-row {
+                gap: 10px;
+            }
+
+            .store-badge-link {
+                min-width: 0;
+                flex: 1;
+            }
+
+            .store-badge-link img {
+                width: 100%;
+                height: auto;
+                max-height: 44px;
+            }
+        }
+
+        .manual-left{
+            display:flex;
+            align-items:center;
+            gap:16px;
+        }
+
+        .manual-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #60a5fa;
+        }
+
+        .manual-title{
+            font-size:20px;
+            font-weight:700;
+        }
+
+        .manual-type {
+            padding: 4px 7px;
+            border-radius: 6px;
+            background: rgba(255,255,255,.05);
+            color: #8e8e93;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .04em;
+        }
+
+        .download-button {
+            margin-left: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0;
+            background: transparent;
+            color: #60a5fa;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .product-card.is-disabled {
+            cursor: default;
+            opacity: 0.62;
+        }
+
+        .product-card.is-disabled:hover {
+            background: rgba(39, 39, 42, 0.78);
+            border-color: rgba(255, 255, 255, 0.07);
+            transform: none;
+        }
+
+        .product-card.is-pending .download-button {
+            color: #a1a1aa;
+        }
+
+        .product-card.is-unavailable .download-button {
+            color: #71717a;
+        }
+
+        .footer-note {
+            margin: 30px auto 0;
+            max-width: 360px;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.6;
+            color: #52525b;
+        }
+
+        @keyframes screenIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (min-width: 640px) {
+            .page-shell {
+                align-items: center;
+                padding-top: 48px;
+            }
+
+            .phone-page {
+                padding: 38px;
+                border: 1px solid rgba(255, 255, 255, 0.06);
+                border-radius: 34px;
+                background: rgba(9, 9, 11, 0.72);
+                box-shadow: 0 30px 80px rgba(0, 0, 0, 0.42);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="page-shell">
+        <div class="phone-page">
+
+            <header class="brand">
+                <img src="image/iRide_白.png" alt="iRide Logo" class="brand-logo">
+                <p class="brand-subtitle">iRide & J-TREK</p>
+            </header>
+
+            <!-- 第一步：選擇語言 -->
+            <section id="language-screen" class="screen active">
+                <h2 class="page-title support-title">Official Product Support</h2>
+
+                <div class="option-list">
+                    <div>
+                        <p class="language-label">請選擇語言</p>
+
+                        <button class="option-card language-card" type="button" data-language="zh-tw">
+                            <span class="language-code">ZH</span>
+
+                            <span class="option-copy">
+                                <span class="option-title">繁體中文</span>
+                            </span>
+
+                            <i data-lucide="chevron-right" class="option-arrow"></i>
+                        </button>
+                    </div>
+
+                    <div>
+                        <p class="language-label">Choose your language</p>
+
+                        <button class="option-card language-card" type="button" data-language="en">
+                            <span class="language-code">EN</span>
+
+                            <span class="option-copy">
+                                <span class="option-title">English</span>
+                            </span>
+
+                            <i data-lucide="chevron-right" class="option-arrow"></i>
+                        </button>
+                    </div>
+
+                    <div>
+                        <p class="language-label">言語を選択してください</p>
+
+                        <button class="option-card language-card" type="button" data-language="jp">
+                            <span class="language-code">JP</span>
+
+                            <span class="option-copy">
+                                <span class="option-title">日本語</span>
+                            </span>
+
+                            <i data-lucide="chevron-right" class="option-arrow"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第二步：選擇 APP 或說明書 -->
+            <section id="service-screen" class="screen">
+                <div class="topbar">
+                    <button class="back-button" type="button" data-back="language-screen" aria-label="返回語言選擇">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                </div>
+
+                <h2 id="service-title" class="page-title support-title">需要什麼協助？</h2>
+                <p id="service-description" class="page-description">選擇產品說明書或 APP 下載。</p>
+
+                <div class="option-list">
+
+                    <button class="option-card" type="button" data-service="manual">
+                        <span class="option-icon">
+                            <i data-lucide="book-open"></i>
+                        </span>
+
+                        <span class="option-copy">
+                            <span id="manual-title" class="option-title">產品說明書</span>
+                            <span id="manual-description" class="option-text">查看或下載產品使用說明</span>
+                        </span>
+
+                        <i data-lucide="chevron-right" class="option-arrow"></i>
+                    </button>
+
+                    <button class="option-card" type="button" data-service="app">
+                        <span class="option-icon">
+                            <i data-lucide="smartphone"></i>
+                        </span>
+
+                        <span class="option-copy">
+                            <span id="app-title" class="option-title">APP 下載</span>
+                            <span id="app-description" class="option-text">下載產品所需的應用程式</span>
+                        </span>
+
+                        <i data-lucide="chevron-right" class="option-arrow"></i>
+                    </button>
+
+                </div>
+            </section>
+
+            <!-- 第三步：APP 下載 -->
+            <section id="app-screen" class="screen">
+                <div class="topbar">
+                    <button class="back-button" type="button" data-back="service-screen" aria-label="返回">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                </div>
+
+                <h2 id="app-page-title" class="page-title support-title">APP 下載</h2>
+
+
+                <div class="app-download-layout">
+                    <div class="app-product-row">
+
+                        <div class="app-icon-card">
+                            <img src="image/APP/moto-citygo.webp" alt="moto-citygo APP 圖示">
+                        </div>
+
+                        <div class="app-info-card">
+                            <h3 class="app-name">moto-citygo</h3>
+                            <p id="moto-citygo-compatible" class="app-compatible">
+                                適用於：J-TREK JX09 PRO、J-TREK JX01、BIKTOK BH03
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="store-badge-row">
+
+                    <a class="store-badge-link"
+                    href="https://apps.apple.com/app/id6590609935"
+                    target="_blank"
+                    rel="noopener">
+                        <img class="app-store-badge"
+                            src="image/APP/ios_zh-tw.svg"
+                            alt="在 App Store 下載">
+                    </a>
+
+                    <a class="store-badge-link"
+                    href="https://play.google.com/store/apps/details?id=com.csx.airide"
+                    target="_blank"
+                    rel="noopener">
+                        <img class="google-play-badge"
+                            src="image/APP/GooglePlay_zh-tw.svg"
+                            alt="在 Google Play 下載">
+                    </a>
+                    </div>
+                </div>
+
+                <div class="app-download-layout">
+                    <div class="app-product-row">
+
+                        <div class="app-icon-card">
+                            <img src="image/APP/AiRideCam.webp" alt="AiRide Cam APP 圖示">
+                        </div>
+
+                        <div class="app-info-card">
+                            <h3 class="app-name">AiRide Cam</h3>
+                            <p id="airide-cam-compatible" class="app-compatible">
+                                適用於：iRide T1、iRide R3
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="store-badge-row">
+
+                    <a class="store-badge-link"
+                    href="https://apps.apple.com/app/id1448337111"
+                    target="_blank"
+                    rel="noopener">
+                        <img class="app-store-badge"
+                            src="image/APP/ios_zh-tw.svg"
+                            alt="在 App Store 下載">
+                    </a>
+
+                    <a class="store-badge-link"
+                    href="https://play.google.com/store/apps/details?id=com.xmt.airide"
+                    target="_blank"
+                    rel="noopener">
+                        <img class="google-play-badge"
+                            src="image/APP/GooglePlay_zh-tw.svg"
+                            alt="在 Google Play 下載">
+                    </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第三步：說明書下載 -->
+            <section id="manual-screen" class="screen">
+                <div class="topbar">
+                    <button class="back-button" type="button" data-back="service-screen" aria-label="返回">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                </div>
+
+                <h2 id="manual-page-title" class="page-title support-title">產品說明書</h2>
+                <p id="manual-page-description" class="page-description">請選擇您要查看的產品。</p>
+
+                <div class="flex items-center mb-5">
+                    <h2 data-i18n="iRide" class="text-xl font-semibold">iRide 系列</h2>
+                    <div class="h-[1px] flex-grow bg-white/10 ml-4"></div>
+                </div>
+                <div class="option-list">
+                    <a class="option-card product-card"
+                    href="#"
+                    data-manual="T1"
+                    target="_blank"
+                    rel="noopener">
+
+                        <span class="manual-left">
+                            <span class="manual-icon">
+                                <i data-lucide="file-text"></i>
+                            </span>
+
+                            <span class="manual-title">
+                                T1
+                            </span>
+
+                            <span class="manual-type">
+                                PDF
+                            </span>
+                        </span>
+
+                        <span class="download-button" data-manual-status>
+                            立即下載
+                            <i data-lucide="download"></i>
+                        </span>
+                    </a>
+
+                    <a class="option-card product-card"
+                    href="#"
+                    data-manual="N1"
+                    target="_blank"
+                    rel="noopener">
+
+                        <span class="manual-left">
+                            <span class="manual-icon">
+                                <i data-lucide="file-text"></i>
+                            </span>
+
+                            <span class="manual-title">
+                                N1
+                            </span>
+
+                            <span class="manual-type">
+                                PDF
+                            </span>
+                        </span>
+
+                        <span class="download-button" data-manual-status>
+                            立即下載
+                            <i data-lucide="download"></i>
+                        </span>
+                    </a>
+
+                    <a class="option-card product-card"
+                    href="#"
+                    data-manual="R6"
+                    target="_blank"
+                    rel="noopener">
+
+                        <span class="manual-left">
+                            <span class="manual-icon">
+                                <i data-lucide="file-text"></i>
+                            </span>
+
+                            <span class="manual-title">
+                                R6
+                            </span>
+
+                            <span class="manual-type">
+                                PDF
+                            </span>
+                        </span>
+
+                        <span class="download-button" data-manual-status>
+                            立即下載
+                            <i data-lucide="download"></i>
+                        </span>
+                    </a>
+
+                    <a class="option-card product-card"
+                    href="#"
+                    data-manual="R3"
+                    target="_blank"
+                    rel="noopener">
+
+                        <span class="manual-left">
+                            <span class="manual-icon">
+                                <i data-lucide="file-text"></i>
+                            </span>
+
+                            <span class="manual-title">
+                                R3
+                            </span>
+
+                            <span class="manual-type">
+                                PDF
+                            </span>
+                        </span>
+
+                        <span class="download-button" data-manual-status>
+                            立即下載
+                            <i data-lucide="download"></i>
+                        </span>
+                    </a>
+
+                </div>
+
+                <div class="flex items-center mt-10 mb-5">
+                    <h2 data-i18n="J-TREK" class="text-xl font-semibold">J-TREK 系列</h2>
+                    <div class="h-[1px] flex-grow bg-white/10 ml-4"></div>
+                </div>
+                <div class="option-list">
+
+                    <a class="option-card product-card"
+                    href="#"
+                    data-manual="JX09"
+                    target="_blank"
+                    rel="noopener">
+
+                        <span class="manual-left">
+                            <span class="manual-icon">
+                                <i data-lucide="file-text"></i>
+                            </span>
+
+                            <span class="manual-title">
+                                JX09 PRO
+                            </span>
+
+                            <span class="manual-type">
+                                PDF
+                            </span>
+                        </span>
+
+                        <span class="download-button" data-manual-status>
+                            立即下載
+                            <i data-lucide="download"></i>
+                        </span>
+                    </a>
+
+                    <a class="option-card product-card"
+                    href="#"
+                    data-manual="JX06PRO"
+                    target="_blank"
+                    rel="noopener">
+
+                        <span class="manual-left">
+                            <span class="manual-icon">
+                                <i data-lucide="file-text"></i>
+                            </span>
+
+                            <span class="manual-title">
+                                JX06 PRO
+                            </span>
+
+                            <span class="manual-type">
+                                PDF
+                            </span>
+                        </span>
+
+                        <span class="download-button" data-manual-status>
+                            立即下載
+                            <i data-lucide="download"></i>
+                        </span>
+                    </a>
+
+                    <a class="option-card product-card"
+                    href="#"
+                    data-manual="JX06se"
+                    target="_blank"
+                    rel="noopener">
+
+                        <span class="manual-left">
+                            <span class="manual-icon">
+                                <i data-lucide="file-text"></i>
+                            </span>
+
+                            <span class="manual-title">
+                                JX06 se
+                            </span>
+
+                            <span class="manual-type">
+                                PDF
+                            </span>
+                        </span>
+
+                        <span class="download-button" data-manual-status>
+                            立即下載
+                            <i data-lucide="download"></i>
+                        </span>
+                    </a>
+
+                    <a class="option-card product-card"
+                    href="#"
+                    data-manual="JX03"
+                    target="_blank"
+                    rel="noopener">
+
+                        <span class="manual-left">
+                            <span class="manual-icon">
+                                <i data-lucide="file-text"></i>
+                            </span>
+
+                            <span class="manual-title">
+                                JX03
+                            </span>
+
+                            <span class="manual-type">
+                                PDF
+                            </span>
+                        </span>
+
+                        <span class="download-button" data-manual-status>
+                            立即下載
+                            <i data-lucide="download"></i>
+                        </span>
+                    </a>
+
+                    <a class="option-card product-card"
+                    href="#"
+                    data-manual="JX01"
+                    target="_blank"
+                    rel="noopener">
+
+                        <span class="manual-left">
+                            <span class="manual-icon">
+                                <i data-lucide="file-text"></i>
+                            </span>
+
+                            <span class="manual-title">
+                                JX01
+                            </span>
+
+                            <span class="manual-type">
+                                PDF
+                            </span>
+                        </span>
+
+                        <span class="download-button" data-manual-status>
+                            立即下載
+                            <i data-lucide="download"></i>
+                        </span>
+                    </a>
+
+                </div>
+
+                <div class="flex items-center mt-10 mb-5">
+                    <h2 data-i18n="BIKTOK" class="text-xl font-semibold">BIKTOK 系列</h2>
+                    <div class="h-[1px] flex-grow bg-white/10 ml-4"></div>
+                </div>
+
+                <div class="option-list">
+                    <a class="option-card product-card"
+                    href="#"
+                    data-manual="BH03"
+                    target="_blank"
+                    rel="noopener">
+
+                        <span class="manual-left">
+                            <span class="manual-icon">
+                                <i data-lucide="file-text"></i>
+                            </span>
+
+                            <span class="manual-title">
+                                BH03
+                            </span>
+
+                            <span class="manual-type">
+                                PDF
+                            </span>
+                        </span>
+
+                        <span class="download-button" data-manual-status>
+                            立即下載
+                            <i data-lucide="download"></i>
+                        </span>
+                    </a>
+
+                </div>
+            </section>
+
+            <p class="footer-note">
+                此頁面為 QR Code 專用支援入口，不會顯示於官網主要導覽列。
+            </p>
+        </div>
+    </main>
+
+    <script>
+        const translations = {
+            'zh-tw': {
+                serviceTitle: '需要什麼協助？',
+                serviceDescription: '選擇產品說明書或 APP 下載。',
+                appTitle: 'APP 下載',
+                appDescription: '下載產品所需的應用程式',
+                manualTitle: '產品說明書',
+                manualDescription: '查看或下載產品使用說明',
+                appPageTitle: 'APP 下載',
+                appPageDescription: '請選擇您的產品。',
+                manualPageTitle: '產品說明書',
+                manualPageDescription: '請選擇您要查看的產品。',
+                motoCitygoCompatible: '適用於：<br>J-TREK JX09 PRO<br>J-TREK JX01<br>BIKTOK BH03',
+                airideCamCompatible: '適用於：<br>iRide T1<br>iRide R3'
+            },
+
+            'en': {
+                serviceTitle: 'How can we help?',
+                serviceDescription: 'Choose Product Manuals or App Download.',
+                appTitle: 'Download App',
+                appDescription: 'Get the app required for your product',
+                manualTitle: 'Product Manuals',
+                manualDescription: 'View or download product instructions',
+                appPageTitle: 'Download App',
+                appPageDescription: 'Select your product.',
+                manualPageTitle: 'Product Manuals',
+                manualPageDescription: 'Select the product manual you need.',
+                motoCitygoCompatible: 'Compatible with:<br>J-TREK JX09 PRO<br>J-TREK JX01<br>BIKTOK BH03',
+                airideCamCompatible: 'Compatible with:<br>iRide T1<br>iRide R3'
+            },
+            'jp': {
+                serviceTitle: 'ご希望のサポートを選択',
+                serviceDescription: '取扱説明書またはアプリダウンロードを選択してください。',
+                appTitle: 'アプリダウンロード',
+                appDescription: '製品に対応するアプリをダウンロード',
+                manualTitle: '取扱説明書',
+                manualDescription: '製品の取扱説明書を表示・ダウンロード',
+                appPageTitle: 'アプリダウンロード',
+                appPageDescription: '製品を選択してください。',
+                manualPageTitle: '取扱説明書',
+                manualPageDescription: '確認したい製品を選択してください。',
+                motoCitygoCompatible: '対応製品：<br>J-TREK JX09 PRO<br>J-TREK JX01<br>BIKTOK BH03',
+                airideCamCompatible: '対応製品：<br>iRide T1<br>iRide R3',
+            }
+        };
+
+
+
+        const storeBadgeImages = {
+            'zh-tw': {
+                appStore: 'image/APP/ios_zh.svg',
+                appStoreAlt: '在 App Store 下載',
+                googlePlay: 'image/APP/GooglePlay_zh.svg',
+                googlePlayAlt: '在 Google Play 下載'
+            },
+
+            'en': {
+                appStore: 'image/APP/ios_en.svg',
+                appStoreAlt: 'Download on the App Store',
+                googlePlay: 'image/APP/GooglePlay_en.svg',
+                googlePlayAlt: 'Get it on Google Play'
+            },
+
+            'jp': {
+                appStore: 'image/APP/ios_jp.svg',
+                appStoreAlt: 'App Store からダウンロード',
+                googlePlay: 'image/APP/GooglePlay_jp.svg',
+                googlePlayAlt: 'Google Play で手に入れよう'
+            }
+        };
+
+        let selectedLanguage = 'zh-tw';
+
+        //說明書狀態
+        const manualAvailability = {
+            //iRide系列
+            T1: {
+                'zh-tw': 'available',
+                'en': 'available',
+                'jp': 'unavailable'
+            },
+
+            N1: {
+                'zh-tw': 'unavailable',
+                'en': 'unavailable',
+                'jp': 'unavailable'
+            },
+
+            R6: {
+                'zh-tw': 'unavailable',
+                'en': 'unavailable',
+                'jp': 'unavailable'
+            },
+
+            R3: {
+                'zh-tw': 'unavailable',
+                'en': 'available',
+                'jp': 'available'
+            },
+
+            //J-TREK系列
+            JX09: {
+                'zh-tw': 'available',
+                'en': 'available',
+                'jp': 'available'
+            },
+
+            JX06PRO: {
+                'zh-tw': 'available',
+                'en': 'available',
+                'jp': 'available'
+            },
+
+            JX06se: {
+                'zh-tw': 'available',
+                'en': 'available',
+                'jp': 'available'
+            },
+
+            JX03: {
+                'zh-tw': 'available',
+                'en': 'available',
+                'jp': 'available'
+            },
+
+            JX01: {
+                'zh-tw': 'available',
+                'en': 'available',
+                'jp': 'available'
+            },
+
+            //BIKTOK系列
+            BH03: {
+                'zh-tw': 'available',
+                'en': 'available',
+                'jp': 'available'
+            }
+        };
+
+        const manualStatusText = {
+            'zh-tw': {
+                available: '立即下載',
+                pending: '說明書準備中',
+                unavailable: '台灣未販售'
+            },
+
+            'en': {
+                available: 'Download',
+                pending: 'Manual coming soon',
+                unavailable: 'Not available in this region'
+            },
+
+            'jp': {
+                available: 'ダウンロード',
+                pending: '取扱説明書準備中',
+                unavailable: 'この地域では販売していません'
+            }
+        };
+
+        //說明書路徑對照表
+        const manualFiles = {
+            //iRide系列
+            T1: {
+                'zh-tw': 'manual/T1_Manual_zh.pdf',
+                'en': 'manual/T1_Manual_en.pdf',
+                'jp':''
+            },
+
+            N1: {
+                'zh-tw':'',
+                'en': '',
+                'jp':''
+            },
+
+            R6: {
+                'zh-tw':'',
+                'en': '',
+                'jp':''
+            },
+
+            R3: {
+                'zh-tw':'',
+                'en': 'manual/R3_Manual_en.pdf',
+                'jp': 'manual/R3_Manual_jp.pdf'
+            },
+
+            //J-TREK系列
+            JX09: {
+                'zh-tw': 'manual/JX09_Manual_zh.pdf',
+                'en': 'manual/JX09_Manual_en.pdf',
+                'jp':'manual/JX09_Manual_jp.pdf'
+            },
+
+            JX06PRO: {
+                'zh-tw':'',
+                'en': '',
+                'jp':''
+            },
+
+            JX06se: {
+                'zh-tw':'',
+                'en': '',
+                'jp':''
+            },
+
+            JX03: {
+                'zh-tw':'manual/JX03_Manual_zh.pdf',
+                'en': 'manual/JX03_Manual_en.pdf',
+                'jp': 'manual/JX03_Manual_jp.pdf'
+            },
+
+            JX01: {
+                'zh-tw':'',
+                'en': 'manual/JX01_Manual_en.pdf',
+                'jp': 'manual/JX01_Manual_jp.pdf'
+            },
+
+            //BIKTOK系列
+            BH03: {
+                'zh-tw':'manual/BH03_Manual_zh.pdf',
+                'en': '',
+                'jp':''
+            },
+
+        };
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach((screen) => {
+                screen.classList.toggle('active', screen.id === screenId);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function applyLanguage(language) {
+            selectedLanguage = language;
+            const text = translations[language] || translations['zh-tw'];
+
+            const storeBadges =
+                storeBadgeImages[language] || storeBadgeImages['zh-tw'];
+
+            document.documentElement.lang = language === 'jp' ? 'ja' : language;
+            document.getElementById('service-title').textContent = text.serviceTitle;
+            document.getElementById('service-description').textContent = text.serviceDescription;
+            document.getElementById('app-title').textContent = text.appTitle;
+            document.getElementById('app-description').textContent = text.appDescription;
+            document.getElementById('manual-title').textContent = text.manualTitle;
+            document.getElementById('manual-description').textContent = text.manualDescription;
+            document.getElementById('app-page-title').textContent = text.appPageTitle;
+
+            const appPageDescription = document.getElementById('app-page-description');
+            if (appPageDescription) {
+                appPageDescription.textContent = text.appPageDescription;
+            }
+
+            document.getElementById('moto-citygo-compatible').innerHTML =
+                text.motoCitygoCompatible;
+
+            document.getElementById('airide-cam-compatible').innerHTML =
+                text.airideCamCompatible;
+
+            document.getElementById('manual-page-title').textContent = text.manualPageTitle;
+            document.getElementById('manual-page-description').textContent = text.manualPageDescription;
+
+            document.querySelectorAll('.app-store-badge').forEach((badge) => {
+                badge.src = storeBadges.appStore;
+                badge.alt = storeBadges.appStoreAlt;
+            });
+
+            document.querySelectorAll('.google-play-badge').forEach((badge) => {
+                badge.src = storeBadges.googlePlay;
+                badge.alt = storeBadges.googlePlayAlt;
+            });
+
+            updateManualLinks();
+        }
+
+        function updateManualLinks() {
+            document.querySelectorAll('[data-manual]').forEach((card) => {
+                const product = card.dataset.manual;
+
+                const productAvailability = manualAvailability[product];
+                const status = productAvailability
+                    ? productAvailability[selectedLanguage]
+                    : 'pending';
+
+                const statusElement = card.querySelector('[data-manual-status]');
+                const statusText = manualStatusText[selectedLanguage] || manualStatusText['zh-tw'];
+
+                card.classList.remove('is-disabled', 'is-pending', 'is-unavailable');
+
+                if (status === 'available') {
+                    const filePath = manualFiles[product]?.[selectedLanguage];
+
+                    if (!filePath) {
+                        card.removeAttribute('href');
+                        card.removeAttribute('target');
+                        card.removeAttribute('rel');
+                        card.setAttribute('aria-disabled', 'true');
+                        card.classList.add('is-disabled', 'is-pending');
+
+                        if (statusElement) {
+                            statusElement.innerHTML = `
+                                ${statusText.pending}
+                                <i data-lucide="clock-3"></i>
+                            `;
+                        }
+
+                        return;
+                    }
+
+                    card.href = filePath;
+                    card.setAttribute('target', '_blank');
+                    card.setAttribute('rel', 'noopener');
+                    card.removeAttribute('aria-disabled');
+
+                    if (statusElement) {
+                        statusElement.innerHTML = `
+                            ${statusText.available}
+                            <i data-lucide="download"></i>
+                        `;
+                    }
+                }
+
+                if (status === 'pending') {
+                    card.removeAttribute('href');
+                    card.removeAttribute('target');
+                    card.removeAttribute('rel');
+                    card.setAttribute('aria-disabled', 'true');
+                    card.classList.add('is-disabled', 'is-pending');
+
+                    if (statusElement) {
+                        statusElement.innerHTML = `
+                            ${statusText.pending}
+                            <i data-lucide="clock-3"></i>
+                        `;
+                    }
+                }
+
+                if (status === 'unavailable') {
+                    card.removeAttribute('href');
+                    card.removeAttribute('target');
+                    card.removeAttribute('rel');
+                    card.setAttribute('aria-disabled', 'true');
+                    card.classList.add('is-disabled', 'is-unavailable');
+
+                    if (statusElement) {
+                        statusElement.innerHTML = `
+                            ${statusText.unavailable}
+                            <i data-lucide="circle-minus"></i>
+                        `;
+                    }
+                }
+            });
+
+            lucide.createIcons();
+        }
+
+        document.querySelectorAll('[data-language]').forEach((button) => {
+            button.addEventListener('click', () => {
+                applyLanguage(button.dataset.language);
+                showScreen('service-screen');
+            });
+        });
+
+        document.querySelectorAll('[data-service]').forEach((button) => {
+            button.addEventListener('click', () => {
+                showScreen(button.dataset.service === 'app' ? 'app-screen' : 'manual-screen');
+            });
+        });
+
+        document.querySelectorAll('[data-back]').forEach((button) => {
+            button.addEventListener('click', () => {
+                showScreen(button.dataset.back);
+            });
+        });
+
+        document.querySelectorAll('[data-placeholder-link]').forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                alert('請將此連結替換成對應的 App Store、Google Play 或 APK 下載網址。');
+            });
+        });
+
+        applyLanguage(selectedLanguage);
+        lucide.createIcons();
+    </script>
+</body>
+</html>

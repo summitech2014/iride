@@ -119,6 +119,11 @@
                     <h2 data-i18n="iRide" class="text-3xl font-bold">iRide 系列</h2>
                     <div class="h-[1px] flex-grow bg-white/10 ml-6"></div>
                 </div>
+
+                <h3 data-i18n="iRide_T_Series"
+                    class="text-xl font-bold tracking-wider text-gray-300 mb-6">
+                    T SERIES｜通訊系列
+                </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="download-card bg-zinc-900/50 p-6 rounded-3xl">
                         <div class="flex justify-between items-start mb-6">
@@ -129,17 +134,88 @@
                         </div>
                         <h3 data-i18n="iRide_T1" class="text-xl font-bold mb-2">T1 說明書</h3>
                         <p data-i18n="Manual" class="text-sm text-gray-500 mb-6">包含完整說明書、操作指南、安裝方式，以及保固與售後說明。</p>
-                        <a 
+                        <a
                         href-key="T1_Manual"
+                        status-key="T1_Manual_Status"
                         target="_blank"
                         rel="noopener"
-                        class="flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
+                        class="manual-action flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
                         >
-                        <span data-i18n="download">立即下載</span>
-                        <i data-lucide="download" class="w-4 h-4 ml-2"></i>
+                        <span class="manual-action-text">立即下載</span>
+                        <i data-lucide="download" class="manual-action-icon w-4 h-4 ml-2"></i>
                         </a>
                     </div>
+
+                    <div class="download-card bg-zinc-900/50 p-6 rounded-3xl">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
+                                <i data-lucide="file-text" class="text-blue-500"></i>
+                            </div>
+                            <span class="text-[10px] bg-white/10 px-2 py-1 rounded text-gray-400">PDF</span>
+                        </div>
+                        <h3 data-i18n="iRide_N1" class="text-xl font-bold mb-2">N1 說明書</h3>
+                        <p data-i18n="Manual" class="text-sm text-gray-500 mb-6">包含完整說明書、操作指南、安裝方式，以及保固與售後說明。</p>
+                        <a
+                        href-key="N1_Manual"
+                        status-key="N1_Manual_Status"
+                        target="_blank"
+                        rel="noopener"
+                        class="manual-action flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
+                        >
+                        <span class="manual-action-text">立即下載</span>
+                        <i data-lucide="download" class="manual-action-icon w-4 h-4 ml-2"></i>
+                        </a>
                     </div>
+                </div>
+
+                <h3 data-i18n="iRide_R_Series"
+                    class="text-xl font-bold tracking-wider text-gray-300 mt-12 mb-6">
+                    R SERIES｜記錄系列
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="download-card bg-zinc-900/50 p-6 rounded-3xl">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
+                                <i data-lucide="file-text" class="text-blue-500"></i>
+                            </div>
+                            <span class="text-[10px] bg-white/10 px-2 py-1 rounded text-gray-400">PDF</span>
+                        </div>
+                        <h3 data-i18n="iRide_R6" class="text-xl font-bold mb-2">R6 說明書</h3>
+                        <p data-i18n="Manual" class="text-sm text-gray-500 mb-6">包含完整說明書、操作指南、安裝方式，以及保固與售後說明。</p>
+                        <a
+                        href-key="R6_Manual"
+                        status-key="R6_Manual_Status"
+                        target="_blank"
+                        rel="noopener"
+                        class="manual-action flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
+                        >
+                        <span class="manual-action-text">立即下載</span>
+                        <i data-lucide="download" class="manual-action-icon w-4 h-4 ml-2"></i>
+                        </a>
+                    </div>
+
+                    <div class="download-card bg-zinc-900/50 p-6 rounded-3xl">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
+                                <i data-lucide="file-text" class="text-blue-500"></i>
+                            </div>
+                            <span class="text-[10px] bg-white/10 px-2 py-1 rounded text-gray-400">PDF</span>
+                        </div>
+                        <h3 data-i18n="iRide_R3" class="text-xl font-bold mb-2">R3 說明書</h3>
+                        <p data-i18n="Manual" class="text-sm text-gray-500 mb-6">包含完整說明書、操作指南、安裝方式，以及保固與售後說明。</p>
+                        <a
+                        href-key="R3_Manual"
+                        status-key="R3_Manual_Status"
+                        target="_blank"
+                        rel="noopener"
+                        class="manual-action flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
+                        >
+                        <span class="manual-action-text">立即下載</span>
+                        <i data-lucide="download" class="manual-action-icon w-4 h-4 ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
             </section>
 
             <section class="mb-24">
@@ -155,16 +231,59 @@
                             </div>
                             <span class="text-[10px] bg-white/10 px-2 py-1 rounded text-gray-400">PDF</span>
                         </div>
-                        <h3 data-i18n="J-TREK_JX01" class="text-xl font-bold mb-2">JX01 說明書</h3>
+                        <h3 data-i18n="J-TREK_JX09" class="text-xl font-bold mb-2">JX09 PRO 說明書</h3>
                         <p data-i18n="Manual" class="text-sm text-gray-500 mb-6">包含完整說明書、操作指南、安裝方式，以及保固與售後說明。</p>
-                        <a 
-                        href-key="JX01_Manual"
+                        <a
+                        href-key="JX09_Manual"
+                        status-key="JX09_Manual_Status"
                         target="_blank"
                         rel="noopener"
-                        class="flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
+                        class="manual-action flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
                         >
-                        <span data-i18n="download">立即下載</span>
-                        <i data-lucide="download" class="w-4 h-4 ml-2"></i>
+                        <span class="manual-action-text">立即下載</span>
+                        <i data-lucide="download" class="manual-action-icon w-4 h-4 ml-2"></i>
+                        </a>
+                    </div>
+
+                    <div class="download-card bg-zinc-900/50 p-6 rounded-3xl">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
+                                <i data-lucide="file-text" class="text-blue-500"></i>
+                            </div>
+                            <span class="text-[10px] bg-white/10 px-2 py-1 rounded text-gray-400">PDF</span>
+                        </div>
+                        <h3 data-i18n="J-TREK_JX06PRO" class="text-xl font-bold mb-2">JX06 PRO 說明書</h3>
+                        <p data-i18n="Manual" class="text-sm text-gray-500 mb-6">包含完整說明書、操作指南、安裝方式，以及保固與售後說明。</p>
+                        <a
+                        href-key="JX06PRO_Manual"
+                        status-key="JX06PRO_Manual_Status"
+                        target="_blank"
+                        rel="noopener"
+                        class="manual-action flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
+                        >
+                        <span class="manual-action-text">立即下載</span>
+                        <i data-lucide="download" class="manual-action-icon w-4 h-4 ml-2"></i>
+                        </a>
+                    </div>
+
+                    <div class="download-card bg-zinc-900/50 p-6 rounded-3xl">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center">
+                                <i data-lucide="file-text" class="text-blue-500"></i>
+                            </div>
+                            <span class="text-[10px] bg-white/10 px-2 py-1 rounded text-gray-400">PDF</span>
+                        </div>
+                        <h3 data-i18n="J-TREK_JX06se" class="text-xl font-bold mb-2">JX06 se 說明書</h3>
+                        <p data-i18n="Manual" class="text-sm text-gray-500 mb-6">包含完整說明書、操作指南、安裝方式，以及保固與售後說明。</p>
+                        <a
+                        href-key="JX06se_Manual"
+                        status-key="JX06se_Manual_Status"
+                        target="_blank"
+                        rel="noopener"
+                        class="manual-action flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
+                        >
+                        <span class="manual-action-text">立即下載</span>
+                        <i data-lucide="download" class="manual-action-icon w-4 h-4 ml-2"></i>
                         </a>
                     </div>
 
@@ -177,14 +296,15 @@
                         </div>
                         <h3 data-i18n="J-TREK_JX03" class="text-xl font-bold mb-2">JX03 說明書</h3>
                         <p data-i18n="Manual" class="text-sm text-gray-500 mb-6">包含完整說明書、操作指南、安裝方式，以及保固與售後說明。</p>
-                        <a 
+                        <a
                         href-key="JX03_Manual"
+                        status-key="JX03_Manual_Status"
                         target="_blank"
                         rel="noopener"
-                        class="flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
+                        class="manual-action flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
                         >
-                        <span data-i18n="download">立即下載</span>
-                        <i data-lucide="download" class="w-4 h-4 ml-2"></i>
+                        <span class="manual-action-text">立即下載</span>
+                        <i data-lucide="download" class="manual-action-icon w-4 h-4 ml-2"></i>
                         </a>
                     </div>
 
@@ -195,19 +315,20 @@
                             </div>
                             <span class="text-[10px] bg-white/10 px-2 py-1 rounded text-gray-400">PDF</span>
                         </div>
-                        <h3 data-i18n="J-TREK_JX09" class="text-xl font-bold mb-2">JX09 說明書</h3>
+                        <h3 data-i18n="J-TREK_JX01" class="text-xl font-bold mb-2">JX01 說明書</h3>
                         <p data-i18n="Manual" class="text-sm text-gray-500 mb-6">包含完整說明書、操作指南、安裝方式，以及保固與售後說明。</p>
-                        <a 
-                        href-key="JX09_Manual"
+                        <a
+                        href-key="JX01_Manual"
+                        status-key="JX01_Manual_Status"
                         target="_blank"
                         rel="noopener"
-                        class="flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
+                        class="manual-action flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
                         >
-                        <span data-i18n="download">立即下載</span>
-                        <i data-lucide="download" class="w-4 h-4 ml-2"></i>
+                        <span class="manual-action-text">立即下載</span>
+                        <i data-lucide="download" class="manual-action-icon w-4 h-4 ml-2"></i>
                         </a>
                     </div>
-                </div>
+
             </section>
 
             <section class="mb-24">
@@ -225,14 +346,15 @@
                         </div>
                         <h3 data-i18n="BIKTOK_BH03" class="text-xl font-bold mb-2">BH03 說明書</h3>
                         <p data-i18n="Manual" class="text-sm text-gray-500 mb-6">包含完整說明書、操作指南、安裝方式，以及保固與售後說明。</p>
-                        <a 
+                        <a
                         href-key="BH03_Manual"
+                        status-key="BH03_Manual_Status"
                         target="_blank"
                         rel="noopener"
-                        class="flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
+                        class="manual-action flex items-center text-sm font-semibold text-blue-500 hover:text-blue-400"
                         >
-                        <span data-i18n="download">立即下載</span>
-                        <i data-lucide="download" class="w-4 h-4 ml-2"></i>
+                        <span class="manual-action-text">立即下載</span>
+                        <i data-lucide="download" class="manual-action-icon w-4 h-4 ml-2"></i>
                         </a>
                     </div>
                     </div>
@@ -256,40 +378,194 @@
         // 語言字典
         const pageLangData = {
             'zh': {
-                'title':'說明書下載中心', 'title_about':'提供完整產品說明書下載，協助您快速了解產品功能、安裝方式與操作說明。',
-                'iRide':'iRide 系列', 'iRide_T1':'T1 產品說明書',
-                'BIKTOK':'BIKTOK 系列', 'BIKTOK_BH03':'BH03 產品說明書', 'Manual':'包含完整說明書、操作指南、安裝方式，以及保固與售後說明。', 
-                'download':'立即下載', 'J-TREK':'J-TREK 系列', 'J-TREK_JX01':'JX01 產品說明書', 'J-TREK_JX03':'JX03 產品說明書', 
-                'J-TREK_JX09':'JX09 產品說明書', 'help':'需要更多幫助？', 'help_about':'若在說明書中找不到解答，歡迎查看教學影片或聯繫客服。', 
+                'title':'說明書下載中心', 
+                'title_about':'提供完整產品說明書下載，協助您快速了解產品功能、安裝方式與操作說明。',
+                'Manual':'包含完整說明書、操作指南、安裝方式，以及保固與售後說明。', 
+                'download':'立即下載', 
+                'help':'需要更多幫助？', 
+                'help_about':'若在說明書中找不到解答，歡迎查看教學影片或聯繫客服。', 
                 'help_video':'YouTube 教學影片',
+
+                'iRide':'iRide 系列', 
+                'iRide_T_Series':'T SERIES｜通訊系列',
+                'iRide_R_Series':'R SERIES｜記錄系列',
+                'iRide_T1':'T1 產品說明書',
+                'iRide_N1':'N1 產品說明書',
+                'iRide_R6':'R6 產品說明書',
+                'iRide_R3':'R3 產品說明書',
+
+                'J-TREK':'J-TREK 系列', 
+                'J-TREK_JX09':'JX09 PRO 產品說明書', 
+                'J-TREK_JX06PRO':'JX06 PRO 產品說明書', 
+                'J-TREK_JX06se':'JX06 se 產品說明書', 
+                'J-TREK_JX03':'JX03 產品說明書', 
+                'J-TREK_JX01':'JX01 產品說明書', 
+
+                'BIKTOK':'BIKTOK 系列', 
+                'BIKTOK_BH03':'BH03 產品說明書', 
+
                 //說明書連結
-                BH03_Manual: "manual/BH03_Manual_zh.pdf", JX01_Manual: "manual/JX01_Manual_zh.pdf", 
-                JX03_Manual: "manual/JX03_Manual_zh.pdf", JX09_Manual: "manual/JX09_Manual_zh.pdf",
-                T1_Manual: "manual/T1_Manual_zh.pdf"                
+
+                //iRide系列
+                T1_Manual: "manual/T1_Manual_zh.pdf",
+                T1_Manual_Status: "download",
+
+                N1_Manual: "",
+                N1_Manual_Status: "not_sold",
+
+                R6_Manual: "",
+                R6_Manual_Status: "not_sold",
+        
+                R3_Manual: "",
+                R3_Manual_Status: "not_sold",
+
+                //J-TREK系列
+                JX09_Manual: "manual/JX09_Manual_zh.pdf",
+                JX09_Manual_Status: "download",
+
+                JX06PRO_Manual: "",
+                JX06PRO_Manual_Status: "preparing",
+
+                JX06se_Manual: "",
+                JX06se_Manual_Status: "preparing",
+                
+                JX03_Manual: "manual/JX03_Manual_zh.pdf", 
+                JX03_Manual_Status: "download",
+
+                JX01_Manual: "", 
+                JX01_Manual_Status: "preparing",
+
+                //BIKTOK系列
+                BH03_Manual: "manual/BH03_Manual_zh.pdf", 
+                BH03_Manual_Status: "download",
+
             },
             'en': {
-                'title':'Manual Download Center', 'title_about':'Provides complete product manuals to help you quickly understand product features, installation, and operation.',
-                'iRide':'iRide Series', 'iRide_T1':'T1 User Manual',                
-                'BIKTOK':'BIKTOK Series', 'BIKTOK_BH03':'BH03 User Manual', 'Manual':'Includes complete user manuals, operation guides, installation instructions, and warranty & after-sales information.', 
-                'download':'Download', 'J-TREK':'J-TREK Series', 'J-TREK_JX01':'JX01 User Manual', 'J-TREK_JX03':'JX03 User Manual', 
-                'J-TREK_JX09':'JX09 User Manual', 'help':'Need more help?', 'help_about':'If you cannot find the answer in the manual, please refer to our tutorial videos or contact customer support.', 
-                'help_video':'YouTube Tutorials',                
-                //說明書連結                
-                BH03_Manual: "manual/BH03_Manual_en.pdf", JX01_Manual: "manual/JX01_Manual_en.pdf", 
-                JX03_Manual: "manual/JX03_Manual_en.pdf", JX09_Manual: "manual/JX09_Manual_en.pdf",
-                T1_Manual: "manual/T1_Manual_en.pdf"
+                'title':'Manual Download Center', 
+                'title_about':'Provides complete product manuals to help you quickly understand product features, installation, and operation.',
+                'Manual':'Includes complete user manuals, operation guides, installation instructions, and warranty & after-sales information.', 
+                'download':'Download',
+                'help':'Need more help?', 
+                'help_about':'If you cannot find the answer in the manual, please refer to our tutorial videos or contact customer support.', 
+                'help_video':'YouTube Tutorials',
+
+                'iRide':'iRide Series',
+                'iRide_T_Series':'T SERIES｜Communication Series',
+                'iRide_R_Series':'R SERIES｜Recording Series',
+                'iRide_T1':'T1 User Manual',
+                'iRide_N1':'N1 User Manual',
+                'iRide_R6':'R6 User Manual',
+                'iRide_R3':'R3 User Manual',
+
+                'J-TREK':'J-TREK Series',
+                'J-TREK_JX09':'JX09 PRO User Manual',
+                'J-TREK_JX06PRO':'JX06 PRO User Manual',
+                'J-TREK_JX06se':'JX06 SE User Manual',
+                'J-TREK_JX03':'JX03 User Manual',
+                'J-TREK_JX01':'JX01 User Manual',
+
+                'BIKTOK':'BIKTOK Series',
+                'BIKTOK_BH03':'BH03 User Manual',
+ 
+
+                //說明書連結
+                
+                //iRide系列
+                T1_Manual: "manual/T1_Manual_en.pdf",
+                T1_Manual_Status: "download",
+
+                N1_Manual: "",
+                N1_Manual_Status: "not_sold",
+
+                R6_Manual: "",
+                R6_Manual_Status: "not_sold",
+        
+                R3_Manual: "manual/R3_Manual_en.pdf",
+                R3_Manual_Status: "download",
+
+                //J-TREK系列
+                JX09_Manual: "manual/JX09_Manual_zh.pdf",
+                JX09_Manual_Status: "download",
+
+                JX06PRO_Manual: "",
+                JX06PRO_Manual_Status: "preparing",
+
+                JX06se_Manual: "",
+                JX06se_Manual_Status: "preparing",
+                
+                JX03_Manual: "manual/JX03_Manual_zh.pdf", 
+                JX03_Manual_Status: "download",
+
+                JX01_Manual: "manual/JX01_Manual_zh.pdf", 
+                JX01_Manual_Status: "download",
+
+                //BIKTOK系列
+                BH03_Manual: "", 
+                BH03_Manual_Status: "preparing",
+
             },
             'jp': {
-                'title':'取扱説明書ダウンロードセンター', 'title_about':'製品の機能、取付方法、操作手順をすばやく理解できるよう、取扱説明書を提供しています。',
-                'iRide':'iRide シリーズ', 'iRide_T1':'T1 取扱説明書',
-                'BIKTOK':'BIKTOK シリーズ', 'BIKTOK_BH03':'BH03 取扱説明書', 'Manual':'取扱説明書、操作ガイド、取付方法、ならびに保証およびアフターサービスに関する案内を含みます。', 
-                'download':'ダウンロードする', 'J-TREK':'J-TREK シリーズ', 'J-TREK_JX01':'JX01 取扱説明書', 'J-TREK_JX03':'JX03 取扱説明書', 
-                'J-TREK_JX09':'JX09 取扱説明書', 'help':'お困りですか？', 'help_about':'取扱説明書で解決しない場合は、動画ガイドのご確認、またはカスタマーサポートまでご連絡ください。', 
-                'help_video':'YouTube 操作動画',                
-                //說明書連結                
-                BH03_Manual: "manual/BH03_Manual_jp.pdf", JX01_Manual: "manual/JX01_Manual_jp.pdf", 
-                JX03_Manual: "manual/JX03_Manual_jp.pdf", JX09_Manual: "manual/JX09_Manual_jp.pdf",
-                T1_Manual: "manual/T1_Manual_jp.pdf"
+                'title':'取扱説明書ダウンロードセンター', 
+                'title_about':'製品の機能、取付方法、操作手順をすばやく理解できるよう、取扱説明書を提供しています。',
+                'Manual':'取扱説明書、操作ガイド、取付方法、ならびに保証およびアフターサービスに関する案内を含みます。', 
+                'download':'ダウンロードする',
+                'help':'お困りですか？', 
+                'help_about':'取扱説明書で解決しない場合は、動画ガイドのご確認、またはカスタマーサポートまでご連絡ください。', 
+                'help_video':'YouTube 操作動画', 
+
+                'iRide':'iRide シリーズ',
+                'iRide_T_Series':'T SERIES｜通信シリーズ',
+                'iRide_R_Series':'R SERIES｜記録シリーズ',
+                'iRide_T1':'T1 取扱説明書',
+                'iRide_N1':'N1 取扱説明書',
+                'iRide_R6':'R6 取扱説明書',
+                'iRide_R3':'R3 取扱説明書',
+
+                'J-TREK':'J-TREK シリーズ',
+                'J-TREK_JX09':'JX09 PRO 取扱説明書',
+                'J-TREK_JX06PRO':'JX06 PRO 取扱説明書',
+                'J-TREK_JX06se':'JX06 SE 取扱説明書',
+                'J-TREK_JX03':'JX03 取扱説明書',
+                'J-TREK_JX01':'JX01 取扱説明書',
+
+                'BIKTOK':'BIKTOK シリーズ',
+                'BIKTOK_BH03':'BH03 取扱説明書',
+
+                //說明書連結
+
+                //iRide系列
+                T1_Manual: "",
+                T1_Manual_Status: "not_sold",
+
+                N1_Manual: "",
+                N1_Manual_Status: "not_sold",
+
+                R6_Manual: "",
+                R6_Manual_Status: "not_sold",
+        
+                R3_Manual: "manual/R3_Manual_jp.pdf",
+                R3_Manual_Status: "download",
+
+                //J-TREK系列
+                JX09_Manual: "manual/JX09_Manual_jp.pdf",
+                JX09_Manual_Status: "download",
+
+                JX06PRO_Manual: "",
+                JX06PRO_Manual_Status: "preparing",
+
+                JX06se_Manual: "",
+                JX06se_Manual_Status: "preparing",
+                
+                JX03_Manual: "manual/JX03_Manual_jp.pdf", 
+                JX03_Manual_Status: "download",
+
+                JX01_Manual: "manual/JX01_Manual_jp.pdf", 
+                JX01_Manual_Status: "download",
+
+                //BIKTOK系列
+                BH03_Manual: "", 
+                BH03_Manual_Status: "preparing",
+
             }
         };
 
@@ -304,12 +580,78 @@
 
         // 下載連結：依語言切換 href
         function applyManualLinks(lang) {
-            const dict = (pageLangData && pageLangData[lang]) ? pageLangData[lang] : (pageLangData ? pageLangData['zh'] : null);
-            if (!dict) return;
+            const dict = pageLangData[lang] || pageLangData['zh'];
+
+            const statusText = {
+                zh: {
+                    download: '立即下載',
+                    preparing: '說明書目前準備中',
+                    not_sold: '此地區未販售'
+                },
+                en: {
+                    download: 'Download',
+                    preparing: 'Manual Coming Soon',
+                    not_sold: 'Not Available in This Region'
+                },
+                jp: {
+                    download: 'ダウンロードする',
+                    preparing: '取扱説明書は準備中です',
+                    not_sold: 'この地域では販売していません'
+                }
+            };
+
             document.querySelectorAll('a[href-key]').forEach((a) => {
-                const key = a.getAttribute('href-key');
-                if (key && dict[key]) {
-                    a.setAttribute('href', dict[key]);
+                const hrefKey = a.getAttribute('href-key');
+                const statusKey = a.getAttribute('status-key');
+
+                const status = statusKey
+                    ? dict[statusKey]
+                    : 'download';
+
+                const text = a.querySelector('.manual-action-text');
+                const icon = a.querySelector('.manual-action-icon');
+
+                a.classList.remove(
+                    'text-blue-500',
+                    'hover:text-blue-400',
+                    'text-gray-500',
+                    'cursor-not-allowed',
+                    'pointer-events-none'
+                );
+
+                if (status === 'download') {
+                    a.setAttribute('href', dict[hrefKey]);
+                    a.setAttribute('target', '_blank');
+
+                    a.classList.add(
+                        'text-blue-500',
+                        'hover:text-blue-400'
+                    );
+
+                    if (text) {
+                        text.textContent = statusText[lang].download;
+                    }
+
+                    if (icon) {
+                        icon.style.display = '';
+                    }
+                } else {
+                    a.removeAttribute('href');
+                    a.removeAttribute('target');
+
+                    a.classList.add(
+                        'text-gray-500',
+                        'cursor-not-allowed',
+                        'pointer-events-none'
+                    );
+
+                    if (text) {
+                        text.textContent = statusText[lang][status];
+                    }
+
+                    if (icon) {
+                        icon.style.display = 'none';
+                    }
                 }
             });
         }
